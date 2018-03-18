@@ -33,22 +33,24 @@ const fileFuzzer = (filePath) => {
 
     linesinFile.forEach(line=>{
         let rnd = Math.random();
+        let desiredFreq = 0;
+        let freq = 1 - desiredFreq;
 
-        if(rnd > 0.65 && !line.match(/@/) && !line.match(/\\/))
+        if(rnd > freq && !line.match(/@/) && !line.match(/\\/))
             line = line.replace(/(\"[\w\s]+\")/g, '"sampletext"')
             //line = line.replace(/"([^"strings"]*)"/g, '"sampletext"')
 
 
         rnd = Math.random()
 
-        if(rnd>0.65 && !line.match(/<.+>/) && (line.match(/while/) || line.match(/if/)))
+        if(rnd > freq && !line.match(/<.+>/) && (line.match(/while/) || line.match(/if/)))
             line = line.replace('<', '>')
-        else if(rnd<0.35 && !line.match(/<.+>/) && (line.match(/while/) || line.match(/if/)))
+        else if(rnd < freq && !line.match(/<.+>/) && (line.match(/while/) || line.match(/if/)))
             line = line.replace('>', '<')
 
         rnd = Math.random()
 
-        if(rnd > 0.65)
+        if(rnd > freq)
             line = line.replace('==', '!=')
         else
             line = line.replace('!=', '==')       
@@ -100,4 +102,4 @@ const mainForFuzzing = (n) => {
     }
 }
 
-mainForFuzzing(100);
+mainForFuzzing(5);
