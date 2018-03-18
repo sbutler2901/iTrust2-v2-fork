@@ -33,7 +33,7 @@ const fileFuzzer = (filePath) => {
 
     linesinFile.forEach(line=>{
         let rnd = Math.random();
-        let desiredFreq = 0;
+        let desiredFreq = 1;
         let freq = 1 - desiredFreq;
 
         if(rnd > freq && !line.match(/@/) && !line.match(/\\/))
