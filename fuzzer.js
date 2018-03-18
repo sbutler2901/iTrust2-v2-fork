@@ -34,7 +34,8 @@ const fileFuzzer = (filePath) => {
     linesinFile.forEach(line=>{
         let rnd = Math.random();
         let desiredFreq = 1;
-        let freq = 1 - desiredFreq;
+        //let freq = 1 - desiredFreq;
+        let freq = 0.05;
 
         if(rnd > freq && !line.match(/@/) && !line.match(/\\/))
             line = line.replace(/(\"[\w\s]+\")/g, '"sampletext"')
