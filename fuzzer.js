@@ -71,7 +71,7 @@ const rollbackAndResetCommit = (firstCommitSha1) => {
 
 const triggerBuild = (githubURL, jenkinsIP, jenkinsToken, lastCommitsha1) => {
     try {
-        child_process.execSync('curl "http://192.168.33.4:8080/git/notifyCommit?url=https://github.ncsu.edu/krkulkar/Hello&branches=fuzzer"')
+        child_process.execSync('curl "http://' + jenkinsIP + ':8080/git/notifyCommit?url=' + githubURL + '&branches=fuzzer"')
         console.log('Fuzzer number ${lastCommitsha1} - Succesfully triggered build.')
     } catch (error) {
         console.log('Fuzzer number ${lastCommitsha1} - Could not trigger build.')
@@ -84,8 +84,9 @@ const mainForFuzzing = (n) => {
     let jenkinsIP = process.env.JENKINS_IP;
     let jenkinsToken = process.env.JENKINS_BUILD_TOKEN;
     let githubURL = process.env.GITHUB_URL
+
     for (var i = 0; i < n; i++) {
-        let javaFiles = getJavaFiles('/src/main/edu/ncsu/csc/itrust');
+        let javaFiles = getJavaFiles(__dirname + '/iTrust2/src/main/java/edu/ncsu/csc/itrust2');
         rollbackAndResetCommit(sha1)
         javaFiles.forEach(javaFile =>{
             let rnd = Math.random();
