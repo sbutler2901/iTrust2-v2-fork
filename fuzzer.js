@@ -54,8 +54,8 @@ const fileFuzzer = (filePath) => {
         else
             line = line.replace('!=', '==')       
     
-                /*if(line != '\r')
-            line += '\n'*/
+        if(line != '\r')
+            line += '\n'
 
         fs.appendFileSync(filePath, line, {encoding:'utf8'});
     })
