@@ -40,7 +40,6 @@ const fileFuzzer = (filePath) => {
             line = line.replace(/(\"[\w\s]+\")/g, '"sampletext"')
             //line = line.replace(/"([^"strings"]*)"/g, '"sampletext"')
 
-
         rnd = Math.random()
 
         if(rnd > freq && !line.match(/<.+>/) && (line.match(/while/) || line.match(/if/)))
@@ -55,8 +54,8 @@ const fileFuzzer = (filePath) => {
         else
             line = line.replace('!=', '==')       
     
-        if(line != '\r')
-            line += '\n'
+                /*if(line != '\r')
+            line += '\n'*/
 
         fs.appendFileSync(filePath, line, {encoding:'utf8'});
     })
