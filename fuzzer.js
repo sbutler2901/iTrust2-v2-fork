@@ -94,7 +94,10 @@ const mainForFuzzing = (n) => {
         rollbackAndResetCommit(sha1)
         javaFiles.forEach(javaFile =>{
             let rnd = Math.random();
-            if(rnd > 0.80)
+            let desiredFreq = 1;
+            let freq = 1 - desiredFreq;
+
+            if(rnd > 0)
                 fileFuzzer(javaFile);
         })
         let lastCommitSha1 = commitFuzzer(master_sha1, i);
