@@ -112,7 +112,7 @@ const mainForFuzzing = (n) => {
     let jenkinsToken = process.env.JENKINS_BUILD_TOKEN;
     let githubURL = process.env.GITHUB_URL
     
-    rebase();
+    //rebase();
     //let sha1 = getSha();
 
     for (var i = 0; i < n; i++) {
