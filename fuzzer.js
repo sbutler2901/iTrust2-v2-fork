@@ -33,9 +33,8 @@ const fileFuzzer = (filePath) => {
 
     linesinFile.forEach( line => {
         let rnd = Math.random();
-        let desiredFreq = 1;
-        //let freq = 1 - desiredFreq;
-        let freq = 0.5;
+        let desiredFreq = 0.5;
+        let freq = 1 - desiredFreq;
 
         if( rnd > freq && !line.match(/@/) && !line.match(/\\/))
             line = line.replace(/(\"[\w\s]+\")/g, '"sampletext"')
@@ -56,10 +55,8 @@ const fileFuzzer = (filePath) => {
         else
             line = line.replace('!=', '==')       
     
-        if(line != '\r' && line != '\n' && line != '') {
-            //console.log("File: " + filePath + " needs a new line for line:'" + line + "'");
+        if(line != '\r' && line != '\n' && line != '')
             line += '\n'
-        }
 
         fs.appendFileSync(filePath, line, {encoding:'utf8'});
     })
@@ -100,7 +97,7 @@ const mainForFuzzing = (n) => {
             let desiredFreq = 1;
             let freq = 1 - desiredFreq;
 
-            if(rnd > 0)
+            if(rnd > freq)
                 fileFuzzer(javaFile);
         })
         let lastCommitSha1 = commitFuzzer(master_sha1, i);
