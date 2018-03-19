@@ -57,7 +57,7 @@ const fileFuzzer = (filePath) => {
             line = line.replace('!=', '==')       
     
         if(line != '\r' && line != '\n') {
-            console.log("File: " + filePath + " needs a new line for line:'" + line + "'");
+            //console.log("File: " + filePath + " needs a new line for line:'" + line + "'");
             line += '\n'
         }
 
