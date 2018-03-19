@@ -102,7 +102,7 @@ const commit = (master_sha1, n) => {
         child_process.execSync(`git add . && git commit -m "Commit Number ${n}: Fuzzing master:${master_sha1}" && git push --force`);
     } catch (err) {
       // This will not catch the throw!
-      console.error("commit error: " + err);
+      console.error("commit error: " + err.message);
     }
 }
 
