@@ -22,7 +22,7 @@ const getJavaFiles = (dirPath)=>{
             javaFiles.push(file)
         }
     })
-    console.log(javaFiles);
+    //console.log(javaFiles);
     return javaFiles;
 }
 
