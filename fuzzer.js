@@ -127,6 +127,7 @@ const mainForFuzzing = (n) => {
             if(rnd > freq)
                 fileFuzzer(javaFile);
         })
+        console.log("about to commit and push");
         commit(master_sha1,i);
         rebase();
         //revert(sha1);
