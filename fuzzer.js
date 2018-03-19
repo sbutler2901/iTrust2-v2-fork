@@ -53,7 +53,7 @@ const fileFuzzer = (filePath) => {
         if ( rnd > 0 && line.match(/![a-zA-Z]/g)) {
             //console.log("line before: %s\n", line);
             line = line.replace(/![a-zA-Z]/g, (matchedString, offset, line) => {
-                //console.log("File %s having %s replaced", filePath, matchedString);
+                console.log("File %s having %s replaced", filePath, matchedString);
                 return matchedString.slice(1);
             });
         }
@@ -127,7 +127,7 @@ const mainForFuzzing = (n) => {
             if(rnd > freq)
                 fileFuzzer(javaFile);
         })
-        console.log("about to commit and push");
+        console.log("about to commit and push at index %d", i);
         commit(master_sha1,i);
         rebase();
         //revert(sha1);
