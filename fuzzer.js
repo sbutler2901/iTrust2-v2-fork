@@ -132,6 +132,7 @@ const mainForFuzzing = (n) => {
         //rebase();
         //revert(sha1);
         let lastCommitSha1 = commitFuzzer(master_sha1, i);
+        rebase();
         //triggerBuild(githubURL, jenkinsIP, jenkinsToken, lastCommitSha1)
     }
 }
