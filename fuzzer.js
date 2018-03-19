@@ -107,13 +107,13 @@ const revert = (sha1) => {
 
 const mainForFuzzing = (n) => {
     let master_sha1 = process.env.MASTER_SHA1;
-    let sha1 = process.env.SHA1;
+    //let sha1 = process.env.SHA1;
     let jenkinsIP = process.env.JENKINS_IP;
     let jenkinsToken = process.env.JENKINS_BUILD_TOKEN;
     let githubURL = process.env.GITHUB_URL
     
-    //rebase();
-    //let sha1 = getSha();
+    rebase();
+    let sha1 = getSha();
 
     for (var i = 0; i < n; i++) {
         let javaFiles = getJavaFiles(__dirname + '/iTrust2/src/main/java/edu/ncsu/csc/itrust2');
@@ -132,7 +132,8 @@ const mainForFuzzing = (n) => {
         //rebase();
         //revert(sha1);
         let lastCommitSha1 = commitFuzzer(master_sha1, i);
-        rebase();
+        revert(sha1);
+        //rebase();
         //triggerBuild(githubURL, jenkinsIP, jenkinsToken, lastCommitSha1)
     }
 }
