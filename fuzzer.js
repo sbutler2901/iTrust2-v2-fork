@@ -102,7 +102,7 @@ const commit = (master_sha1, n) => {
 }
 
 const revert = (sha1) => {
-    child_process.execSync(`git revert --no-edit ${sha1}..HEAD`);
+    child_process.execSync(`git revert --no-edit --no-commit ${sha1}..HEAD`);
 }
 
 const mainForFuzzing = (n) => {
