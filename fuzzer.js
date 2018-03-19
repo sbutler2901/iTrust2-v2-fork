@@ -70,7 +70,7 @@ const fileFuzzer = (filePath) => {
     })
 }
 const commitFuzzer = (master_sha1, n) => {
-    child_process.execSync(`git stash && git checkout fuzzer && git checkout stash -- . && git commit -am "Commit Number ${n}: Fuzzing master:${master_sha1}" && git push`)
+    child_process.execSync(`git stash && git checkout fuzzer && git checkout stash -- . && git commit -am "Commit Number ${n}: Fuzzing master:${master_sha1}" && git push --force`)
     child_process.execSync('git stash drop');
     let lastCommitSha1 = child_process.execSync(`git rev-parse fuzzer`).toString().trim()
     return lastCommitSha1;
