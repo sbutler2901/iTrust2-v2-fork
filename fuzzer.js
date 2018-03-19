@@ -31,22 +31,23 @@ const fileFuzzer = (filePath) => {
     let linesinFile = fs.readFileSync(filePath, 'utf8').split(/\r?\n/)
     fs.writeFileSync(filePath, '', {encoding:'utf8'});
 
-    linesinFile.forEach(line=>{
+    linesinFile.forEach( line => {
         let rnd = Math.random();
         let desiredFreq = 1;
         //let freq = 1 - desiredFreq;
-        let freq = 0.05;
+        let freq = 0.5;
 
-        if(rnd > freq && !line.match(/@/) && !line.match(/\\/))
+        if( rnd > freq && !line.match(/@/) && !line.match(/\\/))
             line = line.replace(/(\"[\w\s]+\")/g, '"sampletext"')
-            //line = line.replace(/"([^"strings"]*)"/g, '"sampletext"')
 
         rnd = Math.random()
 
-        if(rnd > freq && !line.match(/<.+>/) && (line.match(/while/) || line.match(/if/)))
-            line = line.replace('<', '>')
-        else if(rnd < freq && !line.match(/<.+>/) && (line.match(/while/) || line.match(/if/)))
-            line = line.replace('>', '<')
+        if ( !line.match(/<.+>/) && (line.match(/while/) || line.match(/if/)) ) {
+            if ( rnd > freq ) 
+                line = line.replace('<', '>')
+            else
+                line = line.replace('>', '<')
+        }
 
         rnd = Math.random()
 
