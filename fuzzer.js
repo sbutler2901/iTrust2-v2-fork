@@ -107,7 +107,7 @@ const revert = (sha1) => {
 
 const mainForFuzzing = (n) => {
     let master_sha1 = process.env.MASTER_SHA1;
-    let sha1 = process.env.SHA1;
+    //let sha1 = process.env.SHA1;
     let jenkinsIP = process.env.JENKINS_IP;
     let jenkinsToken = process.env.JENKINS_BUILD_TOKEN;
     let githubURL = process.env.GITHUB_URL
