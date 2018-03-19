@@ -98,7 +98,8 @@ const getSha = () => {
 }
 
 const commit = (master_sha1, n) => {
-    child_process.execSync(`git add . && git commit -m "Commit Number ${n}: Fuzzing master:${master_sha1}" && git push --force`);
+    var output = child_process.execSync(`git add . && git commit -m "Commit Number ${n}: Fuzzing master:${master_sha1}" && git push --force`);
+    console.log("commit output: %s", output);
 }
 
 const revert = (sha1) => {
