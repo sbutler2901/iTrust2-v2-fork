@@ -115,7 +115,7 @@ const mainForFuzzing = (n) => {
     rebase();
     let sha1 = getSha();
 
-    for (var i = 1; i <= n; i++) {
+    for (var i = 0; i < n; i++) {
         let javaFiles = getJavaFiles(__dirname + '/iTrust2/src/main/java/edu/ncsu/csc/itrust2');
         //rollbackAndResetCommit(sha1)
         ///reset(master_sha1);
