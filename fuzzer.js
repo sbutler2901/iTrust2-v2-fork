@@ -36,17 +36,17 @@ const fileFuzzer = (filePath) => {
         let desiredFreq = 0.5;
         let freq = 1 - desiredFreq;
 
-        if( rnd > freq && !line.match(/@/) && !line.match(/\\/))
-            line = line.replace(/(\"[\w\s]+\")/g, '"sampletext"')
+        /*if( rnd > freq && !line.match(/@/) && !line.match(/\\/))
+            line = line.replace(/(\"[\w\s]+\")/g, '"sampletext"');*/
 
         rnd = Math.random()
 
-        if ( !line.match(/<.+>/) && (line.match(/while/) || line.match(/if/)) ) {
+        /*if ( !line.match(/<.+>/) && (line.match(/while/) || line.match(/if/)) ) {
             if ( rnd > freq ) 
-                line = line.replace('<', '>')
+                line = line.replace('<', '>');
             else
-                line = line.replace('>', '<')
-        }
+                line = line.replace('>', '<');
+        }*/
 
         rnd = Math.random()
 
@@ -58,10 +58,10 @@ const fileFuzzer = (filePath) => {
             });
         }
 
-        if(rnd > freq)
-            line = line.replace(/==/g, '!=')
+            /*if(rnd > freq)
+            line = line.replace(/==/g, '!=');
         else
-            line = line.replace(/!=/g, '==')       
+            line = line.replace(/!=/g, '==');*/
     
         if(line != '\r' && line != '\n' && line != '')
             line += '\n'
