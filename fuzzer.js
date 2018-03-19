@@ -50,13 +50,18 @@ const fileFuzzer = (filePath) => {
 
         rnd = Math.random()
 
-        if ( rnd > freq /*&& line.match(/![a-z]/g)*/ )
-            line = line.replace('![^=]', '');
+        if ( rnd > 0 && line.match(/![a-zA-Z]/g)) {
+            //console.log("line before: %s\n", line);
+            line = line.replace(/![a-zA-Z]/g, (matchedString, offset, line) => {
+                console.log("File %s having %s replaced", filePath, matchedString);
+                return matchedString.slice(1);
+            });
+        }
 
         if(rnd > freq)
-            line = line.replace('==', '!=')
+            line = line.replace(/==/g, '!=')
         else
-            line = line.replace('!=', '==')       
+            line = line.replace(/!=/g, '==')       
     
         if(line != '\r' && line != '\n' && line != '')
             line += '\n'
@@ -64,7 +69,6 @@ const fileFuzzer = (filePath) => {
         fs.appendFileSync(filePath, line, {encoding:'utf8'});
     })
 }
-
 const commitFuzzer = (master_sha1, n) => {
     child_process.execSync(`git stash && git checkout fuzzer && git checkout stash -- . && git commit -am "Commit Number ${n}: Fuzzing master:${master_sha1}" && git push`)
     child_process.execSync('git stash drop');
@@ -76,13 +80,21 @@ const rollbackAndResetCommit = (firstCommitSha1) => {
     child_process.execSync('git checkout ${firstCommitSha1}')
 }
 
-const triggerBuild = (githubURL, jenkinsIP, jenkinsToken, lastCommitsha1) => {
+    /*const triggerBuild = (githubURL, jenkinsIP, jenkinsToken, lastCommitsha1) => {
     try {
         child_process.execSync('curl "http://' + jenkinsIP + ':8080/git/notifyCommit?url=' + githubURL + '&branches=fuzzer"')
         console.log('Fuzzer number ${lastCommitsha1} - Succesfully triggered build.')
     } catch (error) {
         console.log('Fuzzer number ${lastCommitsha1} - Could not trigger build.')
     }
+}*/
+
+const reset = (master_sha1) => {
+    child_process.execSync(`git checkout fuzzer && git reset --hard ${master_sha1}`);
+}
+
+const commit = (master_sha1, n) => {
+    child_process.execSync(`git commit -am "Commit Number ${n}: Fuzzing master:${master_sha1}" && git push`);
 }
 
 const mainForFuzzing = (n) => {
@@ -91,10 +103,15 @@ const mainForFuzzing = (n) => {
     let jenkinsIP = process.env.JENKINS_IP;
     let jenkinsToken = process.env.JENKINS_BUILD_TOKEN;
     let githubURL = process.env.GITHUB_URL
+    
+    //rollbackAndResetCommit(sha1)
+    //commitFuzzer(master_sha1, 0);
+    reset(master_sha1); 
 
-    for (var i = 0; i < n; i++) {
+    for (var i = 1; i <= n; i++) {
         let javaFiles = getJavaFiles(__dirname + '/iTrust2/src/main/java/edu/ncsu/csc/itrust2');
-        rollbackAndResetCommit(sha1)
+        //rollbackAndResetCommit(sha1)
+        reset(master_sha1);
         javaFiles.forEach(javaFile =>{
             let rnd = Math.random();
             let desiredFreq = 1;
@@ -103,9 +120,10 @@ const mainForFuzzing = (n) => {
             if(rnd > freq)
                 fileFuzzer(javaFile);
         })
-        let lastCommitSha1 = commitFuzzer(master_sha1, i);
+        commit(master_sha1,i);
+        //let lastCommitSha1 = commitFuzzer(master_sha1, i);
         //triggerBuild(githubURL, jenkinsIP, jenkinsToken, lastCommitSha1)
     }
 }
 
-mainForFuzzing(3);
+mainForFuzzing(2);
