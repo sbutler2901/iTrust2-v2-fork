@@ -120,14 +120,14 @@ const mainForFuzzing = (n) => {
         let javaFiles = getJavaFiles(__dirname + '/iTrust2/src/main/java/edu/ncsu/csc/itrust2');
         //rollbackAndResetCommit(sha1)
         //reset(master_sha1);
-        //javaFiles.forEach(javaFile =>{
+        javaFiles.forEach(javaFile =>{
             let rnd = Math.random();
             let desiredFreq = 1;
             let freq = 1 - desiredFreq;
 
             if(rnd > freq)
                 fileFuzzer(javaFile);
-        })
+        });
         //console.log("about to commit and push at index %d", i);
         commit(master_sha1,i);
         //rebase();
