@@ -94,7 +94,7 @@ const rebase = () => {
 }
 
 const getSha = () => {
-    let lastCommitSha1 = child_process.execSync(`git rev-parse fuzzer`).toString().trim();
+    return child_process.execSync(`git rev-parse fuzzer`).toString().trim();
 }
 
 const commit = (master_sha1, n) => {
