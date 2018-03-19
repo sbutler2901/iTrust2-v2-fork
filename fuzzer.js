@@ -110,6 +110,10 @@ const revert = (sha1) => {
     child_process.execSync(`git revert --no-edit --no-commit ${sha1}..HEAD`);
 }
 
+const checkout = (sha1) => {
+    child_process.execSync(`git checkout -f ${sha1}`);
+}
+
 const mainForFuzzing = (n) => {
     let master_sha1 = process.env.MASTER_SHA1;
     //let sha1 = process.env.SHA1;
@@ -138,7 +142,8 @@ const mainForFuzzing = (n) => {
         //rebase();
         //revert(sha1);
         let lastCommitSha1 = commitFuzzer(master_sha1, i);
-        revert(sha1);
+        checkout(sha1);
+        //revert(sha1);
         //rebase();
         //triggerBuild(githubURL, jenkinsIP, jenkinsToken, lastCommitSha1)
     }
