@@ -50,7 +50,7 @@ const fileFuzzer = (filePath) => {
 
         rnd = Math.random()
 
-        if ( rnd > freq && line.match(/![a-z]/g) )
+        if ( rnd > freq /*&& line.match(/![a-z]/g)*/ )
             line = line.replace('![^=]', '');
 
         if(rnd > freq)
