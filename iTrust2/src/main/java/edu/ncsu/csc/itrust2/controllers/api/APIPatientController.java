@@ -142,7 +142,7 @@ public class APIPatientController extends APIController {
                         HttpStatus.CONFLICT );
             }
             final Patient dbPatient = Patient.getPatient( id );
-            if ( null != dbPatient ) {
+            if ( null == dbPatient ) {
                 return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
             }
             patient.save();

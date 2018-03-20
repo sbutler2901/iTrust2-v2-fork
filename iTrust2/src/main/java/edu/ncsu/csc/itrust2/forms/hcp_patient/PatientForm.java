@@ -40,7 +40,7 @@ public class PatientForm {
         setZip( patient.getZip() );
         setPhone( patient.getPhone() );
         final SimpleDateFormat date = new SimpleDateFormat( "MM/dd/yyyy", Locale.ENGLISH );
-        if ( null == patient.getDateOfBirth() ) {
+        if ( null != patient.getDateOfBirth() ) {
             setDateOfBirth( date.format( patient.getDateOfBirth().getTime() ) );
         }
         if ( null == patient.getDateOfDeath() ) {

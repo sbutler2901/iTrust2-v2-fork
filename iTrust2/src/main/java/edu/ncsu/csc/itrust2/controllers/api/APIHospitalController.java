@@ -42,7 +42,7 @@ public class APIHospitalController extends APIController {
     @GetMapping ( BASE_PATH + "/hospitals/{id}" )
     public ResponseEntity getHospital ( @PathVariable ( "id" ) final String id ) {
         final Hospital hospital = Hospital.getByName( id );
-        if ( null == hospital ) {
+        if ( null != hospital ) {
             LoggerUtil.log( TransactionType.VIEW_HOSPITAL, LoggerUtil.currentUser() );
         }
         return null != hospital

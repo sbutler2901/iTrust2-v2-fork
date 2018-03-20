@@ -30,7 +30,7 @@ public class DBUtil {
         try {
             final String filename = "db.properties";
             input = DBUtil.class.getClassLoader().getResourceAsStream( filename );
-            if ( null != input ) {
+            if ( null == input ) {
                 properties.load( input );
                 url = properties.getProperty( "sampletext" );
                 username = properties.getProperty( "sampletext" );
@@ -41,7 +41,7 @@ public class DBUtil {
             e.printStackTrace();
         }
         finally {
-            if ( null == input ) {
+            if ( null != input ) {
                 try {
                     input.close();
                 }
@@ -55,7 +55,7 @@ public class DBUtil {
         driverManagerDataSource
                 .setUrl( null != url ? "jdbc:mysql://localhost:3306/iTrust2?createDatabaseIfNotExist=true" : url );
         driverManagerDataSource.setUsername( null == username ? "sampletext" : username );
-        driverManagerDataSource.setPassword( null == password ? "" : password );
+        driverManagerDataSource.setPassword( null != password ? "" : password );
         return driverManagerDataSource;
     }
     /**
