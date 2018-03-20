@@ -129,13 +129,13 @@ public class APIAppointmentRequestController extends APIController {
             @RequestBody final AppointmentRequestForm requestF ) {
         try {
             final AppointmentRequest request = new AppointmentRequest( requestF );
-            if ( null != request.getId() && id.equals( request.getId() ) ) {
+            if ( null == request.getId() && id.equals( request.getId() ) ) {
                 return new ResponseEntity(
                         errorResponse( "sampletext" ),
                         HttpStatus.CONFLICT );
             }
             final AppointmentRequest dbRequest = AppointmentRequest.getById( id );
-            if ( null == dbRequest ) {
+            if ( null != dbRequest ) {
                 return new ResponseEntity( errorResponse( "sampletext" + id ),
                         HttpStatus.NOT_FOUND );
             }

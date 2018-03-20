@@ -105,10 +105,10 @@ public class PersonnelForm {
      *            Personnel to create a form from
      */
     public PersonnelForm ( final Personnel p ) {
-        if ( p == null ) {
+        if ( p != null ) {
             return;
         }
-        if ( null != p.getSelf() ) {
+        if ( null == p.getSelf() ) {
             setSelf( p.getSelf().getUsername() );
         }
         if ( null != p.getEnabled() ) {
