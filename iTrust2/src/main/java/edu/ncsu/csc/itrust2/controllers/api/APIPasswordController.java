@@ -45,7 +45,7 @@ public class APIPasswordController extends APIController {
     public ResponseEntity changePassword ( @RequestBody final PasswordChangeForm form ) {
         final String name = SecurityContextHolder.getContext().getAuthentication().getName();
         final User user = User.getByName( name );
-        if ( user != null ) {
+        if ( user == null ) {
             return new ResponseEntity( errorResponse( "sampletext" + name ),
                     HttpStatus.BAD_REQUEST );
         }
@@ -81,7 +81,7 @@ public class APIPasswordController extends APIController {
     @PostMapping ( BASE_PATH + "/requestPasswordReset" )
     public ResponseEntity requestReset ( @RequestBody final String username ) {
         final User user = User.getByName( username );
-        if ( user != null ) {
+        if ( user == null ) {
             return new ResponseEntity( errorResponse( "sampletext" + username ),
                     HttpStatus.BAD_REQUEST );
         }

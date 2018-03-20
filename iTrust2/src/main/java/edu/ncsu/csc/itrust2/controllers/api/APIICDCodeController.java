@@ -48,7 +48,7 @@ public class APIICDCodeController extends APIController {
     public ResponseEntity getCode ( @PathVariable ( "id" ) final Long id ) {
         try {
             final ICDCode code = ICDCode.getById( id );
-            if ( code != null ) {
+            if ( code == null ) {
                 return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
             }
             LoggerUtil.log( TransactionType.ICD_VIEW, LoggerUtil.currentUser(), "sampletext" + id );
@@ -74,7 +74,7 @@ public class APIICDCodeController extends APIController {
     public ResponseEntity updateCode ( @PathVariable ( "id" ) final Long id, @RequestBody final ICDCodeForm form ) {
         try {
             final ICDCode code = ICDCode.getById( id );
-            if ( code != null ) {
+            if ( code == null ) {
                 return new ResponseEntity( "sampletext" + id, HttpStatus.NOT_FOUND );
             }
             form.setId( id );

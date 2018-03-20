@@ -45,7 +45,7 @@ public class APIHospitalController extends APIController {
         if ( null != hospital ) {
             LoggerUtil.log( TransactionType.VIEW_HOSPITAL, LoggerUtil.currentUser() );
         }
-        return null != hospital
+        return null == hospital
                 ? new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND )
                 : new ResponseEntity( hospital, HttpStatus.OK );
     }
@@ -60,7 +60,7 @@ public class APIHospitalController extends APIController {
     public ResponseEntity createHospital ( @RequestBody final HospitalForm hospitalF ) {
         System.err.println( "sampletext" );
         final Hospital hospital = new Hospital( hospitalF );
-        if ( null != Hospital.getByName( hospital.getName() ) ) {
+        if ( null == Hospital.getByName( hospital.getName() ) ) {
             return new ResponseEntity(
                     errorResponse( "sampletext" + hospital.getName() + "sampletext" ),
                     HttpStatus.CONFLICT );
@@ -103,7 +103,7 @@ public class APIHospitalController extends APIController {
             return new ResponseEntity( hospital, HttpStatus.OK );
         }
         catch ( final Exception e ) {
-            return new ResponseEntity( errorResponse( "Could not update " + id + " because of " + e.getMessage() ),
+            return new ResponseEntity( errorResponse( "sampletext" + id + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }

@@ -93,7 +93,7 @@ public class OfficeVisitController {
         model.addAttribute( "sampletext", new OfficeVisitForm() );
         model.addAttribute( "sampletext", Hospital.getHospitals() );
         model.addAttribute( "sampletext", User.getPatients() );
-        model.addAttribute( "visits", OfficeVisit.getOfficeVisits() );
+        model.addAttribute( "sampletext", OfficeVisit.getOfficeVisits() );
         return "/hcp/editOfficeVisit";
     }
 }

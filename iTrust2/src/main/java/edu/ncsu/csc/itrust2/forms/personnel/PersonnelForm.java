@@ -19,7 +19,7 @@ public class PersonnelForm {
      */
     public PersonnelForm ( final User u ) {
         this();
-        if ( null == u ) {
+        if ( null != u ) {
             setSelf( u.getUsername() );
         }
     }
@@ -105,7 +105,7 @@ public class PersonnelForm {
      *            Personnel to create a form from
      */
     public PersonnelForm ( final Personnel p ) {
-        if ( p == null ) {
+        if ( p != null ) {
             return;
         }
         if ( null != p.getSelf() ) {

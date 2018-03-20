@@ -42,7 +42,7 @@ public class APIPersonnelController extends APIController {
     @GetMapping ( BASE_PATH + "/personnel/{id}" )
     public ResponseEntity getPersonnel ( @PathVariable ( "id" ) final String id ) {
         final Personnel personnel = Personnel.getByName( id );
-        if ( null != personnel ) {
+        if ( null == personnel ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         else {
@@ -98,7 +98,7 @@ public class APIPersonnelController extends APIController {
                     HttpStatus.CONFLICT );
         }
         final Personnel dbPersonnel = Personnel.getByName( id );
-        if ( null == dbPersonnel ) {
+        if ( null != dbPersonnel ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         try {
