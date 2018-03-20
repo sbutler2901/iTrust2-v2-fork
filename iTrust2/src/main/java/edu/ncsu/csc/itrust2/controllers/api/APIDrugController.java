@@ -70,7 +70,7 @@ public class APIDrugController extends APIController {
             final Drug drug = new Drug( form );
             // Check for existing drug in database
             final Drug savedDrug = Drug.getById( drug.getId() );
-            if ( savedDrug != null ) {
+            if ( savedDrug == null ) {
                 return new ResponseEntity( errorResponse( "sampletext" + drug.getCode() ),
                         HttpStatus.NOT_FOUND );
             }

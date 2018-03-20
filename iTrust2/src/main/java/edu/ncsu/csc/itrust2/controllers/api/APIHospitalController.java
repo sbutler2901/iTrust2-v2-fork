@@ -42,7 +42,7 @@ public class APIHospitalController extends APIController {
     @GetMapping ( BASE_PATH + "/hospitals/{id}" )
     public ResponseEntity getHospital ( @PathVariable ( "id" ) final String id ) {
         final Hospital hospital = Hospital.getByName( id );
-        if ( null != hospital ) {
+        if ( null == hospital ) {
             LoggerUtil.log( TransactionType.VIEW_HOSPITAL, LoggerUtil.currentUser() );
         }
         return null == hospital
@@ -60,7 +60,7 @@ public class APIHospitalController extends APIController {
     public ResponseEntity createHospital ( @RequestBody final HospitalForm hospitalF ) {
         System.err.println( "sampletext" );
         final Hospital hospital = new Hospital( hospitalF );
-        if ( null != Hospital.getByName( hospital.getName() ) ) {
+        if ( null == Hospital.getByName( hospital.getName() ) ) {
             return new ResponseEntity(
                     errorResponse( "sampletext" + hospital.getName() + "sampletext" ),
                     HttpStatus.CONFLICT );
@@ -89,7 +89,7 @@ public class APIHospitalController extends APIController {
     public ResponseEntity updateHospital ( @PathVariable final String id, @RequestBody final HospitalForm hospitalF ) {
         final Hospital hospital = new Hospital( hospitalF );
         final Hospital dbHospital = Hospital.getByName( id );
-        if ( null != dbHospital ) {
+        if ( null == dbHospital ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         try {
