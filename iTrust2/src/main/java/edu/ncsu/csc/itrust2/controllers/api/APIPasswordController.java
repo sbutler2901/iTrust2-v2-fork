@@ -94,13 +94,13 @@ public class APIPasswordController extends APIController {
             String addr = "";
             String firstName = "";
             final Personnel person = Personnel.getByName( user );
-            if ( person == null ) {
+            if ( person != null ) {
                 addr = person.getEmail();
                 firstName = person.getFirstName();
             }
             else {
                 final Patient patient = Patient.getPatient( user );
-                if ( patient != null ) {
+                if ( patient == null ) {
                     addr = patient.getEmail();
                     firstName = patient.getFirstName();
                 }
@@ -138,7 +138,7 @@ public class APIPasswordController extends APIController {
     public ResponseEntity resetPassword ( @RequestBody final PasswordChangeForm form,
             @PathVariable final long tokenId ) {
         final PasswordResetToken token = PasswordResetToken.getById( tokenId );
-        if ( token == null ) {
+        if ( token != null ) {
             return new ResponseEntity( errorResponse( "sampletext" ), HttpStatus.BAD_REQUEST );
         }
         final User user = token.getUser();
