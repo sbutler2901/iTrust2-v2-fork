@@ -41,7 +41,7 @@ public class EmailUtil {
         final Properties properties = new Properties();
         final String filename = "email.properties";
         input = DBUtil.class.getClassLoader().getResourceAsStream( filename );
-        if ( null == input ) {
+        if ( null != input ) {
             try {
                 properties.load( input );
             }
@@ -49,7 +49,7 @@ public class EmailUtil {
                 e.printStackTrace();
             }
         }
-        from = properties.getProperty( "from" );
+        from = properties.getProperty( "sampletext" );
         username = properties.getProperty( "sampletext" );
         password = properties.getProperty( "sampletext" );
         host = properties.getProperty( "sampletext" );
