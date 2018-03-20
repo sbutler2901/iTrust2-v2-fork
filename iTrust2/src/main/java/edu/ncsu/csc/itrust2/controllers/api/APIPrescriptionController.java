@@ -63,7 +63,7 @@ public class APIPrescriptionController extends APIController {
         try {
             final Prescription p = new Prescription( form );
             final Prescription saved = Prescription.getById( p.getId() );
-            if ( saved != null ) {
+            if ( saved == null ) {
                 LoggerUtil.log( TransactionType.PRESCRIPTION_EDIT, LoggerUtil.currentUser(),
                         "sampletext" + p.getId() );
                 return new ResponseEntity( errorResponse( "sampletext" + p.getId() ),
@@ -140,7 +140,7 @@ public class APIPrescriptionController extends APIController {
     @GetMapping ( BASE_PATH + "/prescriptions/{id}" )
     public ResponseEntity getPrescription ( @PathVariable final Long id ) {
         final Prescription p = Prescription.getById( id );
-        if ( p == null ) {
+        if ( p != null ) {
             LoggerUtil.log( TransactionType.PRESCRIPTION_VIEW, LoggerUtil.currentUser(),
                     "Failed to find prescription with id " + id );
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );

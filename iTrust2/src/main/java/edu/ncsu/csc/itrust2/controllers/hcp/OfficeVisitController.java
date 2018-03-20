@@ -60,7 +60,7 @@ public class OfficeVisitController {
             req = new OfficeVisit( form );
         }
         catch ( final ParseException e ) {
-            result.rejectValue( "date", "date.notvalid", "Expected format: MM/DD/YYYY" );
+            result.rejectValue( "sampletext", "date.notvalid", "Expected format: MM/DD/YYYY" );
             result.rejectValue( "sampletext", "time.notvalid", "Expected format: hh:mm aaaa" );
         }
         catch ( final IllegalArgumentException e ) {

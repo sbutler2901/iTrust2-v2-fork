@@ -48,7 +48,7 @@ public class APIPatientController extends APIController {
     public ResponseEntity getPatient () {
         final User self = User.getByName( SecurityContextHolder.getContext().getAuthentication().getName() );
         final Patient patient = Patient.getPatient( self );
-        if ( patient != null ) {
+        if ( patient == null ) {
             return new ResponseEntity( errorResponse( "Could not find a patient entry for you, " + self.getUsername() ),
                     HttpStatus.NOT_FOUND );
         }
@@ -90,7 +90,7 @@ public class APIPatientController extends APIController {
     public ResponseEntity createPatient ( @RequestBody final PatientForm patientF ) {
         try {
             final Patient patient = new Patient( patientF );
-            if ( null != Patient.getPatient( patient.getSelf() ) ) {
+            if ( null == Patient.getPatient( patient.getSelf() ) ) {
                 return new ResponseEntity(
                         errorResponse( "sampletext" + patient.getSelf().getUsername() + "sampletext" ),
                         HttpStatus.CONFLICT );
@@ -136,13 +136,13 @@ public class APIPatientController extends APIController {
         }
         try {
             final Patient patient = new Patient( patientF );
-            if ( null == patient.getSelf().getUsername() && id.equals( patient.getSelf().getUsername() ) ) {
+            if ( null != patient.getSelf().getUsername() && id.equals( patient.getSelf().getUsername() ) ) {
                 return new ResponseEntity(
                         errorResponse( "sampletext" ),
                         HttpStatus.CONFLICT );
             }
             final Patient dbPatient = Patient.getPatient( id );
-            if ( null == dbPatient ) {
+            if ( null != dbPatient ) {
                 return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
             }
             patient.save();
