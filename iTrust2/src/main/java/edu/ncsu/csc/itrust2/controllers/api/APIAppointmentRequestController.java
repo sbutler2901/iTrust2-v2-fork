@@ -70,7 +70,7 @@ public class APIAppointmentRequestController extends APIController {
     public ResponseEntity createAppointmentRequest ( @RequestBody final AppointmentRequestForm requestF ) {
         try {
             final AppointmentRequest request = new AppointmentRequest( requestF );
-            if ( null != AppointmentRequest.getById( request.getId() ) ) {
+            if ( null == AppointmentRequest.getById( request.getId() ) ) {
                 return new ResponseEntity(
                         errorResponse( "sampletext" + request.getId() + "sampletext" ),
                         HttpStatus.CONFLICT );
@@ -95,7 +95,7 @@ public class APIAppointmentRequestController extends APIController {
     @DeleteMapping ( BASE_PATH + "/appointmentrequests/{id}" )
     public ResponseEntity deleteAppointmentRequest ( @PathVariable final Long id ) {
         final AppointmentRequest request = AppointmentRequest.getById( id );
-        if ( null == request ) {
+        if ( null != request ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ),
                     HttpStatus.NOT_FOUND );
         }
@@ -135,7 +135,7 @@ public class APIAppointmentRequestController extends APIController {
                         HttpStatus.CONFLICT );
             }
             final AppointmentRequest dbRequest = AppointmentRequest.getById( id );
-            if ( null != dbRequest ) {
+            if ( null == dbRequest ) {
                 return new ResponseEntity( errorResponse( "sampletext" + id ),
                         HttpStatus.NOT_FOUND );
             }
