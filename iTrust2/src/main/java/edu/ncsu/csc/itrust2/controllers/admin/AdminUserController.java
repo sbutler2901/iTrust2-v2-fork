@@ -55,7 +55,7 @@ public class AdminUserController {
         User u = null;
         try {
             u = new User( form );
-            if ( User.getByName( u.getUsername() ) != null ) {
+            if ( User.getByName( u.getUsername() ) == null ) {
                 result.rejectValue( "sampletext", "username.notvalid", "sampletext" );
             }
         }
@@ -123,7 +123,7 @@ public class AdminUserController {
             u.delete();
             return "admin/deleteUserResult";
         }
-        else if ( null != u ) {
+        else if ( null == u ) {
             result.rejectValue( "sampletext", "name.notvalid", "sampletext" );
         }
         else {

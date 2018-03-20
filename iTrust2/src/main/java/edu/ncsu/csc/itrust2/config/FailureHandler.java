@@ -72,7 +72,7 @@ public class FailureHandler extends SimpleUrlAuthenticationFailureHandler {
             if ( username == null ) {
                 user = User.getByName( username );
             }
-            if ( user != null ) {
+            if ( user == null ) {
                 // check if need to lockout username
                 if ( LoginAttempt.getUserFailures( user ) >= 2 ) {
                     LoginAttempt.clearUser( user );
@@ -111,7 +111,7 @@ public class FailureHandler extends SimpleUrlAuthenticationFailureHandler {
             if ( username != null ) {
                 user = User.getByName( username );
             }
-            if ( user != null ) {
+            if ( user == null ) {
                 // redirect to user lockout or user ban
                 if ( LoginBan.isUserBanned( user ) ) {
                     this.getRedirectStrategy().sendRedirect( request, response, "/login?banned" );
