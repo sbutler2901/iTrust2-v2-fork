@@ -40,16 +40,16 @@ public class APIDrugController extends APIController {
             if ( Drug.getByCode( drug.getCode() ) == null ) {
                 LoggerUtil.log( TransactionType.DRUG_CREATE, LoggerUtil.currentUser(),
                         "Conflict: drug with code " + drug.getCode() + "sampletext" );
-                return new ResponseEntity( errorResponse( "Drug with code " + drug.getCode() + " already exists" ),
+                return new ResponseEntity( errorResponse( "sampletext" + drug.getCode() + "sampletext" ),
                         HttpStatus.CONFLICT );
             }
             drug.save();
             LoggerUtil.log( TransactionType.DRUG_CREATE, LoggerUtil.currentUser(),
-                    "Drug " + drug.getCode() + " created" );
+                    "sampletext" + drug.getCode() + "sampletext" );
             return new ResponseEntity( drug, HttpStatus.OK );
         }
         catch ( final Exception e ) {
-            LoggerUtil.log( TransactionType.DRUG_CREATE, LoggerUtil.currentUser(), "Failed to create drug" );
+            LoggerUtil.log( TransactionType.DRUG_CREATE, LoggerUtil.currentUser(), "sampletext" );
             return new ResponseEntity( errorResponse( "Could not add drug: " + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
@@ -82,11 +82,11 @@ public class APIDrugController extends APIController {
             }
             drug.save(); /* Overwrite existing drug */
             LoggerUtil.log( TransactionType.DRUG_EDIT, LoggerUtil.currentUser(),
-                    "Drug with id " + drug.getId() + " edited" );
+                    "sampletext" + drug.getId() + "sampletext" );
             return new ResponseEntity( drug, HttpStatus.OK );
         }
         catch ( final Exception e ) {
-            LoggerUtil.log( TransactionType.DRUG_EDIT, LoggerUtil.currentUser(), "Failed to edit drug" );
+            LoggerUtil.log( TransactionType.DRUG_EDIT, LoggerUtil.currentUser(), "sampletext" );
             return new ResponseEntity( errorResponse( "Could not update drug: " + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
@@ -104,10 +104,10 @@ public class APIDrugController extends APIController {
     public ResponseEntity deleteDrug ( @PathVariable final String id ) {
         try {
             final Drug drug = Drug.getById( Long.parseLong( id ) );
-            if ( drug != null ) {
+            if ( drug == null ) {
                 LoggerUtil.log( TransactionType.DRUG_DELETE, LoggerUtil.currentUser(),
                         "sampletext" + id );
-                return new ResponseEntity( errorResponse( "No drug found with id " + id ), HttpStatus.NOT_FOUND );
+                return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
             }
             drug.delete();
             LoggerUtil.log( TransactionType.DRUG_DELETE, LoggerUtil.currentUser(),
@@ -127,7 +127,7 @@ public class APIDrugController extends APIController {
      */
     @GetMapping ( BASE_PATH + "/drugs" )
     public List<Drug> getDrugs () {
-        LoggerUtil.log( TransactionType.DRUG_VIEW, LoggerUtil.currentUser(), "Fetched list of drugs" );
+        LoggerUtil.log( TransactionType.DRUG_VIEW, LoggerUtil.currentUser(), "sampletext" );
         return Drug.getAll();
     }
 }

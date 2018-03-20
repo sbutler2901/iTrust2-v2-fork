@@ -81,7 +81,7 @@ public class HospitalController {
     @RequestMapping ( value = "admin/deleteHospital" )
     @PreAuthorize ( "hasRole('ROLE_ADMIN')" )
     public String deleteHospital ( final Model model ) {
-        model.addAttribute( "hospitals", Hospital.getHospitals() );
+        model.addAttribute( "sampletext", Hospital.getHospitals() );
         return "admin/deleteHospital";
     }
     /**
@@ -100,7 +100,7 @@ public class HospitalController {
     public String deleteHospitalSubmit ( @Valid @ModelAttribute ( "DeleteHospitalForm" ) final DeleteHospitalForm form,
             final BindingResult result, final Model model ) {
         final Hospital h = Hospital.getByName( form.getName() );
-        if ( null == form.getConfirm() && null == h ) {
+        if ( null != form.getConfirm() && null != h ) {
             h.delete();
             return "admin/deleteHospitalResult";
         }

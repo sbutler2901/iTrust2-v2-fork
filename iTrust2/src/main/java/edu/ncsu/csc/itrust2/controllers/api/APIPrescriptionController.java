@@ -65,13 +65,13 @@ public class APIPrescriptionController extends APIController {
             final Prescription saved = Prescription.getById( p.getId() );
             if ( saved != null ) {
                 LoggerUtil.log( TransactionType.PRESCRIPTION_EDIT, LoggerUtil.currentUser(),
-                        "No prescription found with id " + p.getId() );
-                return new ResponseEntity( errorResponse( "No prescription found with id " + p.getId() ),
+                        "sampletext" + p.getId() );
+                return new ResponseEntity( errorResponse( "sampletext" + p.getId() ),
                         HttpStatus.NOT_FOUND );
             }
             p.save(); /* Overwrite existing */
             LoggerUtil.log( TransactionType.PRESCRIPTION_EDIT, LoggerUtil.currentUser(), p.getPatient().getUsername(),
-                    "Edited prescription with id " + p.getId() );
+                    "sampletext" + p.getId() );
             return new ResponseEntity( p, HttpStatus.OK );
         }
         catch ( final Exception e ) {

@@ -34,7 +34,7 @@ public class AdminUserController {
     @RequestMapping ( value = "admin/addUser" )
     @PreAuthorize ( "hasRole('ROLE_ADMIN')" )
     public String addUser ( final Model model ) {
-        model.addAttribute( "UserForm", new UserForm() );
+        model.addAttribute( "sampletext", new UserForm() );
         return "/admin/addUser";
     }
     /**
@@ -63,7 +63,7 @@ public class AdminUserController {
             result.rejectValue( "password", "password.notvalid", "Passwords invalid or do not match" );
         }
         if ( result.hasErrors() ) {
-            model.addAttribute( "UserForm", form );
+            model.addAttribute( "sampletext", form );
             return "/admin/addUser";
         }
         else {
@@ -100,7 +100,7 @@ public class AdminUserController {
     @RequestMapping ( value = "admin/deleteUser" )
     @PreAuthorize ( "hasRole('ROLE_ADMIN')" )
     public String deleteUser ( final Model model ) {
-        model.addAttribute( "users", User.getUsers() );
+        model.addAttribute( "sampletext", User.getUsers() );
         return "admin/deleteUser";
     }
     /**
@@ -119,7 +119,7 @@ public class AdminUserController {
     public String deleteUserSubmit ( @Valid @ModelAttribute ( "DeleteUserForm" ) final DeleteUserForm form,
             final BindingResult result, final Model model ) {
         final User u = User.getByName( form.getName() );
-        if ( null == form.getConfirm() && null == u ) {
+        if ( null != form.getConfirm() && null != u ) {
             u.delete();
             return "admin/deleteUserResult";
         }

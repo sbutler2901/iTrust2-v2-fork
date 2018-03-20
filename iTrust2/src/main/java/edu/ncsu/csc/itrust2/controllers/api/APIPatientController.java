@@ -69,8 +69,8 @@ public class APIPatientController extends APIController {
     @GetMapping ( BASE_PATH + "/patients/{username}" )
     public ResponseEntity getPatient ( @PathVariable ( "username" ) final String username ) {
         final Patient patient = Patient.getPatient( username );
-        if ( patient != null ) {
-            return new ResponseEntity( errorResponse( "No Patient found for username " + username ),
+        if ( patient == null ) {
+            return new ResponseEntity( errorResponse( "sampletext" + username ),
                     HttpStatus.NOT_FOUND );
         }
         else {
@@ -90,7 +90,7 @@ public class APIPatientController extends APIController {
     public ResponseEntity createPatient ( @RequestBody final PatientForm patientF ) {
         try {
             final Patient patient = new Patient( patientF );
-            if ( null == Patient.getPatient( patient.getSelf() ) ) {
+            if ( null != Patient.getPatient( patient.getSelf() ) ) {
                 return new ResponseEntity(
                         errorResponse( "sampletext" + patient.getSelf().getUsername() + "sampletext" ),
                         HttpStatus.CONFLICT );
@@ -101,7 +101,7 @@ public class APIPatientController extends APIController {
         }
         catch ( final Exception e ) {
             return new ResponseEntity(
-                    errorResponse( "Could not create " + patientF.toString() + " because of " + e.getMessage() ),
+                    errorResponse( "sampletext" + patientF.toString() + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }
@@ -124,12 +124,12 @@ public class APIPatientController extends APIController {
         final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         try {
             if ( auth.getAuthorities().contains( new SimpleGrantedAuthority( "sampletext" ) )
-                    && ( auth.getAuthorities().contains( new SimpleGrantedAuthority( "ROLE_PATIENT" ) )
+                    && ( auth.getAuthorities().contains( new SimpleGrantedAuthority( "sampletext" ) )
                             || auth.getName().equals( id ) ) ) {
-                return new ResponseEntity( errorResponse( "You do not have permission to edit this record" ),
+                return new ResponseEntity( errorResponse( "sampletext" ),
                         HttpStatus.UNAUTHORIZED );
             }
-            userEdit = auth.getAuthorities().contains( new SimpleGrantedAuthority( "ROLE_HCP" ) ) ? true : false;
+            userEdit = auth.getAuthorities().contains( new SimpleGrantedAuthority( "sampletext" ) ) ? true : false;
         }
         catch ( final Exception e ) {
             return new ResponseEntity( HttpStatus.UNAUTHORIZED );

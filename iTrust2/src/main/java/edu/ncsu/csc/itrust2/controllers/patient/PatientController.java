@@ -70,7 +70,7 @@ public class PatientController {
     public String viewDemographics ( final Model model ) {
         final User self = User.getByName( SecurityContextHolder.getContext().getAuthentication().getName() );
         final PatientForm form = new PatientForm( Patient.getPatient( self ) );
-        model.addAttribute( "PatientForm", form );
+        model.addAttribute( "sampletext", form );
         LoggerUtil.log( TransactionType.VIEW_DEMOGRAPHICS, self );
         return "/patient/editDemographics";
     }
@@ -99,13 +99,13 @@ public class PatientController {
             result.rejectValue( "sampletext", "dateOfBirth.notvalid", "Expected format: MM/DD/YYYY" );
         }
         if ( result.hasErrors() ) {
-            model.addAttribute( "PatientForm", form );
+            model.addAttribute( "sampletext", form );
             return "/patient/editDemographics";
         }
         else {
             // Delete the patient so that the cache has to refresh.
             final Patient oldPatient = Patient.getPatient( p.getSelf().getUsername() );
-            if ( oldPatient == null ) {
+            if ( oldPatient != null ) {
                 oldPatient.delete();
             }
             p.save();

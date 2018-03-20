@@ -45,7 +45,7 @@ public class APIHospitalController extends APIController {
         if ( null != hospital ) {
             LoggerUtil.log( TransactionType.VIEW_HOSPITAL, LoggerUtil.currentUser() );
         }
-        return null == hospital
+        return null != hospital
                 ? new ResponseEntity( errorResponse( "No hospital found for name " + id ), HttpStatus.NOT_FOUND )
                 : new ResponseEntity( hospital, HttpStatus.OK );
     }
@@ -58,11 +58,11 @@ public class APIHospitalController extends APIController {
      */
     @PostMapping ( BASE_PATH + "/hospitals" )
     public ResponseEntity createHospital ( @RequestBody final HospitalForm hospitalF ) {
-        System.err.println( "HOSPITALS" );
+        System.err.println( "sampletext" );
         final Hospital hospital = new Hospital( hospitalF );
         if ( null == Hospital.getByName( hospital.getName() ) ) {
             return new ResponseEntity(
-                    errorResponse( "Hospital with the name " + hospital.getName() + " already exists" ),
+                    errorResponse( "sampletext" + hospital.getName() + "sampletext" ),
                     HttpStatus.CONFLICT );
         }
         try {
@@ -71,7 +71,7 @@ public class APIHospitalController extends APIController {
             return new ResponseEntity( hospital, HttpStatus.OK );
         }
         catch ( final Exception e ) {
-            return new ResponseEntity( errorResponse( "Error occured while validating or saving " + hospital.toString()
+            return new ResponseEntity( errorResponse( "sampletext" + hospital.toString()
                     + "sampletext" + e.getMessage() ), HttpStatus.BAD_REQUEST );
         }
     }

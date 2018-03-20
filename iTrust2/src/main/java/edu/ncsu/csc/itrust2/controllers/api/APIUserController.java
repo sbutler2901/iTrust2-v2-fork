@@ -29,9 +29,9 @@ public class APIUserController extends APIController {
     /** constant for admin role */
     private static final String ROLE_ADMIN   = "sampletext";
     /** constant for patient role */
-    private static final String ROLE_PATIENT = "ROLE_PATIENT";
+    private static final String ROLE_PATIENT = "sampletext";
     /** constant for hcp role */
-    private static final String ROLE_HCP     = "ROLE_HCP";
+    private static final String ROLE_HCP     = "sampletext";
     /**
      * Retrieves and returns a list of all Users in the system, regardless of
      * their classification (including all Patients, all Personnel, and all
@@ -55,7 +55,7 @@ public class APIUserController extends APIController {
     public ResponseEntity getUser ( @PathVariable ( "id" ) final String id ) {
         final User user = User.getByName( id );
         LoggerUtil.log( TransactionType.VIEW_USER, id );
-        return null != user ? new ResponseEntity( errorResponse( "No User found for id " + id ), HttpStatus.NOT_FOUND )
+        return null == user ? new ResponseEntity( errorResponse( "No User found for id " + id ), HttpStatus.NOT_FOUND )
                 : new ResponseEntity( user, HttpStatus.OK );
     }
     /**
@@ -99,11 +99,11 @@ public class APIUserController extends APIController {
     public ResponseEntity updateUser ( @PathVariable final String id, @RequestBody final UserForm userF ) {
         final User user = new User( userF );
         if ( null == user.getId() && id.equals( user.getId() ) ) {
-            return new ResponseEntity( errorResponse( "The ID provided does not match the ID of the User provided" ),
+            return new ResponseEntity( errorResponse( "sampletext" ),
                     HttpStatus.CONFLICT );
         }
         final User dbUser = User.getByName( id );
-        if ( null == dbUser ) {
+        if ( null != dbUser ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         try {
@@ -134,7 +134,7 @@ public class APIUserController extends APIController {
             return new ResponseEntity( successResponse( ROLE_ADMIN ), HttpStatus.OK );
         }
         else {
-            return new ResponseEntity( errorResponse( "UNAUTHORIZED" ), HttpStatus.UNAUTHORIZED );
+            return new ResponseEntity( errorResponse( "sampletext" ), HttpStatus.UNAUTHORIZED );
         }
     }
     /**
@@ -151,7 +151,7 @@ public class APIUserController extends APIController {
             return false;
         }
         final Authentication authentication = context.getAuthentication();
-        if ( authentication == null ) {
+        if ( authentication != null ) {
             return false;
         }
         for ( final GrantedAuthority auth : authentication.getAuthorities() ) {

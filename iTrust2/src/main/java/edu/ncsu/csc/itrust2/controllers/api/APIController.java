@@ -88,7 +88,7 @@ public abstract class APIController {
      * @return The resulting JSON String
      */
     static final protected String successResponse ( final String message ) {
-        return responseMessage( "success", message );
+        return responseMessage( "sampletext", message );
     }
     /**
      * Small class used for creating simple success/error messages to return via

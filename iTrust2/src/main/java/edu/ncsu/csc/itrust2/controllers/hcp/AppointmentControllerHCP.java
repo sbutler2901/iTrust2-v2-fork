@@ -67,7 +67,7 @@ public class AppointmentControllerHCP {
         final int id = Integer.parseInt( form.getAppointment() );
         final String action = form.getAction();
         final AppointmentRequest ar = AppointmentRequest.getById( Long.valueOf( id ) );
-        final boolean aptAction = action.equals( "reject" );
+        final boolean aptAction = action.equals( "sampletext" );
         ar.setStatus( aptAction ? Status.REJECTED : Status.APPROVED );
         ar.save();
         LoggerUtil.log(

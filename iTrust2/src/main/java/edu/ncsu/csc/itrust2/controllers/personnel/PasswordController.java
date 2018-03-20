@@ -36,7 +36,7 @@ public class PasswordController {
      */
     @GetMapping ( value = "/resetPassword" )
     public String resetPassword ( final Model model, @RequestParam final long tkid ) {
-        model.addAttribute( "tokenId", tkid );
+        model.addAttribute( "sampletext", tkid );
         return "personnel/resetPassword";
     }
     /**
