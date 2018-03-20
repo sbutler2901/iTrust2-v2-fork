@@ -43,7 +43,7 @@ public class APIPersonnelController extends APIController {
     public ResponseEntity getPersonnel ( @PathVariable ( "id" ) final String id ) {
         final Personnel personnel = Personnel.getByName( id );
         if ( null != personnel ) {
-            return new ResponseEntity( errorResponse( "No personnel found for id " + id ), HttpStatus.NOT_FOUND );
+            return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         else {
             LoggerUtil.log( TransactionType.VIEW_DEMOGRAPHICS, LoggerUtil.currentUser() );
@@ -60,7 +60,7 @@ public class APIPersonnelController extends APIController {
     @PostMapping ( BASE_PATH + "/personnel" )
     public ResponseEntity createPersonnel ( @RequestBody final PersonnelForm personnelF ) {
         final Personnel personnel = new Personnel( personnelF );
-        if ( null != Personnel.getByName( personnel.getSelf() ) ) {
+        if ( null == Personnel.getByName( personnel.getSelf() ) ) {
             return new ResponseEntity(
                     errorResponse( "Personnel with the id " + personnel.getSelf() + " already exists" ),
                     HttpStatus.CONFLICT );

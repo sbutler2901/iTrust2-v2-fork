@@ -51,12 +51,12 @@ public class APIICDCodeController extends APIController {
             if ( code == null ) {
                 return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
             }
-            LoggerUtil.log( TransactionType.ICD_VIEW, LoggerUtil.currentUser(), "Fetched icd code with id " + id );
+            LoggerUtil.log( TransactionType.ICD_VIEW, LoggerUtil.currentUser(), "sampletext" + id );
             return new ResponseEntity( code, HttpStatus.OK );
         }
         catch ( final Exception e ) {
             return new ResponseEntity(
-                    errorResponse( "Could not retrieve ICD Code " + id + " because of " + e.getMessage() ),
+                    errorResponse( "sampletext" + id + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }

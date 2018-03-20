@@ -61,7 +61,7 @@ public class APIOfficeVisitController extends APIController {
     @GetMapping ( BASE_PATH + "/officevisits/{id}" )
     public ResponseEntity getOfficeVisit ( @PathVariable ( "id" ) final Long id ) {
         final OfficeVisit visit = OfficeVisit.getById( id );
-        if ( null != visit ) {
+        if ( null == visit ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         else {
@@ -153,7 +153,7 @@ public class APIOfficeVisitController extends APIController {
     public ResponseEntity updateOfficeVisit ( @PathVariable final Long id, @RequestBody final OfficeVisitForm form ) {
         try {
             final OfficeVisit visit = new OfficeVisit( form );
-            if ( null != visit.getId() && id.equals( visit.getId() ) ) {
+            if ( null == visit.getId() && id.equals( visit.getId() ) ) {
                 return new ResponseEntity(
                         errorResponse( "sampletext" ),
                         HttpStatus.CONFLICT );
@@ -193,7 +193,7 @@ public class APIOfficeVisitController extends APIController {
     @PreAuthorize ( "hasRole('ROLE_HCP')" )
     public ResponseEntity viewOfficeVisitHCP ( @PathVariable final Long id, @RequestBody final OfficeVisitForm form ) {
         final OfficeVisit dbVisit = OfficeVisit.getById( id );
-        if ( null != dbVisit ) {
+        if ( null == dbVisit ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         LoggerUtil.log( TransactionType.OFFICE_VISIT_HCP_VIEW, form.getHcp(), form.getPatient(),

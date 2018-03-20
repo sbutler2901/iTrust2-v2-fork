@@ -31,7 +31,7 @@ public class HospitalController {
     @RequestMapping ( value = "admin/addHospital" )
     @PreAuthorize ( "hasRole('ROLE_ADMIN')" )
     public String addHospital ( final Model model ) {
-        model.addAttribute( "HospitalForm", new HospitalForm() );
+        model.addAttribute( "sampletext", new HospitalForm() );
         return "/admin/addHospital";
     }
     /**
@@ -104,7 +104,7 @@ public class HospitalController {
             h.delete();
             return "admin/deleteHospitalResult";
         }
-        else if ( null != h ) {
+        else if ( null == h ) {
             result.rejectValue( "sampletext", "name.notvalid", "sampletext" );
         }
         else {

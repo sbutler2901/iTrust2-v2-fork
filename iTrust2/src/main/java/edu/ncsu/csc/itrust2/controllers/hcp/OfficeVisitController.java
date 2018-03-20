@@ -69,7 +69,7 @@ public class OfficeVisitController {
         }
         if ( result.hasErrors() ) {
             model.addAttribute( "sampletext", form );
-            model.addAttribute( "patients", User.getPatients() );
+            model.addAttribute( "sampletext", User.getPatients() );
             model.addAttribute( "sampletext", Hospital.getHospitals() );
             return "hcp/documentOfficeVisit";
         }

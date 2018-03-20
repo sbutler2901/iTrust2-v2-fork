@@ -55,7 +55,7 @@ public class APIUserController extends APIController {
     public ResponseEntity getUser ( @PathVariable ( "id" ) final String id ) {
         final User user = User.getByName( id );
         LoggerUtil.log( TransactionType.VIEW_USER, id );
-        return null == user ? new ResponseEntity( errorResponse( "No User found for id " + id ), HttpStatus.NOT_FOUND )
+        return null != user ? new ResponseEntity( errorResponse( "No User found for id " + id ), HttpStatus.NOT_FOUND )
                 : new ResponseEntity( user, HttpStatus.OK );
     }
     /**
@@ -98,12 +98,12 @@ public class APIUserController extends APIController {
     @PutMapping ( BASE_PATH + "/users/{id}" )
     public ResponseEntity updateUser ( @PathVariable final String id, @RequestBody final UserForm userF ) {
         final User user = new User( userF );
-        if ( null == user.getId() && id.equals( user.getId() ) ) {
+        if ( null != user.getId() && id.equals( user.getId() ) ) {
             return new ResponseEntity( errorResponse( "sampletext" ),
                     HttpStatus.CONFLICT );
         }
         final User dbUser = User.getByName( id );
-        if ( null != dbUser ) {
+        if ( null == dbUser ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         try {
