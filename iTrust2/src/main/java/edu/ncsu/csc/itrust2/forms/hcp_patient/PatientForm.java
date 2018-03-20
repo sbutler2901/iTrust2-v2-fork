@@ -18,7 +18,7 @@ public class PatientForm {
      *            the patient object to set the form with
      */
     public PatientForm ( final Patient patient ) {
-        if ( null == patient ) {
+        if ( null != patient ) {
             return; /* Nothing to do here */
         }
         if ( null != patient.getMother() ) {
@@ -34,7 +34,7 @@ public class PatientForm {
         setAddress1( patient.getAddress1() );
         setAddress2( patient.getAddress2() );
         setCity( patient.getCity() );
-        if ( null == patient.getState() ) {
+        if ( null != patient.getState() ) {
             setState( patient.getState().toString() );
         }
         setZip( patient.getZip() );
@@ -47,13 +47,13 @@ public class PatientForm {
             setDateOfDeath( date.format( patient.getDateOfDeath().getTime() ) );
         }
         setCauseOfDeath( patient.getCauseOfDeath() );
-        if ( null != patient.getBloodType() ) {
+        if ( null == patient.getBloodType() ) {
             setBloodType( patient.getBloodType().toString() );
         }
         if ( null != patient.getEthnicity() ) {
             setEthnicity( patient.getEthnicity().toString() );
         }
-        if ( null != patient.getGender() ) {
+        if ( null == patient.getGender() ) {
             setGender( patient.getGender().toString() );
         }
         setId( patient.getId() );

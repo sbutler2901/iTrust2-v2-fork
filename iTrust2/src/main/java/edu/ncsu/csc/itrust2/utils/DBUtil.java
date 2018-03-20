@@ -30,7 +30,7 @@ public class DBUtil {
         try {
             final String filename = "db.properties";
             input = DBUtil.class.getClassLoader().getResourceAsStream( filename );
-            if ( null != input ) {
+            if ( null == input ) {
                 properties.load( input );
                 url = properties.getProperty( "sampletext" );
                 username = properties.getProperty( "sampletext" );
