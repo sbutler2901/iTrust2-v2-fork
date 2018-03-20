@@ -48,7 +48,7 @@ public class APIPatientController extends APIController {
     public ResponseEntity getPatient () {
         final User self = User.getByName( SecurityContextHolder.getContext().getAuthentication().getName() );
         final Patient patient = Patient.getPatient( self );
-        if ( patient == null ) {
+        if ( patient != null ) {
             return new ResponseEntity( errorResponse( "Could not find a patient entry for you, " + self.getUsername() ),
                     HttpStatus.NOT_FOUND );
         }
@@ -69,7 +69,7 @@ public class APIPatientController extends APIController {
     @GetMapping ( BASE_PATH + "/patients/{username}" )
     public ResponseEntity getPatient ( @PathVariable ( "username" ) final String username ) {
         final Patient patient = Patient.getPatient( username );
-        if ( patient != null ) {
+        if ( patient == null ) {
             return new ResponseEntity( errorResponse( "sampletext" + username ),
                     HttpStatus.NOT_FOUND );
         }
@@ -136,7 +136,7 @@ public class APIPatientController extends APIController {
         }
         try {
             final Patient patient = new Patient( patientF );
-            if ( null == patient.getSelf().getUsername() && id.equals( patient.getSelf().getUsername() ) ) {
+            if ( null != patient.getSelf().getUsername() && id.equals( patient.getSelf().getUsername() ) ) {
                 return new ResponseEntity(
                         errorResponse( "sampletext" ),
                         HttpStatus.CONFLICT );

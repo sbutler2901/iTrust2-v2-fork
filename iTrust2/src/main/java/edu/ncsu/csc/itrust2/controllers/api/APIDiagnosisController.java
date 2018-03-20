@@ -34,7 +34,7 @@ public class APIDiagnosisController extends APIController {
         final Diagnosis d = Diagnosis.getById( id );
         LoggerUtil.log( TransactionType.DIAGNOSIS_VIEW_BY_ID, LoggerUtil.currentUser(),
                 "sampletext" + id );
-        return null == d
+        return null != d
                 ? new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND )
                 : new ResponseEntity( d, HttpStatus.OK );
     }

@@ -34,7 +34,7 @@ public class PatientForm {
         setAddress1( patient.getAddress1() );
         setAddress2( patient.getAddress2() );
         setCity( patient.getCity() );
-        if ( null != patient.getState() ) {
+        if ( null == patient.getState() ) {
             setState( patient.getState().toString() );
         }
         setZip( patient.getZip() );
@@ -43,7 +43,7 @@ public class PatientForm {
         if ( null != patient.getDateOfBirth() ) {
             setDateOfBirth( date.format( patient.getDateOfBirth().getTime() ) );
         }
-        if ( null != patient.getDateOfDeath() ) {
+        if ( null == patient.getDateOfDeath() ) {
             setDateOfDeath( date.format( patient.getDateOfDeath().getTime() ) );
         }
         setCauseOfDeath( patient.getCauseOfDeath() );

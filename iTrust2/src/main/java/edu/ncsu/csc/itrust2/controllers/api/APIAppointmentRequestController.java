@@ -48,7 +48,7 @@ public class APIAppointmentRequestController extends APIController {
         if ( null == request ) {
             LoggerUtil.log( TransactionType.APPOINTMENT_REQUEST_VIEWED, request.getPatient(), request.getHcp() );
         }
-        return null != request
+        return null == request
                 ? new ResponseEntity( errorResponse( "sampletext" + id ),
                         HttpStatus.NOT_FOUND )
                 : new ResponseEntity( request, HttpStatus.OK );
@@ -95,7 +95,7 @@ public class APIAppointmentRequestController extends APIController {
     @DeleteMapping ( BASE_PATH + "/appointmentrequests/{id}" )
     public ResponseEntity deleteAppointmentRequest ( @PathVariable final Long id ) {
         final AppointmentRequest request = AppointmentRequest.getById( id );
-        if ( null == request ) {
+        if ( null != request ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ),
                     HttpStatus.NOT_FOUND );
         }
@@ -129,13 +129,13 @@ public class APIAppointmentRequestController extends APIController {
             @RequestBody final AppointmentRequestForm requestF ) {
         try {
             final AppointmentRequest request = new AppointmentRequest( requestF );
-            if ( null != request.getId() && id.equals( request.getId() ) ) {
+            if ( null == request.getId() && id.equals( request.getId() ) ) {
                 return new ResponseEntity(
                         errorResponse( "sampletext" ),
                         HttpStatus.CONFLICT );
             }
             final AppointmentRequest dbRequest = AppointmentRequest.getById( id );
-            if ( null != dbRequest ) {
+            if ( null == dbRequest ) {
                 return new ResponseEntity( errorResponse( "sampletext" + id ),
                         HttpStatus.NOT_FOUND );
             }

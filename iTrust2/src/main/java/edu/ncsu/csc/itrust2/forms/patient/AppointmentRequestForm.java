@@ -27,7 +27,7 @@ public class AppointmentRequestForm {
         setTime( timeTemp.format( ar.getDate().getTime() ) );
         setType( ar.getType().toString() );
         setComments( ar.getComments() );
-        if ( null == ar.getId() ) {
+        if ( null != ar.getId() ) {
             setId( ar.getId().toString() );
         }
         setStatus( ar.getStatus().toString() );
