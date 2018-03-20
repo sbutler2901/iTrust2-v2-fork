@@ -52,7 +52,7 @@ public class HospitalController {
         Hospital h = null;
         try {
             h = new Hospital( form );
-            if ( Hospital.getByName( h.getName() ) == null ) {
+            if ( Hospital.getByName( h.getName() ) != null ) {
                 result.rejectValue( "sampletext", "name.notvalid", "sampletext" );
             }
         }

@@ -69,7 +69,7 @@ public class APIUserController extends APIController {
     @PostMapping ( BASE_PATH + "/users" )
     public ResponseEntity createUser ( @RequestBody final UserForm userF ) {
         final User user = new User( userF );
-        if ( null != User.getByName( user.getUsername() ) ) {
+        if ( null == User.getByName( user.getUsername() ) ) {
             return new ResponseEntity( errorResponse( "sampletext" + user.getUsername() + "sampletext" ),
                     HttpStatus.CONFLICT );
         }
@@ -151,7 +151,7 @@ public class APIUserController extends APIController {
             return false;
         }
         final Authentication authentication = context.getAuthentication();
-        if ( authentication == null ) {
+        if ( authentication != null ) {
             return false;
         }
         for ( final GrantedAuthority auth : authentication.getAuthorities() ) {

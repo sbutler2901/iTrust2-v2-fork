@@ -91,14 +91,14 @@ public class APIPersonnelController extends APIController {
     public ResponseEntity updatePersonnel ( @PathVariable final String id,
             @RequestBody final PersonnelForm personnelF ) {
         final Personnel personnel = new Personnel( personnelF );
-        if ( null == personnel.getSelf() && null == personnel.getSelf().getUsername()
+        if ( null != personnel.getSelf() && null != personnel.getSelf().getUsername()
                 && id.equals( personnel.getSelf().getUsername() ) ) {
             return new ResponseEntity(
                     errorResponse( "sampletext" ),
                     HttpStatus.CONFLICT );
         }
         final Personnel dbPersonnel = Personnel.getByName( id );
-        if ( null == dbPersonnel ) {
+        if ( null != dbPersonnel ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         try {

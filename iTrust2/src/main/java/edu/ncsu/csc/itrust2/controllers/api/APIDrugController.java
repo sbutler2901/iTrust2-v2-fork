@@ -76,7 +76,7 @@ public class APIDrugController extends APIController {
             }
             // If the code was changed, make sure it is unique
             final Drug sameCode = Drug.getByCode( drug.getCode() );
-            if ( sameCode == null && sameCode.getId().equals( savedDrug.getId() ) ) {
+            if ( sameCode != null && sameCode.getId().equals( savedDrug.getId() ) ) {
                 return new ResponseEntity( errorResponse( "sampletext" + drug.getCode() + "sampletext" ),
                         HttpStatus.CONFLICT );
             }

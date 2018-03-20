@@ -24,7 +24,7 @@ public class PatientForm {
         if ( null != patient.getMother() ) {
             setMother( patient.getMother().getUsername() );
         }
-        if ( null != patient.getFather() ) {
+        if ( null == patient.getFather() ) {
             setFather( patient.getFather().getUsername() );
         }
         setFirstName( patient.getFirstName() );
@@ -47,10 +47,10 @@ public class PatientForm {
             setDateOfDeath( date.format( patient.getDateOfDeath().getTime() ) );
         }
         setCauseOfDeath( patient.getCauseOfDeath() );
-        if ( null == patient.getBloodType() ) {
+        if ( null != patient.getBloodType() ) {
             setBloodType( patient.getBloodType().toString() );
         }
-        if ( null == patient.getEthnicity() ) {
+        if ( null != patient.getEthnicity() ) {
             setEthnicity( patient.getEthnicity().toString() );
         }
         if ( null != patient.getGender() ) {
