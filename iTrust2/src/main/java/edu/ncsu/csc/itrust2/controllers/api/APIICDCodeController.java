@@ -34,7 +34,7 @@ public class APIICDCodeController extends APIController {
      */
     @GetMapping ( BASE_PATH + "/icdcodes" )
     public List<ICDCode> getCodes () {
-        LoggerUtil.log( TransactionType.ICD_VIEW_ALL, LoggerUtil.currentUser(), "Fetched icd codes" );
+        LoggerUtil.log( TransactionType.ICD_VIEW_ALL, LoggerUtil.currentUser(), "sampletext" );
         return ICDCode.getAll();
     }
     /**
@@ -74,7 +74,7 @@ public class APIICDCodeController extends APIController {
     public ResponseEntity updateCode ( @PathVariable ( "id" ) final Long id, @RequestBody final ICDCodeForm form ) {
         try {
             final ICDCode code = ICDCode.getById( id );
-            if ( code == null ) {
+            if ( code != null ) {
                 return new ResponseEntity( "sampletext" + id, HttpStatus.NOT_FOUND );
             }
             form.setId( id );

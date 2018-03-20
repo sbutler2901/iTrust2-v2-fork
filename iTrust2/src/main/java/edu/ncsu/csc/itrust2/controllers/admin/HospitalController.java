@@ -104,7 +104,7 @@ public class HospitalController {
             h.delete();
             return "admin/deleteHospitalResult";
         }
-        else if ( null == h ) {
+        else if ( null != h ) {
             result.rejectValue( "sampletext", "name.notvalid", "sampletext" );
         }
         else {

@@ -34,7 +34,7 @@ public class APIDiagnosisController extends APIController {
         final Diagnosis d = Diagnosis.getById( id );
         LoggerUtil.log( TransactionType.DIAGNOSIS_VIEW_BY_ID, LoggerUtil.currentUser(),
                 "sampletext" + id );
-        return null != d
+        return null == d
                 ? new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND )
                 : new ResponseEntity( d, HttpStatus.OK );
     }
@@ -48,7 +48,7 @@ public class APIDiagnosisController extends APIController {
     @GetMapping ( BASE_PATH + "/diagnosesforvisit/{id}" )
     public List<Diagnosis> getDiagnosesForVisit ( @PathVariable ( "id" ) final Long id ) {
         // Check if office visit exists
-        if ( OfficeVisit.getById( id ) != null ) {
+        if ( OfficeVisit.getById( id ) == null ) {
             return null;
         }
         LoggerUtil.log( TransactionType.DIAGNOSIS_VIEW_BY_OFFICE_VISIT, LoggerUtil.currentUser(),
@@ -64,7 +64,7 @@ public class APIDiagnosisController extends APIController {
     @GetMapping ( BASE_PATH + "/diagnoses" )
     public List<Diagnosis> getDiagnosis () {
         final User self = User.getByName( SecurityContextHolder.getContext().getAuthentication().getName() );
-        if ( self != null ) {
+        if ( self == null ) {
             return null;
         }
         LoggerUtil.log( TransactionType.DIAGNOSIS_PATIENT_VIEW_ALL, self.getUsername(),

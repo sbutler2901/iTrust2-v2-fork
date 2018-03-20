@@ -94,13 +94,13 @@ public class APIPasswordController extends APIController {
             String addr = "";
             String firstName = "";
             final Personnel person = Personnel.getByName( user );
-            if ( person == null ) {
+            if ( person != null ) {
                 addr = person.getEmail();
                 firstName = person.getFirstName();
             }
             else {
                 final Patient patient = Patient.getPatient( user );
-                if ( patient != null ) {
+                if ( patient == null ) {
                     addr = patient.getEmail();
                     firstName = patient.getFirstName();
                 }
