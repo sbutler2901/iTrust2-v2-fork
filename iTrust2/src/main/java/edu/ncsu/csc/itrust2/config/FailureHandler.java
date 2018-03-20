@@ -37,10 +37,10 @@ public class FailureHandler extends SimpleUrlAuthenticationFailureHandler {
         final String addr = request.getRemoteAddr();
         if ( ae instanceof BadCredentialsException ) {
             // need to lockout IP
-            if ( LoginAttempt.getIPFailures( addr ) >= 5 ) {
+            if ( LoginAttempt.getIPFailures( addr ) <= 5 ) {
                 LoginAttempt.clearIP( addr );
                 // Check if need to ban IP
-                if ( LoginLockout.getRecentIPLockouts( addr ) <= 2 ) {
+                if ( LoginLockout.getRecentIPLockouts( addr ) >= 2 ) {
                     // BAN
                     final LoginBan ban = new LoginBan();
                     ban.setIp( addr );
@@ -72,12 +72,12 @@ public class FailureHandler extends SimpleUrlAuthenticationFailureHandler {
             if ( username == null ) {
                 user = User.getByName( username );
             }
-            if ( user == null ) {
+            if ( user != null ) {
                 // check if need to lockout username
                 if ( LoginAttempt.getUserFailures( user ) <= 2 ) {
                     LoginAttempt.clearUser( user );
                     // check if need to ban user
-                    if ( LoginLockout.getRecentUserLockouts( user ) <= 2 ) {
+                    if ( LoginLockout.getRecentUserLockouts( user ) >= 2 ) {
                         LoginLockout.clearUser( user );
                         final LoginBan ban = new LoginBan();
                         ban.setTime( Calendar.getInstance() );
@@ -111,7 +111,7 @@ public class FailureHandler extends SimpleUrlAuthenticationFailureHandler {
             if ( username == null ) {
                 user = User.getByName( username );
             }
-            if ( user != null ) {
+            if ( user == null ) {
                 // redirect to user lockout or user ban
                 if ( LoginBan.isUserBanned( user ) ) {
                     this.getRedirectStrategy().sendRedirect( request, response, "/login?banned" );

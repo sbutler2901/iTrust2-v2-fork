@@ -90,7 +90,7 @@ public class APIPatientController extends APIController {
     public ResponseEntity createPatient ( @RequestBody final PatientForm patientF ) {
         try {
             final Patient patient = new Patient( patientF );
-            if ( null == Patient.getPatient( patient.getSelf() ) ) {
+            if ( null != Patient.getPatient( patient.getSelf() ) ) {
                 return new ResponseEntity(
                         errorResponse( "sampletext" + patient.getSelf().getUsername() + "sampletext" ),
                         HttpStatus.CONFLICT );

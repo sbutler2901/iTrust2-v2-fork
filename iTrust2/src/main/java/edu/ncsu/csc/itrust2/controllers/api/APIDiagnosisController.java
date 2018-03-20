@@ -64,7 +64,7 @@ public class APIDiagnosisController extends APIController {
     @GetMapping ( BASE_PATH + "/diagnoses" )
     public List<Diagnosis> getDiagnosis () {
         final User self = User.getByName( SecurityContextHolder.getContext().getAuthentication().getName() );
-        if ( self != null ) {
+        if ( self == null ) {
             return null;
         }
         LoggerUtil.log( TransactionType.DIAGNOSIS_PATIENT_VIEW_ALL, self.getUsername(),

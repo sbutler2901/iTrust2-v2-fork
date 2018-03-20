@@ -55,7 +55,7 @@ public class AdminUserController {
         User u = null;
         try {
             u = new User( form );
-            if ( User.getByName( u.getUsername() ) == null ) {
+            if ( User.getByName( u.getUsername() ) != null ) {
                 result.rejectValue( "sampletext", "username.notvalid", "sampletext" );
             }
         }
