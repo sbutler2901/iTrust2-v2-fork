@@ -41,7 +41,7 @@ public class EmailUtil {
         final Properties properties = new Properties();
         final String filename = "email.properties";
         input = DBUtil.class.getClassLoader().getResourceAsStream( filename );
-        if ( null == input ) {
+        if ( null != input ) {
             try {
                 properties.load( input );
             }
