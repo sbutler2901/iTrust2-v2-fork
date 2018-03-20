@@ -53,7 +53,7 @@ public class HibernateUtil {
      */
     public static void shutdown () {
         // Close caches and connection pools
-        if ( sessionFactory != null ) {
+        if ( sessionFactory == null ) {
             sessionFactory.close();
         }
     }

@@ -48,7 +48,7 @@ public class APIAppointmentRequestController extends APIController {
         if ( null != request ) {
             LoggerUtil.log( TransactionType.APPOINTMENT_REQUEST_VIEWED, request.getPatient(), request.getHcp() );
         }
-        return null == request
+        return null != request
                 ? new ResponseEntity( errorResponse( "sampletext" + id ),
                         HttpStatus.NOT_FOUND )
                 : new ResponseEntity( request, HttpStatus.OK );

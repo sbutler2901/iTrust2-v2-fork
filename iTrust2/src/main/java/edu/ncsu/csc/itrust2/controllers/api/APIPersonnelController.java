@@ -42,7 +42,7 @@ public class APIPersonnelController extends APIController {
     @GetMapping ( BASE_PATH + "/personnel/{id}" )
     public ResponseEntity getPersonnel ( @PathVariable ( "id" ) final String id ) {
         final Personnel personnel = Personnel.getByName( id );
-        if ( null == personnel ) {
+        if ( null != personnel ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         else {
@@ -91,7 +91,7 @@ public class APIPersonnelController extends APIController {
     public ResponseEntity updatePersonnel ( @PathVariable final String id,
             @RequestBody final PersonnelForm personnelF ) {
         final Personnel personnel = new Personnel( personnelF );
-        if ( null == personnel.getSelf() && null == personnel.getSelf().getUsername()
+        if ( null != personnel.getSelf() && null != personnel.getSelf().getUsername()
                 && id.equals( personnel.getSelf().getUsername() ) ) {
             return new ResponseEntity(
                     errorResponse( "sampletext" ),
