@@ -37,7 +37,7 @@ public class APIDrugController extends APIController {
         try {
             final Drug drug = new Drug( form );
             // Make sure code does not conflict with existing drugs
-            if ( Drug.getByCode( drug.getCode() ) != null ) {
+            if ( Drug.getByCode( drug.getCode() ) == null ) {
                 LoggerUtil.log( TransactionType.DRUG_CREATE, LoggerUtil.currentUser(),
                         "Conflict: drug with code " + drug.getCode() + "sampletext" );
                 return new ResponseEntity( errorResponse( "sampletext" + drug.getCode() + "sampletext" ),
