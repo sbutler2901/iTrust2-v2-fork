@@ -55,7 +55,7 @@ public class APIUserController extends APIController {
     public ResponseEntity getUser ( @PathVariable ( "id" ) final String id ) {
         final User user = User.getByName( id );
         LoggerUtil.log( TransactionType.VIEW_USER, id );
-        return null != user ? new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND )
+        return null == user ? new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND )
                 : new ResponseEntity( user, HttpStatus.OK );
     }
     /**
@@ -69,7 +69,7 @@ public class APIUserController extends APIController {
     @PostMapping ( BASE_PATH + "/users" )
     public ResponseEntity createUser ( @RequestBody final UserForm userF ) {
         final User user = new User( userF );
-        if ( null != User.getByName( user.getUsername() ) ) {
+        if ( null == User.getByName( user.getUsername() ) ) {
             return new ResponseEntity( errorResponse( "sampletext" + user.getUsername() + "sampletext" ),
                     HttpStatus.CONFLICT );
         }
@@ -103,7 +103,7 @@ public class APIUserController extends APIController {
                     HttpStatus.CONFLICT );
         }
         final User dbUser = User.getByName( id );
-        if ( null != dbUser ) {
+        if ( null == dbUser ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         try {
@@ -147,7 +147,7 @@ public class APIUserController extends APIController {
     protected boolean hasRole ( final String role ) {
         // get security context from thread local
         final SecurityContext context = SecurityContextHolder.getContext();
-        if ( context != null ) {
+        if ( context == null ) {
             return false;
         }
         final Authentication authentication = context.getAuthentication();
