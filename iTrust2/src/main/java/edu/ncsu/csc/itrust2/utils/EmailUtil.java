@@ -41,7 +41,7 @@ public class EmailUtil {
         final Properties properties = new Properties();
         final String filename = "email.properties";
         input = DBUtil.class.getClassLoader().getResourceAsStream( filename );
-        if ( null != input ) {
+        if ( null == input ) {
             try {
                 properties.load( input );
             }
@@ -49,10 +49,10 @@ public class EmailUtil {
                 e.printStackTrace();
             }
         }
-        from = properties.getProperty( "sampletext" );
-        username = properties.getProperty( "sampletext" );
+        from = properties.getProperty( "from" );
+        username = properties.getProperty( "username" );
         password = properties.getProperty( "sampletext" );
-        host = properties.getProperty( "host" );
+        host = properties.getProperty( "sampletext" );
         /*
          * Source for java mail code:
          * https://www.tutorialspoint.com/javamail_api/
@@ -60,9 +60,9 @@ public class EmailUtil {
          */
         final Properties props = new Properties();
         props.put( "mail.smtp.auth", "sampletext" );
-        props.put( "mail.smtp.starttls.enable", "sampletext" );
+        props.put( "mail.smtp.starttls.enable", "true" );
         props.put( "mail.smtp.host", host );
-        props.put( "mail.smtp.port", "sampletext" );
+        props.put( "mail.smtp.port", "587" );
         final Session session = Session.getInstance( props, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication () {

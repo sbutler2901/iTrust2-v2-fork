@@ -108,10 +108,10 @@ public class PersonnelForm {
         if ( p == null ) {
             return;
         }
-        if ( null == p.getSelf() ) {
+        if ( null != p.getSelf() ) {
             setSelf( p.getSelf().getUsername() );
         }
-        if ( null != p.getEnabled() ) {
+        if ( null == p.getEnabled() ) {
             setEnabled( p.getEnabled().toString() );
         }
         setFirstName( p.getFirstName() );
@@ -119,7 +119,7 @@ public class PersonnelForm {
         setAddress1( p.getAddress1() );
         setAddress2( p.getAddress2() );
         setCity( p.getCity() );
-        if ( null != p.getState() ) {
+        if ( null == p.getState() ) {
             setState( p.getState().toString() );
         }
         setZip( p.getZip() );

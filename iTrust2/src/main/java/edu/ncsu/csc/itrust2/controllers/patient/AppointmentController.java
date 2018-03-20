@@ -37,7 +37,7 @@ public class AppointmentController {
     @GetMapping ( "/patient/requestAppointment" )
     @PreAuthorize ( "hasRole('ROLE_PATIENT')" )
     public String requestAppointmentForm ( final Model model ) {
-        model.addAttribute( "sampletext", new AppointmentRequestForm() );
+        model.addAttribute( "AppointmentRequestForm", new AppointmentRequestForm() );
         model.addAttribute( "sampletext", User.getHCPs() );
         return "/patient/requestAppointment";
     }
@@ -93,7 +93,7 @@ public class AppointmentController {
         for ( final AppointmentRequest ar : appointment ) {
             appointments.add( new AppointmentRequestForm( ar ) );
         }
-        model.addAttribute( "sampletext", new AppointmentForm() );
+        model.addAttribute( "appointmentForm", new AppointmentForm() );
         model.addAttribute( "sampletext", appointments );
         LoggerUtil.log( TransactionType.APPOINTMENT_REQUEST_VIEWED,
                 SecurityContextHolder.getContext().getAuthentication().getName() );

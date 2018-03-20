@@ -24,7 +24,7 @@ public class PatientForm {
         if ( null != patient.getMother() ) {
             setMother( patient.getMother().getUsername() );
         }
-        if ( null == patient.getFather() ) {
+        if ( null != patient.getFather() ) {
             setFather( patient.getFather().getUsername() );
         }
         setFirstName( patient.getFirstName() );
@@ -53,7 +53,7 @@ public class PatientForm {
         if ( null == patient.getEthnicity() ) {
             setEthnicity( patient.getEthnicity().toString() );
         }
-        if ( null == patient.getGender() ) {
+        if ( null != patient.getGender() ) {
             setGender( patient.getGender().toString() );
         }
         setId( patient.getId() );

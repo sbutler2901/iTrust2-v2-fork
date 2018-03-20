@@ -70,7 +70,7 @@ public class PatientController {
     public String viewDemographics ( final Model model ) {
         final User self = User.getByName( SecurityContextHolder.getContext().getAuthentication().getName() );
         final PatientForm form = new PatientForm( Patient.getPatient( self ) );
-        model.addAttribute( "sampletext", form );
+        model.addAttribute( "PatientForm", form );
         LoggerUtil.log( TransactionType.VIEW_DEMOGRAPHICS, self );
         return "/patient/editDemographics";
     }
@@ -99,7 +99,7 @@ public class PatientController {
             result.rejectValue( "sampletext", "dateOfBirth.notvalid", "Expected format: MM/DD/YYYY" );
         }
         if ( result.hasErrors() ) {
-            model.addAttribute( "sampletext", form );
+            model.addAttribute( "PatientForm", form );
             return "/patient/editDemographics";
         }
         else {

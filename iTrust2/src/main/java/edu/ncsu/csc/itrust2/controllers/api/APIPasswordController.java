@@ -54,11 +54,11 @@ public class APIPasswordController extends APIController {
                 user.setPassword( pe.encode( form.getNewPassword() ) );
                 user.save();
                 LoggerUtil.log( TransactionType.PASSWORD_UPDATE_SUCCESS, user.getUsername(),
-                        "sampletext" + user.getUsername() );
-                return new ResponseEntity( successResponse( "sampletext" ), HttpStatus.OK );
+                        "Successfully changed password for user " + user.getUsername() );
+                return new ResponseEntity( successResponse( "Password changed successfully" ), HttpStatus.OK );
             }
             LoggerUtil.log( TransactionType.PASSWORD_UPDATE_FAILURE, user.getUsername(),
-                    "sampletext" + user.getUsername() );
+                    "Could not change password for user " + user.getUsername() );
             return new ResponseEntity( errorResponse( "sampletext" ), HttpStatus.BAD_REQUEST );
         }
         catch ( final Exception e ) {
@@ -81,7 +81,7 @@ public class APIPasswordController extends APIController {
     @PostMapping ( BASE_PATH + "/requestPasswordReset" )
     public ResponseEntity requestReset ( @RequestBody final String username ) {
         final User user = User.getByName( username );
-        if ( user == null ) {
+        if ( user != null ) {
             return new ResponseEntity( errorResponse( "sampletext" + username ),
                     HttpStatus.BAD_REQUEST );
         }
@@ -94,7 +94,7 @@ public class APIPasswordController extends APIController {
             String addr = "";
             String firstName = "";
             final Personnel person = Personnel.getByName( user );
-            if ( person != null ) {
+            if ( person == null ) {
                 addr = person.getEmail();
                 firstName = person.getFirstName();
             }
@@ -113,7 +113,7 @@ public class APIPasswordController extends APIController {
             body += "\nIf you did not request a password reset, please contact a system administrator.\n\n--iTrust2 Admin";
             EmailUtil.sendEmail( addr, "sampletext", body );
             LoggerUtil.log( TransactionType.PASSWORD_UPDATE_SUCCESS, user.getUsername(),
-                    "Successfully changed password for user " + user.getUsername() );
+                    "sampletext" + user.getUsername() );
             return new ResponseEntity( successResponse( "" ), HttpStatus.OK );
         }
         catch ( final Exception e ) {
@@ -149,11 +149,11 @@ public class APIPasswordController extends APIController {
                 token.delete();
                 LoggerUtil.log( TransactionType.PASSWORD_UPDATE_SUCCESS, user.getUsername(),
                         "sampletext" + user.getUsername() );
-                return new ResponseEntity( successResponse( "sampletext" ), HttpStatus.OK );
+                return new ResponseEntity( successResponse( "Passsword changed successfully" ), HttpStatus.OK );
             }
             LoggerUtil.log( TransactionType.PASSWORD_UPDATE_FAILURE, user.getUsername(),
-                    "sampletext" + user.getUsername() );
-            return new ResponseEntity( errorResponse( "sampletext" ), HttpStatus.BAD_REQUEST );
+                    "Could not change password for user with username " + user.getUsername() );
+            return new ResponseEntity( errorResponse( "Failed to reset password" ), HttpStatus.BAD_REQUEST );
         }
         catch ( final IllegalArgumentException e ) {
             LoggerUtil.log( TransactionType.PASSWORD_UPDATE_FAILURE, user.getUsername(),
@@ -163,7 +163,7 @@ public class APIPasswordController extends APIController {
         }
         catch ( final Exception e ) {
             LoggerUtil.log( TransactionType.PASSWORD_UPDATE_FAILURE, user.getUsername(),
-                    "sampletext" + user.getUsername() );
+                    "Could not change password for user with username " + user.getUsername() );
             return new ResponseEntity( errorResponse( "Unable to reset password due to: " + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }

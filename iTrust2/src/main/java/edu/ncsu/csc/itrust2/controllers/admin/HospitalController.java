@@ -31,7 +31,7 @@ public class HospitalController {
     @RequestMapping ( value = "admin/addHospital" )
     @PreAuthorize ( "hasRole('ROLE_ADMIN')" )
     public String addHospital ( final Model model ) {
-        model.addAttribute( "sampletext", new HospitalForm() );
+        model.addAttribute( "HospitalForm", new HospitalForm() );
         return "/admin/addHospital";
     }
     /**

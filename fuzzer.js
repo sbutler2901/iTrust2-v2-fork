@@ -146,4 +146,4 @@ const mainForFuzzing = (n) => {
     }
 }
 
-mainForFuzzing(3);
+mainForFuzzing(30);

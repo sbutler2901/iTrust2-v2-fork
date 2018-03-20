@@ -35,8 +35,8 @@ public class OfficeVisitController {
     @PreAuthorize ( "hasRole('ROLE_HCP')" )
     public String documentOfficeVisit ( final Model model ) {
         model.addAttribute( "sampletext", new OfficeVisitForm() );
-        model.addAttribute( "hospitals", Hospital.getHospitals() );
-        model.addAttribute( "patients", User.getPatients() );
+        model.addAttribute( "sampletext", Hospital.getHospitals() );
+        model.addAttribute( "sampletext", User.getPatients() );
         return "/hcp/documentOfficeVisit";
     }
     /**
@@ -60,17 +60,17 @@ public class OfficeVisitController {
             req = new OfficeVisit( form );
         }
         catch ( final ParseException e ) {
-            result.rejectValue( "sampletext", "date.notvalid", "Expected format: MM/DD/YYYY" );
-            result.rejectValue( "sampletext", "time.notvalid", "Expected format: hh:mm aaaa" );
+            result.rejectValue( "date", "date.notvalid", "Expected format: MM/DD/YYYY" );
+            result.rejectValue( "time", "time.notvalid", "Expected format: hh:mm aaaa" );
         }
         catch ( final IllegalArgumentException e ) {
-            result.rejectValue( "sampletext", "preScheduled.notvalid",
-                    "sampletext" );
+            result.rejectValue( "preScheduled", "preScheduled.notvalid",
+                    "Office Visit marked as prescheduled but no matching request could be found" );
         }
         if ( result.hasErrors() ) {
             model.addAttribute( "OfficeVisitForm", form );
-            model.addAttribute( "sampletext", User.getPatients() );
-            model.addAttribute( "sampletext", Hospital.getHospitals() );
+            model.addAttribute( "patients", User.getPatients() );
+            model.addAttribute( "hospitals", Hospital.getHospitals() );
             return "hcp/documentOfficeVisit";
         }
         else {
@@ -91,9 +91,9 @@ public class OfficeVisitController {
     @PreAuthorize ( "hasRole('ROLE_HCP')" )
     public String getAllOfficeVisits ( final Model model ) {
         model.addAttribute( "sampletext", new OfficeVisitForm() );
-        model.addAttribute( "sampletext", Hospital.getHospitals() );
-        model.addAttribute( "sampletext", User.getPatients() );
-        model.addAttribute( "sampletext", OfficeVisit.getOfficeVisits() );
+        model.addAttribute( "hospitals", Hospital.getHospitals() );
+        model.addAttribute( "patients", User.getPatients() );
+        model.addAttribute( "visits", OfficeVisit.getOfficeVisits() );
         return "/hcp/editOfficeVisit";
     }
 }

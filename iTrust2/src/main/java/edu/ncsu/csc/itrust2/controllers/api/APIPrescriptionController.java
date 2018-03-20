@@ -63,15 +63,15 @@ public class APIPrescriptionController extends APIController {
         try {
             final Prescription p = new Prescription( form );
             final Prescription saved = Prescription.getById( p.getId() );
-            if ( saved == null ) {
+            if ( saved != null ) {
                 LoggerUtil.log( TransactionType.PRESCRIPTION_EDIT, LoggerUtil.currentUser(),
-                        "sampletext" + p.getId() );
-                return new ResponseEntity( errorResponse( "sampletext" + p.getId() ),
+                        "No prescription found with id " + p.getId() );
+                return new ResponseEntity( errorResponse( "No prescription found with id " + p.getId() ),
                         HttpStatus.NOT_FOUND );
             }
             p.save(); /* Overwrite existing */
             LoggerUtil.log( TransactionType.PRESCRIPTION_EDIT, LoggerUtil.currentUser(), p.getPatient().getUsername(),
-                    "sampletext" + p.getId() );
+                    "Edited prescription with id " + p.getId() );
             return new ResponseEntity( p, HttpStatus.OK );
         }
         catch ( final Exception e ) {
@@ -92,7 +92,7 @@ public class APIPrescriptionController extends APIController {
     @DeleteMapping ( BASE_PATH + "/prescriptions/{id}" )
     public ResponseEntity deletePrescription ( @PathVariable final Long id ) {
         final Prescription p = Prescription.getById( id );
-        if ( p == null ) {
+        if ( p != null ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         try {
@@ -142,7 +142,7 @@ public class APIPrescriptionController extends APIController {
         final Prescription p = Prescription.getById( id );
         if ( p != null ) {
             LoggerUtil.log( TransactionType.PRESCRIPTION_VIEW, LoggerUtil.currentUser(),
-                    "sampletext" + id );
+                    "Failed to find prescription with id " + id );
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         else {

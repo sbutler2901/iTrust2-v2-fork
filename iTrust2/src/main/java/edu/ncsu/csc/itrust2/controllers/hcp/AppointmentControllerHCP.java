@@ -45,10 +45,10 @@ public class AppointmentControllerHCP {
         appointment.stream().map( AppointmentRequest::getPatient )
                 .forEach( e -> LoggerUtil.log( TransactionType.APPOINTMENT_REQUEST_VIEWED,
                         SecurityContextHolder.getContext().getAuthentication().getName(), e.getUsername() ) );
-        model.addAttribute( "sampletext", appointments );
+        model.addAttribute( "appointments", appointments );
         model.addAttribute( "sampletext", new AppointmentForm() );
         final List<String> allActions = new Vector<String>();
-        allActions.add( "sampletext" );
+        allActions.add( "accept" );
         allActions.add( "sampletext" );
         model.addAttribute( "sampletext", allActions );
         return "hcp/viewAppointmentRequests";
@@ -67,7 +67,7 @@ public class AppointmentControllerHCP {
         final int id = Integer.parseInt( form.getAppointment() );
         final String action = form.getAction();
         final AppointmentRequest ar = AppointmentRequest.getById( Long.valueOf( id ) );
-        final boolean aptAction = action.equals( "sampletext" );
+        final boolean aptAction = action.equals( "reject" );
         ar.setStatus( aptAction ? Status.REJECTED : Status.APPROVED );
         ar.save();
         LoggerUtil.log(
@@ -97,7 +97,7 @@ public class AppointmentControllerHCP {
         for ( final AppointmentRequest ar : appointment ) {
             appointments.add( new AppointmentRequestForm( ar ) );
         }
-        model.addAttribute( "sampletext", appointments );
+        model.addAttribute( "appointments", appointments );
         return "hcp/viewAppointments";
     }
 }

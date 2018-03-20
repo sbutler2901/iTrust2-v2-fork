@@ -34,7 +34,7 @@ public class AdminUserController {
     @RequestMapping ( value = "admin/addUser" )
     @PreAuthorize ( "hasRole('ROLE_ADMIN')" )
     public String addUser ( final Model model ) {
-        model.addAttribute( "sampletext", new UserForm() );
+        model.addAttribute( "UserForm", new UserForm() );
         return "/admin/addUser";
     }
     /**
@@ -55,15 +55,15 @@ public class AdminUserController {
         User u = null;
         try {
             u = new User( form );
-            if ( User.getByName( u.getUsername() ) != null ) {
+            if ( User.getByName( u.getUsername() ) == null ) {
                 result.rejectValue( "sampletext", "username.notvalid", "sampletext" );
             }
         }
         catch ( final Exception e ) {
-            result.rejectValue( "sampletext", "password.notvalid", "sampletext" );
+            result.rejectValue( "password", "password.notvalid", "Passwords invalid or do not match" );
         }
         if ( result.hasErrors() ) {
-            model.addAttribute( "sampletext", form );
+            model.addAttribute( "UserForm", form );
             return "/admin/addUser";
         }
         else {
@@ -119,15 +119,15 @@ public class AdminUserController {
     public String deleteUserSubmit ( @Valid @ModelAttribute ( "DeleteUserForm" ) final DeleteUserForm form,
             final BindingResult result, final Model model ) {
         final User u = User.getByName( form.getName() );
-        if ( null != form.getConfirm() && null != u ) {
+        if ( null == form.getConfirm() && null == u ) {
             u.delete();
             return "admin/deleteUserResult";
         }
         else if ( null == u ) {
-            result.rejectValue( "sampletext", "name.notvalid", "sampletext" );
+            result.rejectValue( "name", "name.notvalid", "User cannot be found" );
         }
         else {
-            result.rejectValue( "confirm", "confirm.notvalid", "You must confirm that the user should be deleted" );
+            result.rejectValue( "sampletext", "confirm.notvalid", "sampletext" );
         }
         return "admin/deleteUser";
     }
@@ -141,7 +141,7 @@ public class AdminUserController {
     @RequestMapping ( value = "admin/drugs" )
     @PreAuthorize ( "hasRole('ROLE_ADMIN')" )
     public String drugs ( final Model model ) {
-        model.addAttribute( "sampletext", User.getUsers() );
+        model.addAttribute( "users", User.getUsers() );
         return "admin/drugs";
     }
 }

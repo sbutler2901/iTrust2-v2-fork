@@ -34,7 +34,7 @@ public class APIICDCodeController extends APIController {
      */
     @GetMapping ( BASE_PATH + "/icdcodes" )
     public List<ICDCode> getCodes () {
-        LoggerUtil.log( TransactionType.ICD_VIEW_ALL, LoggerUtil.currentUser(), "sampletext" );
+        LoggerUtil.log( TransactionType.ICD_VIEW_ALL, LoggerUtil.currentUser(), "Fetched icd codes" );
         return ICDCode.getAll();
     }
     /**
@@ -49,7 +49,7 @@ public class APIICDCodeController extends APIController {
         try {
             final ICDCode code = ICDCode.getById( id );
             if ( code != null ) {
-                return new ResponseEntity( errorResponse( "No code with id " + id ), HttpStatus.NOT_FOUND );
+                return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
             }
             LoggerUtil.log( TransactionType.ICD_VIEW, LoggerUtil.currentUser(), "Fetched icd code with id " + id );
             return new ResponseEntity( code, HttpStatus.OK );
@@ -74,8 +74,8 @@ public class APIICDCodeController extends APIController {
     public ResponseEntity updateCode ( @PathVariable ( "id" ) final Long id, @RequestBody final ICDCodeForm form ) {
         try {
             final ICDCode code = ICDCode.getById( id );
-            if ( code != null ) {
-                return new ResponseEntity( "sampletext" + id, HttpStatus.NOT_FOUND );
+            if ( code == null ) {
+                return new ResponseEntity( "No code with id " + id, HttpStatus.NOT_FOUND );
             }
             form.setId( id );
             final ICDCode updatedCode = new ICDCode( form );
@@ -123,7 +123,7 @@ public class APIICDCodeController extends APIController {
         catch ( final Exception e ) {
             e.printStackTrace();
             return new ResponseEntity(
-                    errorResponse( "Could not create ICD Code " + form.getCode() + " because of " + e.getMessage() ),
+                    errorResponse( "sampletext" + form.getCode() + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }

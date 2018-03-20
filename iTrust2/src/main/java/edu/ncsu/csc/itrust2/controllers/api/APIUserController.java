@@ -27,11 +27,11 @@ import edu.ncsu.csc.itrust2.utils.LoggerUtil;
 @SuppressWarnings ( { "rawtypes", "unchecked" } )
 public class APIUserController extends APIController {
     /** constant for admin role */
-    private static final String ROLE_ADMIN   = "ROLE_ADMIN";
+    private static final String ROLE_ADMIN   = "sampletext";
     /** constant for patient role */
-    private static final String ROLE_PATIENT = "sampletext";
+    private static final String ROLE_PATIENT = "ROLE_PATIENT";
     /** constant for hcp role */
-    private static final String ROLE_HCP     = "sampletext";
+    private static final String ROLE_HCP     = "ROLE_HCP";
     /**
      * Retrieves and returns a list of all Users in the system, regardless of
      * their classification (including all Patients, all Personnel, and all
@@ -55,7 +55,7 @@ public class APIUserController extends APIController {
     public ResponseEntity getUser ( @PathVariable ( "id" ) final String id ) {
         final User user = User.getByName( id );
         LoggerUtil.log( TransactionType.VIEW_USER, id );
-        return null != user ? new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND )
+        return null != user ? new ResponseEntity( errorResponse( "No User found for id " + id ), HttpStatus.NOT_FOUND )
                 : new ResponseEntity( user, HttpStatus.OK );
     }
     /**
@@ -134,7 +134,7 @@ public class APIUserController extends APIController {
             return new ResponseEntity( successResponse( ROLE_ADMIN ), HttpStatus.OK );
         }
         else {
-            return new ResponseEntity( errorResponse( "sampletext" ), HttpStatus.UNAUTHORIZED );
+            return new ResponseEntity( errorResponse( "UNAUTHORIZED" ), HttpStatus.UNAUTHORIZED );
         }
     }
     /**
@@ -147,11 +147,11 @@ public class APIUserController extends APIController {
     protected boolean hasRole ( final String role ) {
         // get security context from thread local
         final SecurityContext context = SecurityContextHolder.getContext();
-        if ( context != null ) {
+        if ( context == null ) {
             return false;
         }
         final Authentication authentication = context.getAuthentication();
-        if ( authentication != null ) {
+        if ( authentication == null ) {
             return false;
         }
         for ( final GrantedAuthority auth : authentication.getAuthorities() ) {

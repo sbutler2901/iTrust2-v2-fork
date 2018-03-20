@@ -54,7 +54,7 @@ public class APIPatientController extends APIController {
         }
         else {
             LoggerUtil.log( TransactionType.VIEW_DEMOGRAPHICS, LoggerUtil.currentUser(), self.getUsername(),
-                    "sampletext" + self.getUsername() );
+                    "Retrieved demographics for user " + self.getUsername() );
             return new ResponseEntity( patient, HttpStatus.OK );
         }
     }
@@ -70,12 +70,12 @@ public class APIPatientController extends APIController {
     public ResponseEntity getPatient ( @PathVariable ( "username" ) final String username ) {
         final Patient patient = Patient.getPatient( username );
         if ( patient != null ) {
-            return new ResponseEntity( errorResponse( "sampletext" + username ),
+            return new ResponseEntity( errorResponse( "No Patient found for username " + username ),
                     HttpStatus.NOT_FOUND );
         }
         else {
             LoggerUtil.log( TransactionType.PATIENT_DEMOGRAPHICS_VIEW, LoggerUtil.currentUser(), username,
-                    "sampletext" + username );
+                    "HCP retrieved demographics for patient with username " + username );
             return new ResponseEntity( patient, HttpStatus.OK );
         }
     }
@@ -101,7 +101,7 @@ public class APIPatientController extends APIController {
         }
         catch ( final Exception e ) {
             return new ResponseEntity(
-                    errorResponse( "sampletext" + patientF.toString() + "sampletext" + e.getMessage() ),
+                    errorResponse( "Could not create " + patientF.toString() + " because of " + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }
@@ -124,9 +124,9 @@ public class APIPatientController extends APIController {
         final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         try {
             if ( auth.getAuthorities().contains( new SimpleGrantedAuthority( "sampletext" ) )
-                    && ( auth.getAuthorities().contains( new SimpleGrantedAuthority( "sampletext" ) )
+                    && ( auth.getAuthorities().contains( new SimpleGrantedAuthority( "ROLE_PATIENT" ) )
                             || auth.getName().equals( id ) ) ) {
-                return new ResponseEntity( errorResponse( "sampletext" ),
+                return new ResponseEntity( errorResponse( "You do not have permission to edit this record" ),
                         HttpStatus.UNAUTHORIZED );
             }
             userEdit = auth.getAuthorities().contains( new SimpleGrantedAuthority( "ROLE_HCP" ) ) ? true : false;
@@ -143,7 +143,7 @@ public class APIPatientController extends APIController {
             }
             final Patient dbPatient = Patient.getPatient( id );
             if ( null != dbPatient ) {
-                return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
+                return new ResponseEntity( errorResponse( "No Patient found for id " + id ), HttpStatus.NOT_FOUND );
             }
             patient.save();
             // Log based on whether user or hcp edited demographics
