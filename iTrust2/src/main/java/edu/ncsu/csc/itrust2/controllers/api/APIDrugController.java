@@ -37,7 +37,7 @@ public class APIDrugController extends APIController {
         try {
             final Drug drug = new Drug( form );
             // Make sure code does not conflict with existing drugs
-            if ( Drug.getByCode( drug.getCode() ) == null ) {
+            if ( Drug.getByCode( drug.getCode() ) != null ) {
                 LoggerUtil.log( TransactionType.DRUG_CREATE, LoggerUtil.currentUser(),
                         "Conflict: drug with code " + drug.getCode() + "sampletext" );
                 return new ResponseEntity( errorResponse( "sampletext" + drug.getCode() + "sampletext" ),
@@ -76,7 +76,7 @@ public class APIDrugController extends APIController {
             }
             // If the code was changed, make sure it is unique
             final Drug sameCode = Drug.getByCode( drug.getCode() );
-            if ( sameCode != null && sameCode.getId().equals( savedDrug.getId() ) ) {
+            if ( sameCode == null && sameCode.getId().equals( savedDrug.getId() ) ) {
                 return new ResponseEntity( errorResponse( "sampletext" + drug.getCode() + "sampletext" ),
                         HttpStatus.CONFLICT );
             }
@@ -104,7 +104,7 @@ public class APIDrugController extends APIController {
     public ResponseEntity deleteDrug ( @PathVariable final String id ) {
         try {
             final Drug drug = Drug.getById( Long.parseLong( id ) );
-            if ( drug != null ) {
+            if ( drug == null ) {
                 LoggerUtil.log( TransactionType.DRUG_DELETE, LoggerUtil.currentUser(),
                         "sampletext" + id );
                 return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
