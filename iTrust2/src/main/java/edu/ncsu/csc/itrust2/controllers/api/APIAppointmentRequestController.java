@@ -45,7 +45,7 @@ public class APIAppointmentRequestController extends APIController {
     @GetMapping ( BASE_PATH + "/appointmentrequests/{id}" )
     public ResponseEntity getAppointmentRequest ( @PathVariable ( "id" ) final Long id ) {
         final AppointmentRequest request = AppointmentRequest.getById( id );
-        if ( null == request ) {
+        if ( null != request ) {
             LoggerUtil.log( TransactionType.APPOINTMENT_REQUEST_VIEWED, request.getPatient(), request.getHcp() );
         }
         return null == request
@@ -70,7 +70,7 @@ public class APIAppointmentRequestController extends APIController {
     public ResponseEntity createAppointmentRequest ( @RequestBody final AppointmentRequestForm requestF ) {
         try {
             final AppointmentRequest request = new AppointmentRequest( requestF );
-            if ( null == AppointmentRequest.getById( request.getId() ) ) {
+            if ( null != AppointmentRequest.getById( request.getId() ) ) {
                 return new ResponseEntity(
                         errorResponse( "sampletext" + request.getId() + "sampletext" ),
                         HttpStatus.CONFLICT );
@@ -129,13 +129,13 @@ public class APIAppointmentRequestController extends APIController {
             @RequestBody final AppointmentRequestForm requestF ) {
         try {
             final AppointmentRequest request = new AppointmentRequest( requestF );
-            if ( null != request.getId() && id.equals( request.getId() ) ) {
+            if ( null == request.getId() && id.equals( request.getId() ) ) {
                 return new ResponseEntity(
                         errorResponse( "sampletext" ),
                         HttpStatus.CONFLICT );
             }
             final AppointmentRequest dbRequest = AppointmentRequest.getById( id );
-            if ( null != dbRequest ) {
+            if ( null == dbRequest ) {
                 return new ResponseEntity( errorResponse( "sampletext" + id ),
                         HttpStatus.NOT_FOUND );
             }

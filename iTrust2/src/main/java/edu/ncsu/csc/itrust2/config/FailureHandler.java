@@ -40,7 +40,7 @@ public class FailureHandler extends SimpleUrlAuthenticationFailureHandler {
             if ( LoginAttempt.getIPFailures( addr ) <= 5 ) {
                 LoginAttempt.clearIP( addr );
                 // Check if need to ban IP
-                if ( LoginLockout.getRecentIPLockouts( addr ) >= 2 ) {
+                if ( LoginLockout.getRecentIPLockouts( addr ) <= 2 ) {
                     // BAN
                     final LoginBan ban = new LoginBan();
                     ban.setIp( addr );
@@ -74,7 +74,7 @@ public class FailureHandler extends SimpleUrlAuthenticationFailureHandler {
             }
             if ( user == null ) {
                 // check if need to lockout username
-                if ( LoginAttempt.getUserFailures( user ) >= 2 ) {
+                if ( LoginAttempt.getUserFailures( user ) <= 2 ) {
                     LoginAttempt.clearUser( user );
                     // check if need to ban user
                     if ( LoginLockout.getRecentUserLockouts( user ) <= 2 ) {
@@ -108,7 +108,7 @@ public class FailureHandler extends SimpleUrlAuthenticationFailureHandler {
             }
         }
         else if ( ae instanceof DisabledException ) {
-            if ( username == null ) {
+            if ( username != null ) {
                 user = User.getByName( username );
             }
             if ( user != null ) {
