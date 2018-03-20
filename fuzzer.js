@@ -127,7 +127,7 @@ const mainForFuzzing = (n) => {
     for (var i = 0; i < n; i++) {
         console.log("About to fuz sha %s", sha1);
         let javaFiles = getJavaFiles(__dirname + '/iTrust2/src/main/java/edu/ncsu/csc/itrust2');
-        //rollbackAndResetCommit(sha1)
+        rollbackAndResetCommit(sha1)
         //reset(master_sha1);
         javaFiles.forEach(javaFile =>{
             let rnd = Math.random();
@@ -142,7 +142,7 @@ const mainForFuzzing = (n) => {
         //rebase();
         //revert(sha1);
         let lastCommitSha1 = commitFuzzer(master_sha1, i);
-        checkout(sha1);
+        //checkout(sha1);
         //revert(sha1);
         //rebase();
         //triggerBuild(githubURL, jenkinsIP, jenkinsToken, lastCommitSha1)
