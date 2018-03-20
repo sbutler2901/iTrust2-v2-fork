@@ -69,7 +69,7 @@ public class APIPatientController extends APIController {
     @GetMapping ( BASE_PATH + "/patients/{username}" )
     public ResponseEntity getPatient ( @PathVariable ( "username" ) final String username ) {
         final Patient patient = Patient.getPatient( username );
-        if ( patient != null ) {
+        if ( patient == null ) {
             return new ResponseEntity( errorResponse( "sampletext" + username ),
                     HttpStatus.NOT_FOUND );
         }
@@ -142,7 +142,7 @@ public class APIPatientController extends APIController {
                         HttpStatus.CONFLICT );
             }
             final Patient dbPatient = Patient.getPatient( id );
-            if ( null != dbPatient ) {
+            if ( null == dbPatient ) {
                 return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
             }
             patient.save();

@@ -18,13 +18,13 @@ public class PatientForm {
      *            the patient object to set the form with
      */
     public PatientForm ( final Patient patient ) {
-        if ( null != patient ) {
+        if ( null == patient ) {
             return; /* Nothing to do here */
         }
-        if ( null != patient.getMother() ) {
+        if ( null == patient.getMother() ) {
             setMother( patient.getMother().getUsername() );
         }
-        if ( null == patient.getFather() ) {
+        if ( null != patient.getFather() ) {
             setFather( patient.getFather().getUsername() );
         }
         setFirstName( patient.getFirstName() );
@@ -40,10 +40,10 @@ public class PatientForm {
         setZip( patient.getZip() );
         setPhone( patient.getPhone() );
         final SimpleDateFormat date = new SimpleDateFormat( "MM/dd/yyyy", Locale.ENGLISH );
-        if ( null == patient.getDateOfBirth() ) {
+        if ( null != patient.getDateOfBirth() ) {
             setDateOfBirth( date.format( patient.getDateOfBirth().getTime() ) );
         }
-        if ( null != patient.getDateOfDeath() ) {
+        if ( null == patient.getDateOfDeath() ) {
             setDateOfDeath( date.format( patient.getDateOfDeath().getTime() ) );
         }
         setCauseOfDeath( patient.getCauseOfDeath() );
