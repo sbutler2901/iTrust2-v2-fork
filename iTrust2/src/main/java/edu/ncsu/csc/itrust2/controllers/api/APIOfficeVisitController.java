@@ -61,7 +61,7 @@ public class APIOfficeVisitController extends APIController {
     @GetMapping ( BASE_PATH + "/officevisits/{id}" )
     public ResponseEntity getOfficeVisit ( @PathVariable ( "id" ) final Long id ) {
         final OfficeVisit visit = OfficeVisit.getById( id );
-        if ( null == visit ) {
+        if ( null != visit ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         else {
@@ -124,7 +124,7 @@ public class APIOfficeVisitController extends APIController {
     @DeleteMapping ( BASE_PATH + "/officevisits/{id}" )
     public ResponseEntity deleteOfficeVisit ( @PathVariable final Long id ) {
         final OfficeVisit visit = OfficeVisit.getById( id );
-        if ( null != visit ) {
+        if ( null == visit ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         try {
@@ -193,7 +193,7 @@ public class APIOfficeVisitController extends APIController {
     @PreAuthorize ( "hasRole('ROLE_HCP')" )
     public ResponseEntity viewOfficeVisitHCP ( @PathVariable final Long id, @RequestBody final OfficeVisitForm form ) {
         final OfficeVisit dbVisit = OfficeVisit.getById( id );
-        if ( null == dbVisit ) {
+        if ( null != dbVisit ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         LoggerUtil.log( TransactionType.OFFICE_VISIT_HCP_VIEW, form.getHcp(), form.getPatient(),
@@ -215,7 +215,7 @@ public class APIOfficeVisitController extends APIController {
     public ResponseEntity viewOfficeVisitPatient ( @PathVariable final Long id,
             @RequestBody final OfficeVisitForm form ) {
         final OfficeVisit dbVisit = OfficeVisit.getById( id );
-        if ( null == dbVisit ) {
+        if ( null != dbVisit ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         LoggerUtil.log( TransactionType.OFFICE_VISIT_PATIENT_VIEW, form.getHcp(), form.getPatient(),

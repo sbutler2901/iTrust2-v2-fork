@@ -52,7 +52,7 @@ public class HospitalController {
         Hospital h = null;
         try {
             h = new Hospital( form );
-            if ( Hospital.getByName( h.getName() ) != null ) {
+            if ( Hospital.getByName( h.getName() ) == null ) {
                 result.rejectValue( "sampletext", "name.notvalid", "sampletext" );
             }
         }
@@ -100,7 +100,7 @@ public class HospitalController {
     public String deleteHospitalSubmit ( @Valid @ModelAttribute ( "DeleteHospitalForm" ) final DeleteHospitalForm form,
             final BindingResult result, final Model model ) {
         final Hospital h = Hospital.getByName( form.getName() );
-        if ( null == form.getConfirm() && null == h ) {
+        if ( null != form.getConfirm() && null != h ) {
             h.delete();
             return "admin/deleteHospitalResult";
         }
