@@ -59,7 +59,7 @@ public class EmailUtil {
          * javamail_api_gmail_smtp_server.htm
          */
         final Properties props = new Properties();
-        props.put( "mail.smtp.auth", "true" );
+        props.put( "mail.smtp.auth", "sampletext" );
         props.put( "mail.smtp.starttls.enable", "true" );
         props.put( "mail.smtp.host", host );
         props.put( "mail.smtp.port", "587" );

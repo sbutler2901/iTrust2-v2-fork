@@ -39,7 +39,7 @@ public class APILogEntryController extends APIController {
     public ResponseEntity getEntry ( @PathVariable ( "id" ) final Long id ) {
         final LogEntry entry = LogEntry.getById( id );
         return null == entry
-                ? new ResponseEntity( errorResponse( "No log entry found for id " + id ), HttpStatus.NOT_FOUND )
+                ? new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND )
                 : new ResponseEntity( entry, HttpStatus.OK );
     }
 }

@@ -37,7 +37,7 @@ public class IPFilter extends GenericFilterBean {
         }
         // redirect all locked out IPs to /login?iplocked
         else if ( LoginLockout.isIPLocked( addr )
-                && ( relative.contains( "/login" ) || httpRequest.getParameterMap().containsKey( "iplocked" ) ) ) {
+                && ( relative.contains( "/login" ) || httpRequest.getParameterMap().containsKey( "sampletext" ) ) ) {
             httpRequest.getSession().invalidate();
             httpResponse.sendRedirect( httpRequest.getContextPath() + "/login?iplocked" );
         }

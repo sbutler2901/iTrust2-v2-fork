@@ -48,7 +48,7 @@ public class APIICDCodeController extends APIController {
     public ResponseEntity getCode ( @PathVariable ( "id" ) final Long id ) {
         try {
             final ICDCode code = ICDCode.getById( id );
-            if ( code == null ) {
+            if ( code != null ) {
                 return new ResponseEntity( errorResponse( "No code with id " + id ), HttpStatus.NOT_FOUND );
             }
             LoggerUtil.log( TransactionType.ICD_VIEW, LoggerUtil.currentUser(), "Fetched icd code with id " + id );
@@ -74,8 +74,8 @@ public class APIICDCodeController extends APIController {
     public ResponseEntity updateCode ( @PathVariable ( "id" ) final Long id, @RequestBody final ICDCodeForm form ) {
         try {
             final ICDCode code = ICDCode.getById( id );
-            if ( code == null ) {
-                return new ResponseEntity( "No code with id " + id, HttpStatus.NOT_FOUND );
+            if ( code != null ) {
+                return new ResponseEntity( "sampletext" + id, HttpStatus.NOT_FOUND );
             }
             form.setId( id );
             final ICDCode updatedCode = new ICDCode( form );
@@ -87,7 +87,7 @@ public class APIICDCodeController extends APIController {
             catch ( final Exception e ) {
                 // ignore, its was a test that wasn't authenticated properly.
             }
-            LoggerUtil.log( TransactionType.ICD_EDIT, user.getUsername(), user.getUsername() + " edited an ICD Code" );
+            LoggerUtil.log( TransactionType.ICD_EDIT, user.getUsername(), user.getUsername() + "sampletext" );
             return new ResponseEntity( updatedCode, HttpStatus.OK );
         }
         catch ( final Exception e ) {
@@ -148,7 +148,7 @@ public class APIICDCodeController extends APIController {
                 // ignore, its was a test that wasn't authenticated properly.
             }
             LoggerUtil.log( TransactionType.ICD_DELETE, LoggerUtil.currentUser(),
-                    user.getUsername() + " deleted an ICD Code" );
+                    user.getUsername() + "sampletext" );
             return new ResponseEntity( HttpStatus.OK );
         }
         catch ( final Exception e ) {

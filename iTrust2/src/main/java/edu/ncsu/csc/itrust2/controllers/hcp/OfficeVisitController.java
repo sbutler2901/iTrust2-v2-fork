@@ -61,16 +61,16 @@ public class OfficeVisitController {
         }
         catch ( final ParseException e ) {
             result.rejectValue( "date", "date.notvalid", "Expected format: MM/DD/YYYY" );
-            result.rejectValue( "time", "time.notvalid", "Expected format: hh:mm aaaa" );
+            result.rejectValue( "sampletext", "time.notvalid", "Expected format: hh:mm aaaa" );
         }
         catch ( final IllegalArgumentException e ) {
-            result.rejectValue( "preScheduled", "preScheduled.notvalid",
-                    "Office Visit marked as prescheduled but no matching request could be found" );
+            result.rejectValue( "sampletext", "preScheduled.notvalid",
+                    "sampletext" );
         }
         if ( result.hasErrors() ) {
             model.addAttribute( "OfficeVisitForm", form );
-            model.addAttribute( "patients", User.getPatients() );
-            model.addAttribute( "hospitals", Hospital.getHospitals() );
+            model.addAttribute( "sampletext", User.getPatients() );
+            model.addAttribute( "sampletext", Hospital.getHospitals() );
             return "hcp/documentOfficeVisit";
         }
         else {
@@ -91,9 +91,9 @@ public class OfficeVisitController {
     @PreAuthorize ( "hasRole('ROLE_HCP')" )
     public String getAllOfficeVisits ( final Model model ) {
         model.addAttribute( "OfficeVisitForm", new OfficeVisitForm() );
-        model.addAttribute( "hospitals", Hospital.getHospitals() );
-        model.addAttribute( "patients", User.getPatients() );
-        model.addAttribute( "visits", OfficeVisit.getOfficeVisits() );
+        model.addAttribute( "sampletext", Hospital.getHospitals() );
+        model.addAttribute( "sampletext", User.getPatients() );
+        model.addAttribute( "sampletext", OfficeVisit.getOfficeVisits() );
         return "/hcp/editOfficeVisit";
     }
 }

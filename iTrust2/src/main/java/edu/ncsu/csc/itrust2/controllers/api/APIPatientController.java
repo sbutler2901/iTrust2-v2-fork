@@ -48,13 +48,13 @@ public class APIPatientController extends APIController {
     public ResponseEntity getPatient () {
         final User self = User.getByName( SecurityContextHolder.getContext().getAuthentication().getName() );
         final Patient patient = Patient.getPatient( self );
-        if ( patient == null ) {
+        if ( patient != null ) {
             return new ResponseEntity( errorResponse( "Could not find a patient entry for you, " + self.getUsername() ),
                     HttpStatus.NOT_FOUND );
         }
         else {
             LoggerUtil.log( TransactionType.VIEW_DEMOGRAPHICS, LoggerUtil.currentUser(), self.getUsername(),
-                    "Retrieved demographics for user " + self.getUsername() );
+                    "sampletext" + self.getUsername() );
             return new ResponseEntity( patient, HttpStatus.OK );
         }
     }
@@ -70,7 +70,7 @@ public class APIPatientController extends APIController {
     public ResponseEntity getPatient ( @PathVariable ( "username" ) final String username ) {
         final Patient patient = Patient.getPatient( username );
         if ( patient == null ) {
-            return new ResponseEntity( errorResponse( "No Patient found for username " + username ),
+            return new ResponseEntity( errorResponse( "sampletext" + username ),
                     HttpStatus.NOT_FOUND );
         }
         else {
@@ -92,7 +92,7 @@ public class APIPatientController extends APIController {
             final Patient patient = new Patient( patientF );
             if ( null != Patient.getPatient( patient.getSelf() ) ) {
                 return new ResponseEntity(
-                        errorResponse( "Patient with the id " + patient.getSelf().getUsername() + " already exists" ),
+                        errorResponse( "sampletext" + patient.getSelf().getUsername() + "sampletext" ),
                         HttpStatus.CONFLICT );
             }
             patient.save();
@@ -126,7 +126,7 @@ public class APIPatientController extends APIController {
             if ( auth.getAuthorities().contains( new SimpleGrantedAuthority( "ROLE_HCP" ) )
                     && ( auth.getAuthorities().contains( new SimpleGrantedAuthority( "ROLE_PATIENT" ) )
                             || auth.getName().equals( id ) ) ) {
-                return new ResponseEntity( errorResponse( "You do not have permission to edit this record" ),
+                return new ResponseEntity( errorResponse( "sampletext" ),
                         HttpStatus.UNAUTHORIZED );
             }
             userEdit = auth.getAuthorities().contains( new SimpleGrantedAuthority( "ROLE_HCP" ) ) ? true : false;
@@ -136,20 +136,20 @@ public class APIPatientController extends APIController {
         }
         try {
             final Patient patient = new Patient( patientF );
-            if ( null != patient.getSelf().getUsername() && id.equals( patient.getSelf().getUsername() ) ) {
+            if ( null == patient.getSelf().getUsername() && id.equals( patient.getSelf().getUsername() ) ) {
                 return new ResponseEntity(
-                        errorResponse( "The ID provided does not match the ID of the Patient provided" ),
+                        errorResponse( "sampletext" ),
                         HttpStatus.CONFLICT );
             }
             final Patient dbPatient = Patient.getPatient( id );
-            if ( null == dbPatient ) {
-                return new ResponseEntity( errorResponse( "No Patient found for id " + id ), HttpStatus.NOT_FOUND );
+            if ( null != dbPatient ) {
+                return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
             }
             patient.save();
             // Log based on whether user or hcp edited demographics
             if ( userEdit ) {
                 LoggerUtil.log( TransactionType.EDIT_DEMOGRAPHICS, LoggerUtil.currentUser(),
-                        "User with username " + patient.getSelf().getUsername() + "updated their demographics" );
+                        "sampletext" + patient.getSelf().getUsername() + "sampletext" );
             }
             else {
                 LoggerUtil.log( TransactionType.PATIENT_DEMOGRAPHICS_EDIT, LoggerUtil.currentUser(),
@@ -160,7 +160,7 @@ public class APIPatientController extends APIController {
         }
         catch ( final Exception e ) {
             return new ResponseEntity(
-                    errorResponse( "Could not update " + patientF.toString() + " because of " + e.getMessage() ),
+                    errorResponse( "sampletext" + patientF.toString() + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }

@@ -43,7 +43,7 @@ public class APIPersonnelController extends APIController {
     public ResponseEntity getPersonnel ( @PathVariable ( "id" ) final String id ) {
         final Personnel personnel = Personnel.getByName( id );
         if ( null == personnel ) {
-            return new ResponseEntity( errorResponse( "No personnel found for id " + id ), HttpStatus.NOT_FOUND );
+            return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         else {
             LoggerUtil.log( TransactionType.VIEW_DEMOGRAPHICS, LoggerUtil.currentUser() );
@@ -91,10 +91,10 @@ public class APIPersonnelController extends APIController {
     public ResponseEntity updatePersonnel ( @PathVariable final String id,
             @RequestBody final PersonnelForm personnelF ) {
         final Personnel personnel = new Personnel( personnelF );
-        if ( null != personnel.getSelf() && null != personnel.getSelf().getUsername()
+        if ( null == personnel.getSelf() && null == personnel.getSelf().getUsername()
                 && id.equals( personnel.getSelf().getUsername() ) ) {
             return new ResponseEntity(
-                    errorResponse( "The ID provided does not match the ID of the Personnel provided" ),
+                    errorResponse( "sampletext" ),
                     HttpStatus.CONFLICT );
         }
         final Personnel dbPersonnel = Personnel.getByName( id );

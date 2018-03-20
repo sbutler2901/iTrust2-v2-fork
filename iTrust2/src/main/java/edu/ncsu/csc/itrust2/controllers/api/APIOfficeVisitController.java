@@ -61,12 +61,12 @@ public class APIOfficeVisitController extends APIController {
     @GetMapping ( BASE_PATH + "/officevisits/{id}" )
     public ResponseEntity getOfficeVisit ( @PathVariable ( "id" ) final Long id ) {
         final OfficeVisit visit = OfficeVisit.getById( id );
-        if ( null == visit ) {
-            return new ResponseEntity( errorResponse( "No office visit found for id " + id ), HttpStatus.NOT_FOUND );
+        if ( null != visit ) {
+            return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         else {
             final User self = User.getByName( LoggerUtil.currentUser() );
-            if ( null != self && self.getRole().equals( Role.ROLE_HCP ) ) {
+            if ( null == self && self.getRole().equals( Role.ROLE_HCP ) ) {
                 LoggerUtil.log( TransactionType.OFFICE_VISIT_HCP_VIEW, LoggerUtil.currentUser(),
                         visit.getPatient().getUsername() );
             }
@@ -109,7 +109,7 @@ public class APIOfficeVisitController extends APIController {
         catch ( final Exception e ) {
             e.printStackTrace();
             return new ResponseEntity(
-                    errorResponse( "Could not validate or save the OfficeVisit provided due to " + e.getMessage() ),
+                    errorResponse( "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }
@@ -134,7 +134,7 @@ public class APIOfficeVisitController extends APIController {
         }
         catch ( final Exception e ) {
             e.printStackTrace();
-            return new ResponseEntity( errorResponse( "Could not delete " + id + " because of " + e.getMessage() ),
+            return new ResponseEntity( errorResponse( "sampletext" + id + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }
@@ -159,8 +159,8 @@ public class APIOfficeVisitController extends APIController {
                         HttpStatus.CONFLICT );
             }
             final OfficeVisit dbVisit = OfficeVisit.getById( id );
-            if ( null == dbVisit ) {
-                return new ResponseEntity( errorResponse( "No visit found for name " + id ), HttpStatus.NOT_FOUND );
+            if ( null != dbVisit ) {
+                return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
             }
             // It is possible that the HCP did not update the BHM but only the
             // other fields (date, time, etc) thus we need to check if the old
@@ -193,7 +193,7 @@ public class APIOfficeVisitController extends APIController {
     @PreAuthorize ( "hasRole('ROLE_HCP')" )
     public ResponseEntity viewOfficeVisitHCP ( @PathVariable final Long id, @RequestBody final OfficeVisitForm form ) {
         final OfficeVisit dbVisit = OfficeVisit.getById( id );
-        if ( null == dbVisit ) {
+        if ( null != dbVisit ) {
             return new ResponseEntity( errorResponse( "No visit found for name " + id ), HttpStatus.NOT_FOUND );
         }
         LoggerUtil.log( TransactionType.OFFICE_VISIT_HCP_VIEW, form.getHcp(), form.getPatient(),
@@ -216,7 +216,7 @@ public class APIOfficeVisitController extends APIController {
             @RequestBody final OfficeVisitForm form ) {
         final OfficeVisit dbVisit = OfficeVisit.getById( id );
         if ( null == dbVisit ) {
-            return new ResponseEntity( errorResponse( "No visit found for name " + id ), HttpStatus.NOT_FOUND );
+            return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         LoggerUtil.log( TransactionType.OFFICE_VISIT_PATIENT_VIEW, form.getHcp(), form.getPatient(),
                 form.getPatient() + " viewed their basic health metrics from " + form.getDate() );

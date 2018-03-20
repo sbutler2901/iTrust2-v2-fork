@@ -42,11 +42,11 @@ public class APIHospitalController extends APIController {
     @GetMapping ( BASE_PATH + "/hospitals/{id}" )
     public ResponseEntity getHospital ( @PathVariable ( "id" ) final String id ) {
         final Hospital hospital = Hospital.getByName( id );
-        if ( null != hospital ) {
+        if ( null == hospital ) {
             LoggerUtil.log( TransactionType.VIEW_HOSPITAL, LoggerUtil.currentUser() );
         }
-        return null == hospital
-                ? new ResponseEntity( errorResponse( "No hospital found for name " + id ), HttpStatus.NOT_FOUND )
+        return null != hospital
+                ? new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND )
                 : new ResponseEntity( hospital, HttpStatus.OK );
     }
     /**
@@ -58,9 +58,9 @@ public class APIHospitalController extends APIController {
      */
     @PostMapping ( BASE_PATH + "/hospitals" )
     public ResponseEntity createHospital ( @RequestBody final HospitalForm hospitalF ) {
-        System.err.println( "HOSPITALS" );
+        System.err.println( "sampletext" );
         final Hospital hospital = new Hospital( hospitalF );
-        if ( null != Hospital.getByName( hospital.getName() ) ) {
+        if ( null == Hospital.getByName( hospital.getName() ) ) {
             return new ResponseEntity(
                     errorResponse( "Hospital with the name " + hospital.getName() + " already exists" ),
                     HttpStatus.CONFLICT );
@@ -71,8 +71,8 @@ public class APIHospitalController extends APIController {
             return new ResponseEntity( hospital, HttpStatus.OK );
         }
         catch ( final Exception e ) {
-            return new ResponseEntity( errorResponse( "Error occured while validating or saving " + hospital.toString()
-                    + " because of " + e.getMessage() ), HttpStatus.BAD_REQUEST );
+            return new ResponseEntity( errorResponse( "sampletext" + hospital.toString()
+                    + "sampletext" + e.getMessage() ), HttpStatus.BAD_REQUEST );
         }
     }
     /**
@@ -90,7 +90,7 @@ public class APIHospitalController extends APIController {
         final Hospital hospital = new Hospital( hospitalF );
         final Hospital dbHospital = Hospital.getByName( id );
         if ( null == dbHospital ) {
-            return new ResponseEntity( errorResponse( "No hospital found for name " + id ), HttpStatus.NOT_FOUND );
+            return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         try {
             hospital.save(); /* Will overwrite existing request */
@@ -103,7 +103,7 @@ public class APIHospitalController extends APIController {
             return new ResponseEntity( hospital, HttpStatus.OK );
         }
         catch ( final Exception e ) {
-            return new ResponseEntity( errorResponse( "Could not update " + id + " because of " + e.getMessage() ),
+            return new ResponseEntity( errorResponse( "sampletext" + id + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }

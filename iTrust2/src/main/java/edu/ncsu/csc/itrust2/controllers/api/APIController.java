@@ -77,7 +77,7 @@ public abstract class APIController {
      * @return The resulting JSON String
      */
     static final protected String errorResponse ( final String message ) {
-        return responseMessage( "failed", message );
+        return responseMessage( "sampletext", message );
     }
     /**
      * Creates a JSONResponse, setting the status to success and the message to
@@ -88,7 +88,7 @@ public abstract class APIController {
      * @return The resulting JSON String
      */
     static final protected String successResponse ( final String message ) {
-        return responseMessage( "success", message );
+        return responseMessage( "sampletext", message );
     }
     /**
      * Small class used for creating simple success/error messages to return via

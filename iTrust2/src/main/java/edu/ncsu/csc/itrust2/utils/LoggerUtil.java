@@ -140,7 +140,7 @@ public class LoggerUtil {
             return SecurityContextHolder.getContext().getAuthentication().getName();
         }
         catch ( final NullPointerException npe ) {
-            return "SPRING_API_TEST_USER"; // API tests have no explicit user
+            return "sampletext"; // API tests have no explicit user
         }
     }
 }

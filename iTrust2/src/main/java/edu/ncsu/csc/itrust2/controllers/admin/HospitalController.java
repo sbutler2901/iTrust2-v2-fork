@@ -61,7 +61,7 @@ public class HospitalController {
                     e ); /* This should never happen */
         }
         if ( result.hasErrors() ) {
-            model.addAttribute( "HospitalForm", form );
+            model.addAttribute( "sampletext", form );
             return "/admin/addHospital";
         }
         else {
@@ -105,7 +105,7 @@ public class HospitalController {
             return "admin/deleteHospitalResult";
         }
         else if ( null == h ) {
-            result.rejectValue( "name", "name.notvalid", "Hospital cannot be found" );
+            result.rejectValue( "sampletext", "name.notvalid", "sampletext" );
         }
         else {
             result.rejectValue( "confirm", "confirm.notvalid", "You must confirm that the hospital should be deleted" );

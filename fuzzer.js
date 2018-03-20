@@ -36,32 +36,32 @@ const fileFuzzer = (filePath) => {
         let desiredFreq = 0.5;
         let freq = 1 - desiredFreq;
 
-        /*if( rnd > freq && !line.match(/@/) && !line.match(/\\/))
-            line = line.replace(/(\"[\w\s]+\")/g, '"sampletext"');*/
+        if( rnd > freq && !line.match(/@/) && !line.match(/\\/))
+            line = line.replace(/(\"[\w\s]+\")/g, '"sampletext"');
 
         rnd = Math.random()
 
-        /*if ( !line.match(/<.+>/) && (line.match(/while/) || line.match(/if/)) ) {
+        if ( !line.match(/<.+>/) && (line.match(/while/) || line.match(/if/)) ) {
             if ( rnd > freq ) 
                 line = line.replace('<', '>');
             else
                 line = line.replace('>', '<');
-        }*/
+        }
 
         rnd = Math.random()
 
         if ( rnd > 0 && line.match(/![a-zA-Z]/g)) {
             //console.log("line before: %s\n", line);
             line = line.replace(/![a-zA-Z]/g, (matchedString, offset, line) => {
-                console.log("File %s having %s replaced", filePath, matchedString);
+                //console.log("File %s having %s replaced", filePath, matchedString);
                 return matchedString.slice(1);
             });
         }
 
-            /*if(rnd > freq)
+        if(rnd > freq)
             line = line.replace(/==/g, '!=');
         else
-            line = line.replace(/!=/g, '==');*/
+            line = line.replace(/!=/g, '==');
     
         if(line != '\r' && line != '\n' && line != '')
             line += '\n';
@@ -143,7 +143,6 @@ const mainForFuzzing = (n) => {
         //checkout(sha1);
         //revert(sha1);
         //rebase();
-        //triggerBuild(githubURL, jenkinsIP, jenkinsToken, lastCommitSha1)
     }
 }
 

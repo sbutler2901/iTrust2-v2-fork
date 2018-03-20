@@ -111,7 +111,7 @@ public class PersonnelForm {
         if ( null != p.getSelf() ) {
             setSelf( p.getSelf().getUsername() );
         }
-        if ( null != p.getEnabled() ) {
+        if ( null == p.getEnabled() ) {
             setEnabled( p.getEnabled().toString() );
         }
         setFirstName( p.getFirstName() );

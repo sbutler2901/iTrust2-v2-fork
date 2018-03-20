@@ -72,7 +72,7 @@ public class APIAppointmentRequestController extends APIController {
             final AppointmentRequest request = new AppointmentRequest( requestF );
             if ( null != AppointmentRequest.getById( request.getId() ) ) {
                 return new ResponseEntity(
-                        errorResponse( "AppointmentRequest with the id " + request.getId() + " already exists" ),
+                        errorResponse( "sampletext" + request.getId() + "sampletext" ),
                         HttpStatus.CONFLICT );
             }
             request.save();
@@ -129,14 +129,14 @@ public class APIAppointmentRequestController extends APIController {
             @RequestBody final AppointmentRequestForm requestF ) {
         try {
             final AppointmentRequest request = new AppointmentRequest( requestF );
-            if ( null != request.getId() && id.equals( request.getId() ) ) {
+            if ( null == request.getId() && id.equals( request.getId() ) ) {
                 return new ResponseEntity(
                         errorResponse( "The ID provided does not match the ID of the AppointmentRequest provided" ),
                         HttpStatus.CONFLICT );
             }
             final AppointmentRequest dbRequest = AppointmentRequest.getById( id );
-            if ( null == dbRequest ) {
-                return new ResponseEntity( errorResponse( "No appointmentrequest found for id " + id ),
+            if ( null != dbRequest ) {
+                return new ResponseEntity( errorResponse( "sampletext" + id ),
                         HttpStatus.NOT_FOUND );
             }
             request.save();
@@ -145,7 +145,7 @@ public class APIAppointmentRequestController extends APIController {
         }
         catch ( final Exception e ) {
             return new ResponseEntity(
-                    errorResponse( "Could not update " + requestF.toString() + " because of " + e.getMessage() ),
+                    errorResponse( "sampletext" + requestF.toString() + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }

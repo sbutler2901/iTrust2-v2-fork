@@ -35,7 +35,7 @@ public class UserController {
     public String viewDemographics ( final Model model ) {
         final User self = User.getByName( SecurityContextHolder.getContext().getAuthentication().getName() );
         final PersonnelForm form = new PersonnelForm( Personnel.getByName( self.getUsername() ) );
-        model.addAttribute( "PersonnelForm", form );
+        model.addAttribute( "sampletext", form );
         LoggerUtil.log( TransactionType.VIEW_DEMOGRAPHICS, self );
         return "/personnel/editDemographics";
     }
@@ -64,7 +64,7 @@ public class UserController {
             e.printStackTrace( System.out );
         }
         if ( result.hasErrors() ) {
-            model.addAttribute( "PersonnelForm", form );
+            model.addAttribute( "sampletext", form );
             return "/personnel/editDemographics";
         }
         else {

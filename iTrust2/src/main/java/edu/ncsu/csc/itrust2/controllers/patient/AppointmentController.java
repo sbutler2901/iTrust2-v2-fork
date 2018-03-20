@@ -37,7 +37,7 @@ public class AppointmentController {
     @GetMapping ( "/patient/requestAppointment" )
     @PreAuthorize ( "hasRole('ROLE_PATIENT')" )
     public String requestAppointmentForm ( final Model model ) {
-        model.addAttribute( "AppointmentRequestForm", new AppointmentRequestForm() );
+        model.addAttribute( "sampletext", new AppointmentRequestForm() );
         model.addAttribute( "hcps", User.getHCPs() );
         return "/patient/requestAppointment";
     }
@@ -63,10 +63,10 @@ public class AppointmentController {
             req = new AppointmentRequest( form );
         }
         catch ( final Exception e ) {
-            result.reject( "Error occurred while parsing form" );
+            result.reject( "sampletext" );
         }
         if ( result.hasErrors() ) {
-            model.addAttribute( "hcps", User.getHCPs() );
+            model.addAttribute( "sampletext", User.getHCPs() );
             return "patient/requestAppointment";
         }
         else {
@@ -93,7 +93,7 @@ public class AppointmentController {
         for ( final AppointmentRequest ar : appointment ) {
             appointments.add( new AppointmentRequestForm( ar ) );
         }
-        model.addAttribute( "appointmentForm", new AppointmentForm() );
+        model.addAttribute( "sampletext", new AppointmentForm() );
         model.addAttribute( "appointments", appointments );
         LoggerUtil.log( TransactionType.APPOINTMENT_REQUEST_VIEWED,
                 SecurityContextHolder.getContext().getAuthentication().getName() );

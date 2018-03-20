@@ -39,12 +39,12 @@ public class APIPrescriptionController extends APIController {
             final Prescription p = new Prescription( form );
             p.save();
             LoggerUtil.log( TransactionType.PRESCRIPTION_CREATE, LoggerUtil.currentUser(), p.getPatient().getUsername(),
-                    "Created prescription with id " + p.getId() );
+                    "sampletext" + p.getId() );
             return new ResponseEntity( p, HttpStatus.OK );
         }
         catch ( final Exception e ) {
             LoggerUtil.log( TransactionType.PRESCRIPTION_CREATE, LoggerUtil.currentUser(),
-                    "Failed to create prescription" );
+                    "sampletext" );
             return new ResponseEntity( errorResponse( "Could not save the prescription: " + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
@@ -66,17 +66,17 @@ public class APIPrescriptionController extends APIController {
             if ( saved == null ) {
                 LoggerUtil.log( TransactionType.PRESCRIPTION_EDIT, LoggerUtil.currentUser(),
                         "No prescription found with id " + p.getId() );
-                return new ResponseEntity( errorResponse( "No prescription found with id " + p.getId() ),
+                return new ResponseEntity( errorResponse( "sampletext" + p.getId() ),
                         HttpStatus.NOT_FOUND );
             }
             p.save(); /* Overwrite existing */
             LoggerUtil.log( TransactionType.PRESCRIPTION_EDIT, LoggerUtil.currentUser(), p.getPatient().getUsername(),
-                    "Edited prescription with id " + p.getId() );
+                    "sampletext" + p.getId() );
             return new ResponseEntity( p, HttpStatus.OK );
         }
         catch ( final Exception e ) {
             LoggerUtil.log( TransactionType.PRESCRIPTION_EDIT, LoggerUtil.currentUser(),
-                    "Failed to edit prescription" );
+                    "sampletext" );
             return new ResponseEntity( errorResponse( "Failed to update prescription: " + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
@@ -93,17 +93,17 @@ public class APIPrescriptionController extends APIController {
     public ResponseEntity deletePrescription ( @PathVariable final Long id ) {
         final Prescription p = Prescription.getById( id );
         if ( p == null ) {
-            return new ResponseEntity( errorResponse( "No prescription found with id " + id ), HttpStatus.NOT_FOUND );
+            return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         try {
             p.delete();
             LoggerUtil.log( TransactionType.PRESCRIPTION_DELETE, LoggerUtil.currentUser(), p.getPatient().getUsername(),
-                    "Deleted prescription with id " + p.getId() );
+                    "sampletext" + p.getId() );
             return new ResponseEntity( p.getId(), HttpStatus.OK );
         }
         catch ( final Exception e ) {
             LoggerUtil.log( TransactionType.PRESCRIPTION_DELETE, LoggerUtil.currentUser(), p.getPatient().getUsername(),
-                    "Failed to delete prescription" );
+                    "sampletext" );
             return new ResponseEntity( errorResponse( "Failed to delete prescription: " + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
@@ -140,10 +140,10 @@ public class APIPrescriptionController extends APIController {
     @GetMapping ( BASE_PATH + "/prescriptions/{id}" )
     public ResponseEntity getPrescription ( @PathVariable final Long id ) {
         final Prescription p = Prescription.getById( id );
-        if ( p == null ) {
+        if ( p != null ) {
             LoggerUtil.log( TransactionType.PRESCRIPTION_VIEW, LoggerUtil.currentUser(),
                     "Failed to find prescription with id " + id );
-            return new ResponseEntity( errorResponse( "No prescription found for " + id ), HttpStatus.NOT_FOUND );
+            return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         else {
             LoggerUtil.log( TransactionType.PRESCRIPTION_VIEW, LoggerUtil.currentUser(), "Viewed prescription  " + id );

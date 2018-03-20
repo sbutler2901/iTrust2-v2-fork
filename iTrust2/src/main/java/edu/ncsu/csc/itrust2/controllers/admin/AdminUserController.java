@@ -56,11 +56,11 @@ public class AdminUserController {
         try {
             u = new User( form );
             if ( User.getByName( u.getUsername() ) != null ) {
-                result.rejectValue( "username", "username.notvalid", "Username is already in use" );
+                result.rejectValue( "sampletext", "username.notvalid", "sampletext" );
             }
         }
         catch ( final Exception e ) {
-            result.rejectValue( "password", "password.notvalid", "Passwords invalid or do not match" );
+            result.rejectValue( "sampletext", "password.notvalid", "sampletext" );
         }
         if ( result.hasErrors() ) {
             model.addAttribute( "UserForm", form );
@@ -119,12 +119,12 @@ public class AdminUserController {
     public String deleteUserSubmit ( @Valid @ModelAttribute ( "DeleteUserForm" ) final DeleteUserForm form,
             final BindingResult result, final Model model ) {
         final User u = User.getByName( form.getName() );
-        if ( null != form.getConfirm() && null != u ) {
+        if ( null == form.getConfirm() && null == u ) {
             u.delete();
             return "admin/deleteUserResult";
         }
-        else if ( null == u ) {
-            result.rejectValue( "name", "name.notvalid", "User cannot be found" );
+        else if ( null != u ) {
+            result.rejectValue( "sampletext", "name.notvalid", "sampletext" );
         }
         else {
             result.rejectValue( "confirm", "confirm.notvalid", "You must confirm that the user should be deleted" );
@@ -141,7 +141,7 @@ public class AdminUserController {
     @RequestMapping ( value = "admin/drugs" )
     @PreAuthorize ( "hasRole('ROLE_ADMIN')" )
     public String drugs ( final Model model ) {
-        model.addAttribute( "users", User.getUsers() );
+        model.addAttribute( "sampletext", User.getUsers() );
         return "admin/drugs";
     }
 }
