@@ -1,7 +1,5 @@
 package edu.ncsu.csc.itrust2.forms.admin;
-
 import edu.ncsu.csc.itrust2.models.persistent.ICDCode;
-
 /**
  * Intermediate form for adding or editing ICDCodes. Used to create and
  * serialize ICDCodes.
@@ -10,20 +8,16 @@ import edu.ncsu.csc.itrust2.models.persistent.ICDCode;
  *
  */
 public class ICDCodeForm {
-
     /** The code of the Diagnosis */
     private String code;
     /** The description of the diagnosis */
     private String description;
     private Long   id;
-
     /**
      * Empty constructor for GSON
      */
     public ICDCodeForm () {
-
     }
-
     /**
      * Construct a form off an existing ICDCode object
      *
@@ -35,7 +29,6 @@ public class ICDCodeForm {
         setDescription( code.getDescription() );
         setId( code.getId() );
     }
-
     /**
      * Sets the String representation of the code
      *
@@ -45,7 +38,6 @@ public class ICDCodeForm {
     public void setCode ( final String code ) {
         this.code = code;
     }
-
     /**
      * Returns the String representation of the code
      *
@@ -54,7 +46,6 @@ public class ICDCodeForm {
     public String getCode () {
         return code;
     }
-
     /**
      * Sets the description of this code
      *
@@ -64,7 +55,6 @@ public class ICDCodeForm {
     public void setDescription ( final String d ) {
         description = d;
     }
-
     /**
      * Returns the description of the code
      *
@@ -73,7 +63,6 @@ public class ICDCodeForm {
     public String getDescription () {
         return description;
     }
-
     /**
      * Sets the ID of the Code
      *
@@ -83,7 +72,6 @@ public class ICDCodeForm {
     public void setId ( final Long l ) {
         id = l;
     }
-
     /**
      * Returns the ID of the Diagnosis
      * 
@@ -92,7 +80,6 @@ public class ICDCodeForm {
     public Long getId () {
         return id;
     }
-
     @Override
     public boolean equals ( final Object o ) {
         if ( o instanceof ICDCodeForm ) {
@@ -101,5 +88,4 @@ public class ICDCodeForm {
         }
         return false;
     }
-
 }

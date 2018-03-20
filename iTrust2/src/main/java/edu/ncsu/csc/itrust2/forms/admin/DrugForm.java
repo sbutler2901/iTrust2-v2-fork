@@ -1,8 +1,5 @@
-
 package edu.ncsu.csc.itrust2.forms.admin;
-
 import edu.ncsu.csc.itrust2.models.persistent.Drug;
-
 /**
  * A form for REST API communication. Contains fields for constructing Drug
  * objects.
@@ -10,18 +7,15 @@ import edu.ncsu.csc.itrust2.models.persistent.Drug;
  * @author Connor
  */
 public class DrugForm {
-
     private Long   id;
     private String name;
     private String code;
     private String description;
-
     /**
      * Empty constructor for filling in fields without a Drug object.
      */
     public DrugForm () {
     }
-
     /**
      * Constructs a new form with information from the given drug.
      *
@@ -34,7 +28,6 @@ public class DrugForm {
         setCode( drug.getCode() );
         setDescription( drug.getDescription() );
     }
-
     /**
      * Sets the drug's id to the given value. All saved drugs must have unique
      * ids.
@@ -44,7 +37,6 @@ public class DrugForm {
     public Long getId () {
         return id;
     }
-
     /**
      * Returns the drug's NDC
      *
@@ -53,7 +45,6 @@ public class DrugForm {
     public String getCode () {
         return code;
     }
-
     /**
      * The name of the drug.
      *
@@ -62,7 +53,6 @@ public class DrugForm {
     public String getName () {
         return name;
     }
-
     /**
      * Gets this drug's description.
      *
@@ -71,7 +61,6 @@ public class DrugForm {
     public String getDescription () {
         return description;
     }
-
     /**
      * Sets the id associated with this drug.
      *
@@ -81,7 +70,6 @@ public class DrugForm {
     public void setId ( Long id ) {
         this.id = id;
     }
-
     /**
      * Sets the NDC to the given string. Must be in the format "####-####-##".
      *
@@ -91,7 +79,6 @@ public class DrugForm {
     public void setCode ( String code ) {
         this.code = code;
     }
-
     /**
      * Sets the drug name.
      *
@@ -101,7 +88,6 @@ public class DrugForm {
     public void setName ( String name ) {
         this.name = name;
     }
-
     /**
      * Sets this drug's description to the given value.
      *

@@ -1,14 +1,10 @@
 package edu.ncsu.csc.itrust2.utils;
-
 import java.util.Comparator;
 import java.util.List;
-
 import org.springframework.security.core.context.SecurityContextHolder;
-
 import edu.ncsu.csc.itrust2.models.enums.TransactionType;
 import edu.ncsu.csc.itrust2.models.persistent.LogEntry;
 import edu.ncsu.csc.itrust2.models.persistent.User;
-
 /**
  * Logging class to handle saving log-worthy events and for retrieving those
  * that previously occurred. All actions that need to be logged (as defined in
@@ -18,7 +14,6 @@ import edu.ncsu.csc.itrust2.models.persistent.User;
  *
  */
 public class LoggerUtil {
-
     /**
      * Most complete logger utility. Usually won't need all of this information,
      * but if you do, it has it all. The time of the event is added
@@ -38,7 +33,6 @@ public class LoggerUtil {
         final LogEntry le = new LogEntry( code, primaryUser, secondaryUser, message );
         le.save();
     }
-
     /**
      * Abbreviated Logger. Same as the full one, but no secondaryUser.
      *
@@ -52,7 +46,6 @@ public class LoggerUtil {
     static public void log ( final TransactionType code, final String primaryUser, final String message ) {
         log( code, primaryUser, null, message );
     }
-
     /**
      * Most abbreviated Logger utility. Just an event code and a single user.
      *
@@ -64,7 +57,6 @@ public class LoggerUtil {
     static public void log ( final TransactionType code, final String primaryUser ) {
         log( code, primaryUser, null, null );
     }
-
     /**
      * Log a minimal set of information
      *
@@ -76,7 +68,6 @@ public class LoggerUtil {
     static public void log ( final TransactionType code, final User primaryUser ) {
         log( code, primaryUser.getUsername() );
     }
-
     /**
      * Get all logged events for a single user specified by name.
      *
@@ -87,7 +78,6 @@ public class LoggerUtil {
     static public List<LogEntry> getAllForUser ( final String user ) {
         return LogEntry.getAllForUser( user );
     }
-
     /**
      * Retrieve all of the Log Entries for a given user
      *
@@ -98,7 +88,6 @@ public class LoggerUtil {
     static public List<LogEntry> getAllForUser ( final User user ) {
         return getAllForUser( user.getUsername() );
     }
-
     /**
      * Get the top logged events for a single user specified by name.
      *
@@ -116,7 +105,6 @@ public class LoggerUtil {
             public int compare ( final Object arg0, final Object arg1 ) {
                 return ( (LogEntry) arg0 ).getTime().compareTo( ( (LogEntry) arg1 ).getTime() );
             }
-
         } );
         try {
             return all.subList( 0, top );
@@ -129,7 +117,6 @@ public class LoggerUtil {
             return all;
         }
     }
-
     /**
      * Log an event
      *
@@ -142,9 +129,7 @@ public class LoggerUtil {
      */
     public static void log ( final TransactionType code, final User primary, final User secondary ) {
         log( code, primary.getUsername(), secondary.getUsername(), null );
-
     }
-
     /**
      * Gets the name of the currently authenticated user
      *

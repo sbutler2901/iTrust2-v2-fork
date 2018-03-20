@@ -1,11 +1,8 @@
 package edu.ncsu.csc.itrust2.forms.personnel;
-
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
-
 import edu.ncsu.csc.itrust2.models.persistent.Personnel;
 import edu.ncsu.csc.itrust2.models.persistent.User;
-
 /**
  * Form for registering a user as an iTrust2 personnel or for editing their
  * existing information. Used for all non-patient types of users
@@ -14,7 +11,6 @@ import edu.ncsu.csc.itrust2.models.persistent.User;
  *
  */
 public class PersonnelForm {
-
     /**
      * Constructs a PersonnelForm for the User provided
      *
@@ -27,97 +23,81 @@ public class PersonnelForm {
             setSelf( u.getUsername() );
         }
     }
-
     /**
      * Username of the iTrust2 personnel to make a Personnel object for
      */
     private String self;
-
     /**
      * Whether the Personnel is enabled or not
      */
     private String enabled;
-
     /**
      * First name of the Personnel
      */
     @NotEmpty
     @Length ( max = 20 )
     private String firstName;
-
     /**
      * Last name of the Personnel
      */
     @NotEmpty
     @Length ( max = 30 )
     private String lastName;
-
     /**
      * Address1 of the Personnel
      */
     @NotEmpty
     @Length ( max = 50 )
     private String address1;
-
     /**
      * Address2 of the Personnel
      */
     @Length ( max = 50 )
     private String address2;
-
     /**
      * City of the Personnel
      */
     @NotEmpty
     @Length ( max = 15 )
     private String city;
-
     /**
      * State of the Personnel
      */
     @NotEmpty
     @Length ( min = 2, max = 2 )
     private String state;
-
     /**
      * Zip of the Personnel
      */
     @NotEmpty
     @Length ( min = 5, max = 10 )
     private String zip;
-
     /**
      * Phone of the Personnel
      */
     @NotEmpty
     @Length ( min = 12, max = 12 )
     private String phone;
-
     /**
      * Specialty of the Personnel
      */
     @Length ( max = 30 )
     private String specialty;
-
     /**
      * Email of the Personnel
      */
     @NotEmpty
     @Length ( max = 30 )
     private String email;
-
     /**
      * ID of the Personnel
      */
     private String id;
-
     /**
      * Creates a PersonnelForm object. For initializing a blank form
      */
     public PersonnelForm () {
-
     }
-
     /**
      * Creates a PersonnelForm for editing from a persistent Personnel
      *
@@ -148,7 +128,6 @@ public class PersonnelForm {
         setEmail( p.getEmail() );
         setId( p.getId().toString() );
     }
-
     /**
      * Get Username of the personnel
      *
@@ -157,7 +136,6 @@ public class PersonnelForm {
     public String getSelf () {
         return self;
     }
-
     /**
      * Set username of the Personenl
      *
@@ -167,7 +145,6 @@ public class PersonnelForm {
     public void setSelf ( final String self ) {
         this.self = self;
     }
-
     /**
      * Get whether the Personnel is enabled
      *
@@ -176,7 +153,6 @@ public class PersonnelForm {
     public String getEnabled () {
         return enabled;
     }
-
     /**
      * Set whether the personnel is enabled.
      *
@@ -186,7 +162,6 @@ public class PersonnelForm {
     public void setEnabled ( final String enabled ) {
         this.enabled = enabled;
     }
-
     /**
      * Get the first name of the personnel
      *
@@ -195,7 +170,6 @@ public class PersonnelForm {
     public String getFirstName () {
         return firstName;
     }
-
     /**
      * Set the First Name of the Personnel
      *
@@ -205,7 +179,6 @@ public class PersonnelForm {
     public void setFirstName ( final String firstName ) {
         this.firstName = firstName;
     }
-
     /**
      * Get the last name of the Personnel
      *
@@ -214,7 +187,6 @@ public class PersonnelForm {
     public String getLastName () {
         return lastName;
     }
-
     /**
      * Set the last name of the Personnel
      *
@@ -224,7 +196,6 @@ public class PersonnelForm {
     public void setLastName ( final String lastName ) {
         this.lastName = lastName;
     }
-
     /**
      * Get Address1 of the Personnel
      *
@@ -233,7 +204,6 @@ public class PersonnelForm {
     public String getAddress1 () {
         return address1;
     }
-
     /**
      * Set Address1 of Personnel
      *
@@ -243,7 +213,6 @@ public class PersonnelForm {
     public void setAddress1 ( final String address1 ) {
         this.address1 = address1;
     }
-
     /**
      * Get Address2 of Personnel
      *
@@ -252,7 +221,6 @@ public class PersonnelForm {
     public String getAddress2 () {
         return address2;
     }
-
     /**
      * Set Address2 of Personnel
      *
@@ -262,7 +230,6 @@ public class PersonnelForm {
     public void setAddress2 ( final String address2 ) {
         this.address2 = address2;
     }
-
     /**
      * Get the City of the Personnel
      *
@@ -271,7 +238,6 @@ public class PersonnelForm {
     public String getCity () {
         return city;
     }
-
     /**
      * Set the city of the Personnel
      *
@@ -281,7 +247,6 @@ public class PersonnelForm {
     public void setCity ( final String city ) {
         this.city = city;
     }
-
     /**
      * Get the Personnel's state
      *
@@ -290,7 +255,6 @@ public class PersonnelForm {
     public String getState () {
         return state;
     }
-
     /**
      * Set the State of the Personnel
      *
@@ -300,7 +264,6 @@ public class PersonnelForm {
     public void setState ( final String state ) {
         this.state = state;
     }
-
     /**
      * Get the ZIP of the Personnel
      *
@@ -309,7 +272,6 @@ public class PersonnelForm {
     public String getZip () {
         return zip;
     }
-
     /**
      * Set the ZIP of the Personnel
      *
@@ -319,7 +281,6 @@ public class PersonnelForm {
     public void setZip ( final String zip ) {
         this.zip = zip;
     }
-
     /**
      * Get the Phone number of the personnel
      *
@@ -328,7 +289,6 @@ public class PersonnelForm {
     public String getPhone () {
         return phone;
     }
-
     /**
      * Set the Phone Number of the Personnel
      *
@@ -338,7 +298,6 @@ public class PersonnelForm {
     public void setPhone ( final String phone ) {
         this.phone = phone;
     }
-
     /**
      * Get the specialty of the personnel
      *
@@ -347,7 +306,6 @@ public class PersonnelForm {
     public String getSpecialty () {
         return specialty;
     }
-
     /**
      * Set the specialty of the Personnel
      *
@@ -357,7 +315,6 @@ public class PersonnelForm {
     public void setSpecialty ( final String specialty ) {
         this.specialty = specialty;
     }
-
     /**
      * Get the Email of the Personnel
      *
@@ -366,7 +323,6 @@ public class PersonnelForm {
     public String getEmail () {
         return email;
     }
-
     /**
      * Set the Email of the Personnel
      *
@@ -376,7 +332,6 @@ public class PersonnelForm {
     public void setEmail ( final String email ) {
         this.email = email;
     }
-
     /**
      * Get the database ID of the Personnel object
      *
@@ -385,7 +340,6 @@ public class PersonnelForm {
     public String getId () {
         return id;
     }
-
     /**
      * Set the database ID of the Personnel object
      * 
@@ -395,5 +349,4 @@ public class PersonnelForm {
     public void setId ( final String id ) {
         this.id = id;
     }
-
 }

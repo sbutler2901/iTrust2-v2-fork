@@ -9,7 +9,6 @@
  * governing permissions and limitations under the License.
  */
 package edu.ncsu.csc.itrust2.mvc.config;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +27,6 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
-
 /**
  * Maintains a variety of global configurations needed by the Spring web
  * application.
@@ -51,16 +49,13 @@ import org.thymeleaf.templatemode.TemplateMode;
                                  * has access to the page
                                  */
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
-
     /**
      * ApplicationContext used to maintain security
      */
     @Autowired
     private ApplicationContext          applicationContext;
-
     @Autowired
     private FormattingConversionService mvcConversionService;
-
     /**
      * Sets the /login path as the entry point for a user to login
      */
@@ -69,7 +64,6 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         registry.addViewController( "/login" ).setViewName( "login" );
         registry.setOrder( Ordered.HIGHEST_PRECEDENCE );
     }
-
     /**
      * Makes the Resources folder unprotected
      */
@@ -79,7 +73,6 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
                 .setCachePeriod( 31556926 );
         registry.setOrder( Ordered.HIGHEST_PRECEDENCE );
     }
-
     /**
      * ViewResolver used for Thymeleaf's parsing
      *
@@ -92,7 +85,6 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         resolver.setCharacterEncoding( "UTF-8" );
         return resolver;
     }
-
     /**
      * Templating engine for Spring and Thymeleaf
      *
@@ -105,14 +97,12 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         engine.setTemplateResolver( templateResolver() );
         return engine;
     }
-
     /**
      * Creates a TemplateResolver
      *
      * @return SpringResourceTemplateResolver generated
      */
     public SpringResourceTemplateResolver templateResolver () {
-
         final SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
         resolver.setPrefix( "classpath:/views/" );
         resolver.setSuffix( ".html" );
@@ -120,7 +110,6 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         resolver.setApplicationContext( applicationContext );
         return resolver;
     }
-
     /**
      * Creates a DomainClassConverter from the mvcConversionService
      * 

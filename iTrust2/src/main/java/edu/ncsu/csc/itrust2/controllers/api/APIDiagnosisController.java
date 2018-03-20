@@ -1,20 +1,16 @@
 package edu.ncsu.csc.itrust2.controllers.api;
-
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
 import edu.ncsu.csc.itrust2.models.enums.TransactionType;
 import edu.ncsu.csc.itrust2.models.persistent.Diagnosis;
 import edu.ncsu.csc.itrust2.models.persistent.OfficeVisit;
 import edu.ncsu.csc.itrust2.models.persistent.User;
 import edu.ncsu.csc.itrust2.utils.LoggerUtil;
-
 /**
  * Class that provided the REST endpoints for dealing with diagnoses. Diagnoses
  * can either be retrieved individually by ID, or in lists by office visit or by
@@ -26,7 +22,6 @@ import edu.ncsu.csc.itrust2.utils.LoggerUtil;
 @RestController
 @SuppressWarnings ( { "unchecked", "rawtypes" } )
 public class APIDiagnosisController extends APIController {
-
     /**
      * Returns the Diagnosis with the specified ID.
      *
@@ -43,7 +38,6 @@ public class APIDiagnosisController extends APIController {
                 ? new ResponseEntity( errorResponse( "No Diagnosis found for id " + id ), HttpStatus.NOT_FOUND )
                 : new ResponseEntity( d, HttpStatus.OK );
     }
-
     /**
      * Returns a list of diagnoses for a specified office visit
      *
@@ -62,7 +56,6 @@ public class APIDiagnosisController extends APIController {
                 "Retrieved diagnoses for office visit with id " + id );
         return Diagnosis.getByVisit( id );
     }
-
     /**
      * Returns a list of diagnoses for the logged in patient
      *
@@ -76,8 +69,6 @@ public class APIDiagnosisController extends APIController {
         }
         LoggerUtil.log( TransactionType.DIAGNOSIS_PATIENT_VIEW_ALL, self.getUsername(),
                 self.getUsername() + " viewed their diagnoses" );
-
         return Diagnosis.getForPatient( self );
     }
-
 }

@@ -1,7 +1,5 @@
 package edu.ncsu.csc.itrust2.controllers.api;
-
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -14,12 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import edu.ncsu.csc.itrust2.forms.admin.UserForm;
 import edu.ncsu.csc.itrust2.models.enums.TransactionType;
 import edu.ncsu.csc.itrust2.models.persistent.User;
 import edu.ncsu.csc.itrust2.utils.LoggerUtil;
-
 /**
  * Class that provides multiple API endpoints for interacting with the Users
  * model.
@@ -30,16 +26,12 @@ import edu.ncsu.csc.itrust2.utils.LoggerUtil;
 @RestController
 @SuppressWarnings ( { "rawtypes", "unchecked" } )
 public class APIUserController extends APIController {
-
     /** constant for admin role */
     private static final String ROLE_ADMIN   = "ROLE_ADMIN";
-
     /** constant for patient role */
     private static final String ROLE_PATIENT = "ROLE_PATIENT";
-
     /** constant for hcp role */
     private static final String ROLE_HCP     = "ROLE_HCP";
-
     /**
      * Retrieves and returns a list of all Users in the system, regardless of
      * their classification (including all Patients, all Personnel, and all
@@ -52,7 +44,6 @@ public class APIUserController extends APIController {
         LoggerUtil.log( TransactionType.VIEW_USERS, LoggerUtil.currentUser() );
         return User.getUsers();
     }
-
     /**
      * Retrieves and returns the user with the username provided
      *
@@ -67,7 +58,6 @@ public class APIUserController extends APIController {
         return null == user ? new ResponseEntity( errorResponse( "No User found for id " + id ), HttpStatus.NOT_FOUND )
                 : new ResponseEntity( user, HttpStatus.OK );
     }
-
     /**
      * Creates a new user from the RequestBody provided, validates it, and saves
      * it to the database.
@@ -93,9 +83,7 @@ public class APIUserController extends APIController {
                     errorResponse( "Could not create " + user.toString() + " because of " + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
-
     }
-
     /**
      * Updates the User with the id provided by overwriting it with the new User
      * record that is provided. If the ID provided does not match the ID set in
@@ -110,7 +98,7 @@ public class APIUserController extends APIController {
     @PutMapping ( BASE_PATH + "/users/{id}" )
     public ResponseEntity updateUser ( @PathVariable final String id, @RequestBody final UserForm userF ) {
         final User user = new User( userF );
-        if ( null != user.getId() && !id.equals( user.getId() ) ) {
+        if ( null != user.getId() && id.equals( user.getId() ) ) {
             return new ResponseEntity( errorResponse( "The ID provided does not match the ID of the User provided" ),
                     HttpStatus.CONFLICT );
         }
@@ -123,14 +111,12 @@ public class APIUserController extends APIController {
             LoggerUtil.log( TransactionType.UPDATE_USER, LoggerUtil.currentUser() );
             return new ResponseEntity( user, HttpStatus.OK );
         }
-
         catch ( final Exception e ) {
             return new ResponseEntity(
                     errorResponse( "Could not update " + user.toString() + " because of " + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }
-
     /**
      * Gets the current logged in role.
      *
@@ -151,7 +137,6 @@ public class APIUserController extends APIController {
             return new ResponseEntity( errorResponse( "UNAUTHORIZED" ), HttpStatus.UNAUTHORIZED );
         }
     }
-
     /**
      * Checks if the current user has a `role`.
      *
@@ -165,12 +150,10 @@ public class APIUserController extends APIController {
         if ( context == null ) {
             return false;
         }
-
         final Authentication authentication = context.getAuthentication();
         if ( authentication == null ) {
             return false;
         }
-
         for ( final GrantedAuthority auth : authentication.getAuthorities() ) {
             if ( role.equals( auth.getAuthority() ) ) {
                 return true;

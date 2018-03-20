@@ -1,7 +1,5 @@
 package edu.ncsu.csc.itrust2.controllers.api;
-
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,13 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import edu.ncsu.csc.itrust2.forms.admin.ICDCodeForm;
 import edu.ncsu.csc.itrust2.models.enums.TransactionType;
 import edu.ncsu.csc.itrust2.models.persistent.ICDCode;
 import edu.ncsu.csc.itrust2.models.persistent.User;
 import edu.ncsu.csc.itrust2.utils.LoggerUtil;
-
 /**
  * Class that provides the REST endpoints for handling ICD Codes. They can be
  * retrieved individually based on id, or all in a list. An Admin can add,
@@ -31,7 +27,6 @@ import edu.ncsu.csc.itrust2.utils.LoggerUtil;
 @RestController
 @SuppressWarnings ( { "unchecked", "rawtypes" } )
 public class APIICDCodeController extends APIController {
-
     /**
      * Returns a list of Codes in the system
      *
@@ -42,7 +37,6 @@ public class APIICDCodeController extends APIController {
         LoggerUtil.log( TransactionType.ICD_VIEW_ALL, LoggerUtil.currentUser(), "Fetched icd codes" );
         return ICDCode.getAll();
     }
-
     /**
      * Returns the code with the given ID
      *
@@ -66,7 +60,6 @@ public class APIICDCodeController extends APIController {
                     HttpStatus.BAD_REQUEST );
         }
     }
-
     /**
      * Updates the code with the specified ID to the value supplied.
      *
@@ -95,7 +88,6 @@ public class APIICDCodeController extends APIController {
                 // ignore, its was a test that wasn't authenticated properly.
             }
             LoggerUtil.log( TransactionType.ICD_EDIT, user.getUsername(), user.getUsername() + " edited an ICD Code" );
-
             return new ResponseEntity( updatedCode, HttpStatus.OK );
         }
         catch ( final Exception e ) {
@@ -104,7 +96,6 @@ public class APIICDCodeController extends APIController {
                     HttpStatus.BAD_REQUEST );
         }
     }
-
     /**
      * Adds a new code to the system
      *
@@ -127,7 +118,6 @@ public class APIICDCodeController extends APIController {
             }
             LoggerUtil.log( TransactionType.ICD_CREATE, user.getUsername(),
                     user.getUsername() + " created an ICD Code" );
-
             return new ResponseEntity( code, HttpStatus.OK );
         }
         catch ( final Exception e ) {
@@ -137,7 +127,6 @@ public class APIICDCodeController extends APIController {
                     HttpStatus.BAD_REQUEST );
         }
     }
-
     /**
      * Deletes a code from the system.
      *
@@ -160,7 +149,6 @@ public class APIICDCodeController extends APIController {
             }
             LoggerUtil.log( TransactionType.ICD_DELETE, LoggerUtil.currentUser(),
                     user.getUsername() + " deleted an ICD Code" );
-
             return new ResponseEntity( HttpStatus.OK );
         }
         catch ( final Exception e ) {
@@ -170,5 +158,4 @@ public class APIICDCodeController extends APIController {
                     HttpStatus.BAD_REQUEST );
         }
     }
-
 }

@@ -1,13 +1,10 @@
 package edu.ncsu.csc.itrust2.controllers.api;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import edu.ncsu.csc.itrust2.models.enums.AppointmentType;
 import edu.ncsu.csc.itrust2.models.enums.BloodType;
 import edu.ncsu.csc.itrust2.models.enums.Ethnicity;
@@ -15,7 +12,6 @@ import edu.ncsu.csc.itrust2.models.enums.Gender;
 import edu.ncsu.csc.itrust2.models.enums.HouseholdSmokingStatus;
 import edu.ncsu.csc.itrust2.models.enums.PatientSmokingStatus;
 import edu.ncsu.csc.itrust2.models.enums.State;
-
 /**
  * This class provides GET endpoints for all of the Enums, so that they can be
  * used for creating proper DomainObjects
@@ -25,7 +21,6 @@ import edu.ncsu.csc.itrust2.models.enums.State;
  */
 @RestController
 public class APIEnumController extends APIController {
-
     /**
      * Gets appointment types
      *
@@ -35,7 +30,6 @@ public class APIEnumController extends APIController {
     public List<AppointmentType> getAppointmentTypes () {
         return Arrays.asList( AppointmentType.values() );
     }
-
     /**
      * Get the blood types
      *
@@ -45,7 +39,6 @@ public class APIEnumController extends APIController {
     public List<Map<String, Object>> getBloodTypes () {
         return Arrays.asList( BloodType.values() ).stream().map( bt -> bt.getInfo() ).collect( Collectors.toList() );
     }
-
     /**
      * Get ethnicity
      *
@@ -55,7 +48,6 @@ public class APIEnumController extends APIController {
     public List<Map<String, Object>> getEthnicity () {
         return Arrays.asList( Ethnicity.values() ).stream().map( eth -> eth.getInfo() ).collect( Collectors.toList() );
     }
-
     /**
      * Get genders
      *
@@ -65,7 +57,6 @@ public class APIEnumController extends APIController {
     public List<Map<String, Object>> getGenders () {
         return Arrays.asList( Gender.values() ).stream().map( gen -> gen.getInfo() ).collect( Collectors.toList() );
     }
-
     /**
      * Get states
      *
@@ -75,7 +66,6 @@ public class APIEnumController extends APIController {
     public List<Map<String, Object>> getStates () {
         return Arrays.asList( State.values() ).stream().map( st -> st.getInfo() ).collect( Collectors.toList() );
     }
-
     /**
      * Get house smoking statuses
      *
@@ -87,7 +77,6 @@ public class APIEnumController extends APIController {
                 HouseholdSmokingStatus.values().length );
         return ret;
     }
-
     /**
      * Get patient smoking statuses
      *
@@ -99,5 +88,4 @@ public class APIEnumController extends APIController {
                 PatientSmokingStatus.values().length );
         return ret;
     }
-
 }

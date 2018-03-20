@@ -1,7 +1,5 @@
 package edu.ncsu.csc.itrust2.controllers.api;
-
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,14 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import edu.ncsu.csc.itrust2.forms.hcp.OfficeVisitForm;
 import edu.ncsu.csc.itrust2.models.enums.Role;
 import edu.ncsu.csc.itrust2.models.enums.TransactionType;
 import edu.ncsu.csc.itrust2.models.persistent.OfficeVisit;
 import edu.ncsu.csc.itrust2.models.persistent.User;
 import edu.ncsu.csc.itrust2.utils.LoggerUtil;
-
 /**
  * Class that provides REST API endpoints for the OfficeVisit model. In all
  * requests made to this controller, the {id} provided is a Long that is the
@@ -31,7 +27,6 @@ import edu.ncsu.csc.itrust2.utils.LoggerUtil;
 @RestController
 @SuppressWarnings ( { "unchecked", "rawtypes" } )
 public class APIOfficeVisitController extends APIController {
-
     /**
      * Retrieves a list of all OfficeVisits in the database
      *
@@ -44,7 +39,6 @@ public class APIOfficeVisitController extends APIController {
     public List<OfficeVisit> getOfficeVisits () {
         return OfficeVisit.getOfficeVisits();
     }
-
     /**
      * Retrieves a list of all OfficeVisits in the database
      *
@@ -57,7 +51,6 @@ public class APIOfficeVisitController extends APIController {
         LoggerUtil.log( TransactionType.OFFICE_VISIT_PATIENT_VIEW, self );
         return OfficeVisit.getForPatient( self.getId() );
     }
-
     /**
      * Retrieves the OfficeVisit specified by the id provided.
      *
@@ -83,7 +76,6 @@ public class APIOfficeVisitController extends APIController {
             return new ResponseEntity( visit, HttpStatus.OK );
         }
     }
-
     /**
      * Deletes all OfficeVisits in the system. This cannot be reverse; exercise
      * caution before calling it
@@ -93,7 +85,6 @@ public class APIOfficeVisitController extends APIController {
         LoggerUtil.log( TransactionType.OFFICE_VISIT_DELETE, LoggerUtil.currentUser() );
         OfficeVisit.deleteAll();
     }
-
     /**
      * Creates and saves a new OfficeVisit from the RequestBody provided.
      *
@@ -114,7 +105,6 @@ public class APIOfficeVisitController extends APIController {
             LoggerUtil.log( TransactionType.OFFICE_VISIT_CREATE, LoggerUtil.currentUser(),
                     visit.getPatient().getUsername() );
             return new ResponseEntity( visit, HttpStatus.OK );
-
         }
         catch ( final Exception e ) {
             e.printStackTrace();
@@ -123,7 +113,6 @@ public class APIOfficeVisitController extends APIController {
                     HttpStatus.BAD_REQUEST );
         }
     }
-
     /**
      * Deletes the OfficeVisit with the id provided. This will remove all traces
      * from the system and cannot be reversed.
@@ -148,9 +137,7 @@ public class APIOfficeVisitController extends APIController {
             return new ResponseEntity( errorResponse( "Could not delete " + id + " because of " + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
-
     }
-
     /**
      * Updates the OfficeVisit with the id provided by overwriting it with the
      * new OfficeVisit that is provided. If the ID provided does not match the
@@ -166,7 +153,7 @@ public class APIOfficeVisitController extends APIController {
     public ResponseEntity updateOfficeVisit ( @PathVariable final Long id, @RequestBody final OfficeVisitForm form ) {
         try {
             final OfficeVisit visit = new OfficeVisit( form );
-            if ( null != visit.getId() && !id.equals( visit.getId() ) ) {
+            if ( null != visit.getId() && id.equals( visit.getId() ) ) {
                 return new ResponseEntity(
                         errorResponse( "The ID provided does not match the ID of the OfficeVisit provided" ),
                         HttpStatus.CONFLICT );
@@ -178,7 +165,7 @@ public class APIOfficeVisitController extends APIController {
             // It is possible that the HCP did not update the BHM but only the
             // other fields (date, time, etc) thus we need to check if the old
             // BHM is different from the new BHM before logging
-            if ( !dbVisit.getBasicHealthMetrics().equals( visit.getBasicHealthMetrics() ) ) {
+            if ( dbVisit.getBasicHealthMetrics().equals( visit.getBasicHealthMetrics() ) ) {
                 LoggerUtil.log( TransactionType.OFFICE_VISIT_EDIT, form.getHcp(), form.getPatient(), form.getHcp()
                         + " updated basic health metrics for " + form.getPatient() + " from " + form.getDate() );
             }
@@ -192,7 +179,6 @@ public class APIOfficeVisitController extends APIController {
                     HttpStatus.BAD_REQUEST );
         }
     }
-
     /**
      * This is used as a marker for the system to know that the HCP has viewed
      * the visit
@@ -214,7 +200,6 @@ public class APIOfficeVisitController extends APIController {
                 form.getHcp() + " viewed basic health metrics for " + form.getPatient() + " from " + form.getDate() );
         return new ResponseEntity( HttpStatus.OK );
     }
-
     /**
      * This is used as a marker for the system to know that the patient has
      * viewed the visit
@@ -237,5 +222,4 @@ public class APIOfficeVisitController extends APIController {
                 form.getPatient() + " viewed their basic health metrics from " + form.getDate() );
         return new ResponseEntity( HttpStatus.OK );
     }
-
 }

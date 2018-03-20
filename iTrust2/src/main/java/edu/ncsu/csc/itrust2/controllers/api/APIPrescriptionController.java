@@ -1,7 +1,5 @@
 package edu.ncsu.csc.itrust2.controllers.api;
-
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,12 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import edu.ncsu.csc.itrust2.forms.hcp.PrescriptionForm;
 import edu.ncsu.csc.itrust2.models.enums.TransactionType;
 import edu.ncsu.csc.itrust2.models.persistent.Prescription;
 import edu.ncsu.csc.itrust2.utils.LoggerUtil;
-
 /**
  * Provides REST endpoints that deal with prescriptions. Exposes functionality
  * to add, edit, fetch, and delete prescriptions.
@@ -29,7 +25,6 @@ import edu.ncsu.csc.itrust2.utils.LoggerUtil;
 @RestController
 @SuppressWarnings ( { "rawtypes", "unchecked" } )
 public class APIPrescriptionController extends APIController {
-
     /**
      * Adds a new prescription to the system. Requires HCP permissions.
      *
@@ -54,7 +49,6 @@ public class APIPrescriptionController extends APIController {
                     HttpStatus.BAD_REQUEST );
         }
     }
-
     /**
      * Edits an existing prescription in the system. Matches prescriptions by
      * ids. Requires HCP permissions.
@@ -87,7 +81,6 @@ public class APIPrescriptionController extends APIController {
                     HttpStatus.BAD_REQUEST );
         }
     }
-
     /**
      * Deletes the prescription with the given id.
      *
@@ -115,7 +108,6 @@ public class APIPrescriptionController extends APIController {
                     HttpStatus.BAD_REQUEST );
         }
     }
-
     /**
      * Returns a collection of all the prescriptions in the system.
      *
@@ -137,7 +129,6 @@ public class APIPrescriptionController extends APIController {
             return Prescription.getForPatient( LoggerUtil.currentUser() );
         }
     }
-
     /**
      * Returns a single prescription using the given id.
      *
@@ -159,5 +150,4 @@ public class APIPrescriptionController extends APIController {
             return new ResponseEntity( p, HttpStatus.OK );
         }
     }
-
 }

@@ -1,8 +1,6 @@
 package edu.ncsu.csc.itrust2.config;
-
 import javax.servlet.Filter;
 import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-
 /**
  * Class that manages which users are allowed to access the system and which
  * role they have. Different users are allowed to have different roles which can
@@ -28,7 +25,6 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
  *
  * @author Kai Presler-Marshall
  */
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -37,7 +33,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Autowired
     DataSource dataSource;
-
     /**
      * Login configuration for iTrust2.
      *
@@ -49,7 +44,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal ( final AuthenticationManagerBuilder auth ) throws Exception {
         final JdbcUserDetailsManagerConfigurer<AuthenticationManagerBuilder> dbManager = auth.jdbcAuthentication();
-
         // User query enabled flag also checks for locked or banned users. The
         // FailureHandler then
         // determines if the DisabledUser Exception was due to ban, lockout, or
@@ -63,16 +57,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         + "LEFT JOIN LoginLockouts AS c ON u.username = c.user_id AND TIMESTAMPDIFF(MINUTE, c.time, NOW()) < 60 WHERE username = ?;" )
                 .authoritiesByUsernameQuery( "select username,role from Users where username=?" );
         auth.authenticationEventPublisher( defaultAuthenticationEventPublisher() );
-
     }
-
     /**
      * Method responsible for the Login page. Can be extended to explicitly
      * override other automatic functionality as desired.
      */
     @Override
     protected void configure ( final HttpSecurity http ) throws Exception {
-
         final String[] patterns = new String[] { "/login*" };
         // Add filter for banned/locked IP
         /*
@@ -84,10 +75,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          * absolute first Filter.
          */
         http.addFilterBefore( ipBlockFilter(), ChannelProcessingFilter.class );
-
         http.authorizeRequests().antMatchers( patterns ).anonymous().anyRequest().authenticated().and().formLogin()
                 .loginPage( "/login" ).failureHandler( failureHandler() ).defaultSuccessUrl( "/" ).and().csrf()
-
                 .csrfTokenRepository( CookieCsrfTokenRepository
                         .withHttpOnlyFalse() ); /*
                                                  * Credit to
@@ -105,9 +94,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                                  * make Angular work properly
                                                  * with CSRF protection
                                                  */
-
     }
-
     @Override
     public void configure ( final WebSecurity web ) throws Exception {
         // Allow anonymous access to the 3 mappings related to resetting a
@@ -115,7 +102,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers( "/api/v1/requestPasswordReset", "/api/v1/resetPassword/*", "/requestPasswordReset",
                 "/resetPassword" );
     }
-
     /**
      * Bean used to generate a PasswordEncoder to hash the user-provided
      * password.
@@ -126,7 +112,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder () {
         return new BCryptPasswordEncoder();
     }
-
     /**
      * AuthenticationEventPublisher used to assist with authentication
      *
@@ -136,7 +121,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public DefaultAuthenticationEventPublisher defaultAuthenticationEventPublisher () {
         return new DefaultAuthenticationEventPublisher();
     }
-
     /**
      * Failure Handler used to track failed attempts to determine if a user or
      * IP needs to be banned.
@@ -147,7 +131,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public SimpleUrlAuthenticationFailureHandler failureHandler () {
         return new FailureHandler();
     }
-
     /**
      * Servlet Filter used to redirect all requests from banned/locked IPs to
      * the appropriate pages.

@@ -1,7 +1,5 @@
 package edu.ncsu.csc.itrust2.forms.admin;
-
 import org.hibernate.validator.constraints.NotEmpty;
-
 /**
  * Form used for an Admin to delete a Hospital stored in the system
  *
@@ -9,18 +7,15 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  */
 public class DeleteHospitalForm {
-
     /**
      * Name of the Hospital to delete
      */
     private String name;
-
     /**
      * Whether the user selected to confirm their action
      */
     @NotEmpty
     private String confirm;
-
     /**
      * Retrieve the Name from the form
      *
@@ -29,7 +24,6 @@ public class DeleteHospitalForm {
     public String getName () {
         return name;
     }
-
     /**
      * Sets the Name of the Hospital to delete
      *
@@ -39,7 +33,6 @@ public class DeleteHospitalForm {
     public void setName ( final String name ) {
         this.name = name;
     }
-
     /**
      * Retrieve whether the user confirmed the delete action
      *
@@ -48,7 +41,6 @@ public class DeleteHospitalForm {
     public String getConfirm () {
         return confirm;
     }
-
     /**
      * Whether or not the user confirmed the action
      *

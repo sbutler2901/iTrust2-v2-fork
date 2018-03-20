@@ -1,7 +1,5 @@
 package edu.ncsu.csc.itrust2.controllers.api;
-
 import java.net.InetAddress;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import edu.ncsu.csc.itrust2.forms.personnel.PasswordChangeForm;
 import edu.ncsu.csc.itrust2.models.enums.TransactionType;
 import edu.ncsu.csc.itrust2.models.persistent.PasswordResetToken;
@@ -22,7 +19,6 @@ import edu.ncsu.csc.itrust2.models.persistent.Personnel;
 import edu.ncsu.csc.itrust2.models.persistent.User;
 import edu.ncsu.csc.itrust2.utils.EmailUtil;
 import edu.ncsu.csc.itrust2.utils.LoggerUtil;
-
 /**
  * REST Controller that provides the endpoints for password changing and
  * resetting.
@@ -34,13 +30,10 @@ import edu.ncsu.csc.itrust2.utils.LoggerUtil;
 @RestController
 @SuppressWarnings ( { "rawtypes", "unchecked" } )
 public class APIPasswordController extends APIController {
-
     /** Password encoder instance */
     static PasswordEncoder pe = new BCryptPasswordEncoder();
-
     @Autowired
     Environment            environment;
-
     /**
      * Used when an authenticated user fills in the Change Password form.
      *
@@ -64,7 +57,6 @@ public class APIPasswordController extends APIController {
                         "Successfully changed password for user " + user.getUsername() );
                 return new ResponseEntity( successResponse( "Password changed successfully" ), HttpStatus.OK );
             }
-
             LoggerUtil.log( TransactionType.PASSWORD_UPDATE_FAILURE, user.getUsername(),
                     "Could not change password for user " + user.getUsername() );
             return new ResponseEntity( errorResponse( "Failed to change password" ), HttpStatus.BAD_REQUEST );
@@ -78,7 +70,6 @@ public class APIPasswordController extends APIController {
                     HttpStatus.BAD_REQUEST );
         }
     }
-
     /**
      * Used by an unauthenticated user to request a password reset. Sends an
      * email to the address registered with the provided username.
@@ -99,9 +90,7 @@ public class APIPasswordController extends APIController {
             token.save();
             final String port = "8080";
             final String host = InetAddress.getLocalHost().getHostAddress();
-
             final String link = "http://" + host + ":" + port + "/iTrust2/resetPassword?tkid=" + token.getId();
-
             String addr = "";
             String firstName = "";
             final Personnel person = Personnel.getByName( user );
@@ -119,12 +108,10 @@ public class APIPasswordController extends APIController {
                     throw new Exception( "No Patient or Personnel on file for " + user.getId() );
                 }
             }
-
             String body = "Hello " + firstName + ", \n\nWe receieved a request to reset your password.\n";
             body += "Go to " + link + "\nand use the reset token: " + token.getTempPasswordPlaintext() + "\n";
             body += "\nIf you did not request a password reset, please contact a system administrator.\n\n--iTrust2 Admin";
             EmailUtil.sendEmail( addr, "iTrust2 Password Reset", body );
-
             LoggerUtil.log( TransactionType.PASSWORD_UPDATE_SUCCESS, user.getUsername(),
                     "Successfully changed password for user " + user.getUsername() );
             return new ResponseEntity( successResponse( "" ), HttpStatus.OK );
@@ -137,7 +124,6 @@ public class APIPasswordController extends APIController {
                     HttpStatus.INTERNAL_SERVER_ERROR );
         }
     }
-
     /**
      * Used by an unauthenticated user on the reset password page. The temporary
      * password must be in the current field of the change password form.
@@ -155,14 +141,12 @@ public class APIPasswordController extends APIController {
         if ( token == null ) {
             return new ResponseEntity( errorResponse( "Invalid reset token" ), HttpStatus.BAD_REQUEST );
         }
-
         final User user = token.getUser();
         try {
             if ( form.validateReset( token ) ) {
                 user.setPassword( pe.encode( form.getNewPassword() ) );
                 user.save();
                 token.delete();
-
                 LoggerUtil.log( TransactionType.PASSWORD_UPDATE_SUCCESS, user.getUsername(),
                         "Successfully changed password for user " + user.getUsername() );
                 return new ResponseEntity( successResponse( "Passsword changed successfully" ), HttpStatus.OK );
@@ -184,5 +168,4 @@ public class APIPasswordController extends APIController {
                     HttpStatus.BAD_REQUEST );
         }
     }
-
 }

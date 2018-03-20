@@ -1,7 +1,5 @@
 package edu.ncsu.csc.itrust2.controllers.patient;
-
 import javax.validation.Valid;
-
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -11,13 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import edu.ncsu.csc.itrust2.forms.hcp_patient.PatientForm;
 import edu.ncsu.csc.itrust2.models.enums.TransactionType;
 import edu.ncsu.csc.itrust2.models.persistent.Patient;
 import edu.ncsu.csc.itrust2.models.persistent.User;
 import edu.ncsu.csc.itrust2.utils.LoggerUtil;
-
 /**
  * Controller for the Patient landing screen and basic patient information
  *
@@ -26,7 +22,6 @@ import edu.ncsu.csc.itrust2.utils.LoggerUtil;
  */
 @Controller
 public class PatientController {
-
     /**
      * Returns the form page for a patient to view all OfficeVisits
      *
@@ -39,7 +34,6 @@ public class PatientController {
     public String viewOfficeVisits ( final Model model ) {
         return "/patient/viewOfficeVisits";
     }
-
     /**
      * Returns the form page for a patient to view all prescriptions
      *
@@ -52,7 +46,6 @@ public class PatientController {
     public String viewPrescriptions ( final Model model ) {
         return "/patient/viewPrescriptions";
     }
-
     /**
      * Landing screen for a Patient when they log in
      *
@@ -65,7 +58,6 @@ public class PatientController {
     public String index ( final Model model ) {
         return edu.ncsu.csc.itrust2.models.enums.Role.ROLE_PATIENT.getLanding();
     }
-
     /**
      * Provides the page for a User to view and edit their demographics
      *
@@ -82,7 +74,6 @@ public class PatientController {
         LoggerUtil.log( TransactionType.VIEW_DEMOGRAPHICS, self );
         return "/patient/editDemographics";
     }
-
     /**
      * Processes the Edit Demographics form for a Patient
      *
@@ -107,7 +98,6 @@ public class PatientController {
             e.printStackTrace( System.out );
             result.rejectValue( "dateOfBirth", "dateOfBirth.notvalid", "Expected format: MM/DD/YYYY" );
         }
-
         if ( result.hasErrors() ) {
             model.addAttribute( "PatientForm", form );
             return "/patient/editDemographics";
@@ -124,5 +114,4 @@ public class PatientController {
             return "patient/editDemographicsResult";
         }
     }
-
 }

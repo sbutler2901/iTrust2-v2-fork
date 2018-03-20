@@ -1,9 +1,6 @@
 package edu.ncsu.csc.itrust2.controllers.hcp;
-
 import java.text.ParseException;
-
 import javax.validation.Valid;
-
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -12,14 +9,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import edu.ncsu.csc.itrust2.forms.hcp.OfficeVisitForm;
 import edu.ncsu.csc.itrust2.models.enums.TransactionType;
 import edu.ncsu.csc.itrust2.models.persistent.Hospital;
 import edu.ncsu.csc.itrust2.models.persistent.OfficeVisit;
 import edu.ncsu.csc.itrust2.models.persistent.User;
 import edu.ncsu.csc.itrust2.utils.LoggerUtil;
-
 /**
  *
  * Controller that enables a HCP to document an office visit into the system
@@ -29,7 +24,6 @@ import edu.ncsu.csc.itrust2.utils.LoggerUtil;
  */
 @Controller
 public class OfficeVisitController {
-
     /**
      * Returns the form page for a HCP to document an OfficeVisit
      *
@@ -45,7 +39,6 @@ public class OfficeVisitController {
         model.addAttribute( "patients", User.getPatients() );
         return "/hcp/documentOfficeVisit";
     }
-
     /**
      * Processes the form page for a HCP to document an OfficeVisit
      *
@@ -74,7 +67,6 @@ public class OfficeVisitController {
             result.rejectValue( "preScheduled", "preScheduled.notvalid",
                     "Office Visit marked as prescheduled but no matching request could be found" );
         }
-
         if ( result.hasErrors() ) {
             model.addAttribute( "OfficeVisitForm", form );
             model.addAttribute( "patients", User.getPatients() );
@@ -88,7 +80,6 @@ public class OfficeVisitController {
             return "hcp/documentOfficeVisitResult";
         }
     }
-
     /**
      * Returns the form page for a HCP to edit an OfficeVisit
      *
@@ -105,5 +96,4 @@ public class OfficeVisitController {
         model.addAttribute( "visits", OfficeVisit.getOfficeVisits() );
         return "/hcp/editOfficeVisit";
     }
-
 }

@@ -1,7 +1,5 @@
 package edu.ncsu.csc.itrust2.controllers.api;
-
 import com.google.gson.Gson;
-
 /**
  * Base class for all of the API controllers for manipulating DomainObjects. Add
  * in any fields or functionality that ought to be shared throughout.
@@ -29,13 +27,11 @@ import com.google.gson.Gson;
 public abstract class APIController {
     /** Base path of API */
     static final protected String BASE_PATH = "/api/v1/";
-
     /**
      * Used to serialize data and messages to JSON for transmitting through the
      * REST API
      */
     static final private Gson     GSON      = new Gson();
-
     /**
      * Turns the provided object into JSON
      *
@@ -46,7 +42,6 @@ public abstract class APIController {
     static final protected String toJson ( final Object obj ) {
         return GSON.toJson( obj );
     }
-
     /**
      * Turns the provided object into JSON, providing the class of the object to
      * give a better serialization. Use this if the type is known.
@@ -60,7 +55,6 @@ public abstract class APIController {
     static final protected String toJson ( final Object obj, final Class<JSONResponse> cls ) {
         return GSON.toJson( obj, cls );
     }
-
     /**
      * Creates a JSONResponse for sending an error or informational message back
      * to the user.
@@ -74,7 +68,6 @@ public abstract class APIController {
     static final protected String responseMessage ( final String status, final String message ) {
         return toJson( new JSONResponse( status, message ), JSONResponse.class );
     }
-
     /**
      * Creates a JSONResponse, setting the status to failed and the message to
      * what is provided.
@@ -86,7 +79,6 @@ public abstract class APIController {
     static final protected String errorResponse ( final String message ) {
         return responseMessage( "failed", message );
     }
-
     /**
      * Creates a JSONResponse, setting the status to success and the message to
      * what is provided.
@@ -98,7 +90,6 @@ public abstract class APIController {
     static final protected String successResponse ( final String message ) {
         return responseMessage( "success", message );
     }
-
     /**
      * Small class used for creating simple success/error messages to return via
      * the REST API. Contains a status of the action and an message.
@@ -107,17 +98,14 @@ public abstract class APIController {
      *
      */
     static protected class JSONResponse {
-
         /**
          * Status of the response (success/failed)
          */
         String status;
-
         /**
          * Message (what went wrong, something informational, etc)
          */
         String message;
-
         /**
          * Default constructor for JSONResponse.
          *

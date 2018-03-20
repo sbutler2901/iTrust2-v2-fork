@@ -1,11 +1,8 @@
 package edu.ncsu.csc.itrust2.forms.hcp;
-
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-
 import edu.ncsu.csc.itrust2.models.persistent.Prescription;
-
 /**
  * A form for REST API communication. Contains fields for constructing
  * Prescription objects.
@@ -13,9 +10,7 @@ import edu.ncsu.csc.itrust2.models.persistent.Prescription;
  * @author Connor
  */
 public class PrescriptionForm implements Serializable {
-
     private static final long serialVersionUID = 1L;
-
     private String            drug;
     private int               dosage;
     private String            startDate;
@@ -23,13 +18,11 @@ public class PrescriptionForm implements Serializable {
     private int               renewals;
     private String            patient;
     private Long              id;
-
     /**
      * Empty constructor for filling in fields without a Prescription object.
      */
     public PrescriptionForm () {
     }
-
     /**
      * Constructs a new form with information from the given prescription.
      *
@@ -46,7 +39,6 @@ public class PrescriptionForm implements Serializable {
         setRenewals( prescription.getRenewals() );
         setPatient( prescription.getPatient().getUsername() );
     }
-
     /**
      * Returns the drug associated with this Prescription
      *
@@ -55,7 +47,6 @@ public class PrescriptionForm implements Serializable {
     public String getDrug () {
         return drug;
     }
-
     /**
      * Associates this prescription with the given drug.
      *
@@ -65,7 +56,6 @@ public class PrescriptionForm implements Serializable {
     public void setDrug ( String drug ) {
         this.drug = drug;
     }
-
     /**
      * Returns the prescribed dosage of the drug.
      *
@@ -74,7 +64,6 @@ public class PrescriptionForm implements Serializable {
     public int getDosage () {
         return dosage;
     }
-
     /**
      * Sets the prescription's dosage in milligrams.
      *
@@ -84,7 +73,6 @@ public class PrescriptionForm implements Serializable {
     public void setDosage ( int dosage ) {
         this.dosage = dosage;
     }
-
     /**
      * Returns the drug's first valid day.
      *
@@ -93,7 +81,6 @@ public class PrescriptionForm implements Serializable {
     public String getStartDate () {
         return startDate;
     }
-
     /**
      * Sets the prescription's first valid day to the given date.
      *
@@ -103,7 +90,6 @@ public class PrescriptionForm implements Serializable {
     public void setStartDate ( String startDate ) {
         this.startDate = startDate;
     }
-
     /**
      * Returns the prescription's final valid date.
      *
@@ -112,7 +98,6 @@ public class PrescriptionForm implements Serializable {
     public String getEndDate () {
         return endDate;
     }
-
     /**
      * Sets the prescription's final valid date.
      *
@@ -122,7 +107,6 @@ public class PrescriptionForm implements Serializable {
     public void setEndDate ( String endDate ) {
         this.endDate = endDate;
     }
-
     /**
      * Gets the prescription's number of renewals.
      *
@@ -131,7 +115,6 @@ public class PrescriptionForm implements Serializable {
     public int getRenewals () {
         return renewals;
     }
-
     /**
      * Sets the prescription's number of renewals to the given number.
      *
@@ -141,7 +124,6 @@ public class PrescriptionForm implements Serializable {
     public void setRenewals ( int renewals ) {
         this.renewals = renewals;
     }
-
     /**
      * Returns the user associated with this prescription.
      *
@@ -150,7 +132,6 @@ public class PrescriptionForm implements Serializable {
     public String getPatient () {
         return patient;
     }
-
     /**
      * Sets the prescription's patient to the given user
      *
@@ -160,7 +141,6 @@ public class PrescriptionForm implements Serializable {
     public void setPatient ( String patient ) {
         this.patient = patient;
     }
-
     /**
      * Returns the id associated with the Prescription.
      *
@@ -169,7 +149,6 @@ public class PrescriptionForm implements Serializable {
     public Long getId () {
         return id;
     }
-
     /**
      * Sets the Prescription's unique id.
      *

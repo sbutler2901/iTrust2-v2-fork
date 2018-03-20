@@ -1,21 +1,17 @@
 package edu.ncsu.csc.itrust2.forms.hcp;
-
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
-
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
-
 import edu.ncsu.csc.itrust2.models.enums.HouseholdSmokingStatus;
 import edu.ncsu.csc.itrust2.models.enums.PatientSmokingStatus;
 import edu.ncsu.csc.itrust2.models.persistent.Diagnosis;
 import edu.ncsu.csc.itrust2.models.persistent.OfficeVisit;
 import edu.ncsu.csc.itrust2.models.persistent.Prescription;
-
 /**
  * Office Visit form used to document an Office Visit by the HCP. This will be
  * validated and converted to a OfficeVisit to be stored in the database.
@@ -29,126 +25,103 @@ public class OfficeVisitForm implements Serializable {
      * Serial Version of the Form. For the Serializable
      */
     private static final long serialVersionUID = 1L;
-
     /**
      * Empty constructor so that we can create an Office Visit form for the user
      * to fill out
      */
     public OfficeVisitForm () {
     }
-
     /**
      * Name of the Patient involved in the OfficeVisit
      */
     @NotEmpty
     private String                 patient;
-
     /**
      * Name of the HCP involved in the OfficeVisit
      */
     @NotEmpty
     private String                 hcp;
-
     /**
      * Date at which the OfficeVisit occurred
      */
     @NotEmpty
     private String                 date;
-
     /**
      * ID of the OfficeVisit
      */
     private String                 id;
-
     /**
      * Time at which the OfficeVisit occurred
      */
     @NotEmpty
     private String                 time;
-
     /**
      * Type of the OfficeVisit.
      */
     @NotEmpty
     private String                 type;
-
     /**
      * Hospital where the OfficeVisit occurred
      */
     @NotEmpty
     private String                 hospital;
-
     /**
      * Doctor's Notes on the OfficeVisit
      */
     @Length ( max = 255 )
     private String                 notes;
-
     /**
      * Whether the OfficeVisit was prescheduled or not
      */
     public String                  preScheduled;
-
     /**
      * Height or length of the person. Up to a 3-digit number and potentially
      * one digit of decimal precision. > 0
      */
     private Float                  height;
-
     /**
      * Weight of the person. Up to a 3-digit number and potentially one digit of
      * decimal precision. > 0
      */
     private Float                  weight;
-
     /**
      * Head circumference of the person. Up to a 3-digit number and potentially
      * one digit of decimal precision. > 0
      */
     private Float                  headCircumference;
-
     /**
      * Systolic blood pressure. 3-digit positive number.
      */
     private Integer                systolic;
-
     /**
      * Diastolic blood pressure. 3-digit positive number.
      */
     private Integer                diastolic;
-
     /**
      * HDL cholesterol. Between 0 and 90 inclusive.
      */
     private Integer                hdl;
-
     /**
      * LDL cholesterol. Between 0 and 600 inclusive.
      */
     private Integer                ldl;
-
     /**
      * Triglycerides cholesterol. Between 100 and 600 inclusive.
      */
     private Integer                tri;
-
     /**
      * Smoking status of the patient's household.
      */
     private HouseholdSmokingStatus houseSmokingStatus;
-
     /**
      * Smoking status of the patient.
      */
     private PatientSmokingStatus   patientSmokingStatus;
-
     /**
      * Diagnoses associated with this visit
      */
     private List<Diagnosis>        diagnoses;
-
     private List<PrescriptionForm> prescriptions;
-
     /**
      * Creates an OfficeVisitForm from the OfficeVisit provided
      *
@@ -169,7 +142,6 @@ public class OfficeVisitForm implements Serializable {
         setPrescriptions( ov.getPrescriptions().stream().map( ( Prescription p ) -> new PrescriptionForm( p ) )
                 .collect( Collectors.toList() ) );
     }
-
     /**
      * Get the patient in the OfficeVisit
      *
@@ -178,7 +150,6 @@ public class OfficeVisitForm implements Serializable {
     public String getPatient () {
         return this.patient;
     }
-
     /**
      * Sets a patient on the OfficeVisitForm
      *
@@ -188,7 +159,6 @@ public class OfficeVisitForm implements Serializable {
     public void setPatient ( final String patient ) {
         this.patient = patient;
     }
-
     /**
      * Retrieves the HCP on the OfficeVisit
      *
@@ -197,7 +167,6 @@ public class OfficeVisitForm implements Serializable {
     public String getHcp () {
         return this.hcp;
     }
-
     /**
      * Set a HCP on the OfficeVisitForm
      *
@@ -207,7 +176,6 @@ public class OfficeVisitForm implements Serializable {
     public void setHcp ( final String hcp ) {
         this.hcp = hcp;
     }
-
     /**
      * Retrieves the date that the OfficeVisit occurred at
      *
@@ -216,7 +184,6 @@ public class OfficeVisitForm implements Serializable {
     public String getDate () {
         return this.date;
     }
-
     /**
      * Sets the date that the OfficeVisit occurred at
      *
@@ -226,7 +193,6 @@ public class OfficeVisitForm implements Serializable {
     public void setDate ( final String date ) {
         this.date = date;
     }
-
     /**
      * Gets the ID of the OfficeVisit
      *
@@ -235,7 +201,6 @@ public class OfficeVisitForm implements Serializable {
     public String getId () {
         return this.id;
     }
-
     /**
      * Sets the ID of the OfficeVisit
      *
@@ -245,7 +210,6 @@ public class OfficeVisitForm implements Serializable {
     public void setId ( final String id ) {
         this.id = id;
     }
-
     /**
      * Gets the Time of the OfficeVisit
      *
@@ -254,7 +218,6 @@ public class OfficeVisitForm implements Serializable {
     public String getTime () {
         return this.time;
     }
-
     /**
      * Sets the time of the OfficeVisit
      *
@@ -264,7 +227,6 @@ public class OfficeVisitForm implements Serializable {
     public void setTime ( final String time ) {
         this.time = time;
     }
-
     /**
      * Gets the Type of the OfficeVisit
      *
@@ -273,7 +235,6 @@ public class OfficeVisitForm implements Serializable {
     public String getType () {
         return this.type;
     }
-
     /**
      * Sets the Type of the OfficeVisit
      *
@@ -283,7 +244,6 @@ public class OfficeVisitForm implements Serializable {
     public void setType ( final String type ) {
         this.type = type;
     }
-
     /**
      * Gets the Hospital of the OfficeVisit
      *
@@ -292,7 +252,6 @@ public class OfficeVisitForm implements Serializable {
     public String getHospital () {
         return this.hospital;
     }
-
     /**
      * Sets the Hospital on the OfficeVisit
      *
@@ -302,7 +261,6 @@ public class OfficeVisitForm implements Serializable {
     public void setHospital ( final String hospital ) {
         this.hospital = hospital;
     }
-
     /**
      * Get the Notes on the OfficeVisit
      *
@@ -311,7 +269,6 @@ public class OfficeVisitForm implements Serializable {
     public String getNotes () {
         return this.notes;
     }
-
     /**
      * Set the notes on the OfficeVisit
      *
@@ -321,7 +278,6 @@ public class OfficeVisitForm implements Serializable {
     public void setNotes ( final String notes ) {
         this.notes = notes;
     }
-
     /**
      * Sets whether the visit was prescheduled
      *
@@ -331,7 +287,6 @@ public class OfficeVisitForm implements Serializable {
     public void setPreScheduled ( final String prescheduled ) {
         this.preScheduled = prescheduled;
     }
-
     /**
      * Gets whether the visit was prescheduled or not
      *
@@ -340,7 +295,6 @@ public class OfficeVisitForm implements Serializable {
     public String getPreScheduled () {
         return this.preScheduled;
     }
-
     /**
      * Gets the height
      *
@@ -349,7 +303,6 @@ public class OfficeVisitForm implements Serializable {
     public Float getHeight () {
         return height;
     }
-
     /**
      * Sets the height
      *
@@ -359,7 +312,6 @@ public class OfficeVisitForm implements Serializable {
     public void setHeight ( final Float height ) {
         this.height = height;
     }
-
     /**
      * Gets the weight
      *
@@ -368,7 +320,6 @@ public class OfficeVisitForm implements Serializable {
     public Float getWeight () {
         return weight;
     }
-
     /**
      * Sets the weight
      *
@@ -378,7 +329,6 @@ public class OfficeVisitForm implements Serializable {
     public void setWeight ( final Float weight ) {
         this.weight = weight;
     }
-
     /**
      * Gets the head circumference
      *
@@ -387,7 +337,6 @@ public class OfficeVisitForm implements Serializable {
     public Float getHeadCircumference () {
         return headCircumference;
     }
-
     /**
      * Sets the headCircumference
      *
@@ -397,7 +346,6 @@ public class OfficeVisitForm implements Serializable {
     public void setHeadCircumference ( final Float headCircumference ) {
         this.headCircumference = headCircumference;
     }
-
     /**
      * Gets the diastolic blood pressure
      *
@@ -406,7 +354,6 @@ public class OfficeVisitForm implements Serializable {
     public Integer getDiastolic () {
         return diastolic;
     }
-
     /**
      * Sets the diastolic blood pressure
      *
@@ -416,7 +363,6 @@ public class OfficeVisitForm implements Serializable {
     public void setDiastolic ( final Integer diastolic ) {
         this.diastolic = diastolic;
     }
-
     /**
      * Gets the systolic blood pressure
      *
@@ -425,7 +371,6 @@ public class OfficeVisitForm implements Serializable {
     public Integer getSystolic () {
         return systolic;
     }
-
     /**
      * Sets the systolic blood pressure
      *
@@ -435,7 +380,6 @@ public class OfficeVisitForm implements Serializable {
     public void setSystolic ( final Integer systolic ) {
         this.systolic = systolic;
     }
-
     /**
      * Gets HDL cholesterol.
      *
@@ -444,7 +388,6 @@ public class OfficeVisitForm implements Serializable {
     public Integer getHdl () {
         return hdl;
     }
-
     /**
      * Sets HDL cholesterol. Between 0 and 90 inclusive.
      *
@@ -454,7 +397,6 @@ public class OfficeVisitForm implements Serializable {
     public void setHdl ( final Integer hdl ) {
         this.hdl = hdl;
     }
-
     /**
      * Gets the LDL cholesterol.
      *
@@ -463,7 +405,6 @@ public class OfficeVisitForm implements Serializable {
     public Integer getLdl () {
         return ldl;
     }
-
     /**
      * Sets LDL cholesterol. Between 0 and 600 inclusive.
      *
@@ -473,7 +414,6 @@ public class OfficeVisitForm implements Serializable {
     public void setLdl ( final Integer ldl ) {
         this.ldl = ldl;
     }
-
     /**
      * Gets triglycerides level.
      *
@@ -482,7 +422,6 @@ public class OfficeVisitForm implements Serializable {
     public Integer getTri () {
         return tri;
     }
-
     /**
      * Sets triglycerides cholesterol. Between 100 and 600 inclusive.
      *
@@ -492,7 +431,6 @@ public class OfficeVisitForm implements Serializable {
     public void setTri ( final Integer tri ) {
         this.tri = tri;
     }
-
     /**
      * Gets the smoking status of the patient's household.
      *
@@ -501,7 +439,6 @@ public class OfficeVisitForm implements Serializable {
     public HouseholdSmokingStatus getHouseSmokingStatus () {
         return houseSmokingStatus;
     }
-
     /**
      * Sets the smoking status of the patient's household.
      *
@@ -511,7 +448,6 @@ public class OfficeVisitForm implements Serializable {
     public void setHouseSmokingStatus ( final HouseholdSmokingStatus houseSmokingStatus ) {
         this.houseSmokingStatus = houseSmokingStatus;
     }
-
     /**
      * Gets the smoking status of the patient.
      *
@@ -520,7 +456,6 @@ public class OfficeVisitForm implements Serializable {
     public PatientSmokingStatus getPatientSmokingStatus () {
         return patientSmokingStatus;
     }
-
     /**
      * Sets the smoking status of the patient.
      *
@@ -530,7 +465,6 @@ public class OfficeVisitForm implements Serializable {
     public void setPatientSmokingStatus ( final PatientSmokingStatus patientSmokingStatus ) {
         this.patientSmokingStatus = patientSmokingStatus;
     }
-
     /**
      * Sets the Diagnosis list for this visit.
      *
@@ -540,7 +474,6 @@ public class OfficeVisitForm implements Serializable {
     public void setDiagnoses ( final List<Diagnosis> list ) {
         diagnoses = list;
     }
-
     /**
      * Returns the list of diagnoses associated with this office visit.
      *
@@ -549,7 +482,6 @@ public class OfficeVisitForm implements Serializable {
     public List<Diagnosis> getDiagnoses () {
         return diagnoses;
     }
-
     /**
      * Sets the list of prescriptions for this visit.
      *
@@ -559,7 +491,6 @@ public class OfficeVisitForm implements Serializable {
     public void setPrescriptions ( final List<PrescriptionForm> prescriptions ) {
         this.prescriptions = prescriptions;
     }
-
     /**
      * Returns the list of prescriptions associated with this office visit.
      *

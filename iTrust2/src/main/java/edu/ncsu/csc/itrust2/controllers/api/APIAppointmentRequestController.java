@@ -1,7 +1,5 @@
 package edu.ncsu.csc.itrust2.controllers.api;
-
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,13 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import edu.ncsu.csc.itrust2.forms.patient.AppointmentRequestForm;
 import edu.ncsu.csc.itrust2.models.enums.TransactionType;
 import edu.ncsu.csc.itrust2.models.persistent.AppointmentRequest;
 import edu.ncsu.csc.itrust2.models.persistent.DomainObject;
 import edu.ncsu.csc.itrust2.utils.LoggerUtil;
-
 /**
  * Class that provides REST API endpoints for the AppointmentRequest model. In
  * all requests made to this controller, the {id} provided is a numeric ID that
@@ -29,7 +25,6 @@ import edu.ncsu.csc.itrust2.utils.LoggerUtil;
 @RestController
 @SuppressWarnings ( { "unchecked", "rawtypes" } )
 public class APIAppointmentRequestController extends APIController {
-
     /**
      * Retrieves a list of all AppointmentRequests in the database
      *
@@ -39,7 +34,6 @@ public class APIAppointmentRequestController extends APIController {
     public List<AppointmentRequest> getAppointmentRequests () {
         return AppointmentRequest.getAppointmentRequests();
     }
-
     /**
      * Retrieves the AppointmentRequest specified by the ID provided
      *
@@ -59,7 +53,6 @@ public class APIAppointmentRequestController extends APIController {
                         HttpStatus.NOT_FOUND )
                 : new ResponseEntity( request, HttpStatus.OK );
     }
-
     /**
      * Creates an AppointmentRequest from the RequestBody provided. Record is
      * automatically saved in the database.
@@ -85,15 +78,12 @@ public class APIAppointmentRequestController extends APIController {
             request.save();
             LoggerUtil.log( TransactionType.APPOINTMENT_REQUEST_SUBMITTED, request.getPatient(), request.getHcp() );
             return new ResponseEntity( request, HttpStatus.OK );
-
         }
         catch ( final Exception e ) {
             return new ResponseEntity( errorResponse( "Error occured while validating or saving " + requestF.toString()
                     + " because of " + e.getMessage() ), HttpStatus.BAD_REQUEST );
         }
-
     }
-
     /**
      * Deletes the AppointmentRequest with the id provided. This will remove all
      * traces from the system and cannot be reversed.
@@ -119,9 +109,7 @@ public class APIAppointmentRequestController extends APIController {
                     errorResponse( "Could not delete " + request.toString() + " because of " + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
-
     }
-
     /**
      * Updates the AppointmentRequest with the id provided by overwriting it
      * with the new AppointmentRequest that is provided. If the ID provided does
@@ -139,11 +127,9 @@ public class APIAppointmentRequestController extends APIController {
     @PutMapping ( BASE_PATH + "/appointmentrequests/{id}" )
     public ResponseEntity updateAppointmentRequest ( @PathVariable final Long id,
             @RequestBody final AppointmentRequestForm requestF ) {
-
         try {
             final AppointmentRequest request = new AppointmentRequest( requestF );
-
-            if ( null != request.getId() && !id.equals( request.getId() ) ) {
+            if ( null != request.getId() && id.equals( request.getId() ) ) {
                 return new ResponseEntity(
                         errorResponse( "The ID provided does not match the ID of the AppointmentRequest provided" ),
                         HttpStatus.CONFLICT );
@@ -153,7 +139,6 @@ public class APIAppointmentRequestController extends APIController {
                 return new ResponseEntity( errorResponse( "No appointmentrequest found for id " + id ),
                         HttpStatus.NOT_FOUND );
             }
-
             request.save();
             LoggerUtil.log( TransactionType.APPOINTMENT_REQUEST_UPDATED, request.getPatient(), request.getHcp() );
             return new ResponseEntity( request, HttpStatus.OK );
@@ -163,9 +148,7 @@ public class APIAppointmentRequestController extends APIController {
                     errorResponse( "Could not update " + requestF.toString() + " because of " + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
-
     }
-
     /**
      * Deletes _all_ of the AppointmentRequests stored in the system. Exercise
      * caution before calling this method.
@@ -185,5 +168,4 @@ public class APIAppointmentRequestController extends APIController {
                     HttpStatus.BAD_REQUEST );
         }
     }
-
 }

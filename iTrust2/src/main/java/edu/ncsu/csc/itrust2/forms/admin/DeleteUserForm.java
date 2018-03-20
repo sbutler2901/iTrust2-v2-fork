@@ -1,7 +1,5 @@
 package edu.ncsu.csc.itrust2.forms.admin;
-
 import org.hibernate.validator.constraints.NotEmpty;
-
 /**
  * Form used for an Admin to delete a user (any type) from the system.
  *
@@ -9,18 +7,15 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  */
 public class DeleteUserForm {
-
     /**
      * Name of the User to delete
      */
     private String name;
-
     /**
      * Whether the Admin confirmed the action or not.
      */
     @NotEmpty
     private String confirm;
-
     /**
      * Retrieves the Name of the user to delete
      *
@@ -29,7 +24,6 @@ public class DeleteUserForm {
     public String getName () {
         return name;
     }
-
     /**
      * Sets the Name of the User to delete
      *
@@ -39,7 +33,6 @@ public class DeleteUserForm {
     public void setName ( final String name ) {
         this.name = name;
     }
-
     /**
      * Retrieves whether the Admin confirmed the action
      *
@@ -48,7 +41,6 @@ public class DeleteUserForm {
     public String getConfirm () {
         return confirm;
     }
-
     /**
      * Mark the action as confirmed or not
      *

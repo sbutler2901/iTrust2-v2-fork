@@ -9,10 +9,8 @@
  * governing permissions and limitations under the License.
  */
 package edu.ncsu.csc.itrust2.config;
-
 import org.springframework.core.annotation.Order;
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
-
 @Order ( 2 )
 public class ITrust2WebApplicationInitializer extends AbstractSecurityWebApplicationInitializer {
 }

@@ -1,7 +1,5 @@
 package edu.ncsu.csc.itrust2.controllers.admin;
-
 import javax.validation.Valid;
-
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -10,7 +8,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import edu.ncsu.csc.itrust2.forms.admin.DeleteUserForm;
 import edu.ncsu.csc.itrust2.forms.admin.UserForm;
 import edu.ncsu.csc.itrust2.models.enums.TransactionType;
@@ -18,7 +15,6 @@ import edu.ncsu.csc.itrust2.models.persistent.Patient;
 import edu.ncsu.csc.itrust2.models.persistent.Personnel;
 import edu.ncsu.csc.itrust2.models.persistent.User;
 import edu.ncsu.csc.itrust2.utils.LoggerUtil;
-
 /**
  * This controller enables Admins to add new users to the system or (eventually)
  * modify existing ones
@@ -26,10 +22,8 @@ import edu.ncsu.csc.itrust2.utils.LoggerUtil;
  * @author Kai Presler-Marshall
  *
  */
-
 @Controller
 public class AdminUserController {
-
     /**
      * Add user
      *
@@ -43,7 +37,6 @@ public class AdminUserController {
         model.addAttribute( "UserForm", new UserForm() );
         return "/admin/addUser";
     }
-
     /**
      * Add user submission
      *
@@ -69,7 +62,6 @@ public class AdminUserController {
         catch ( final Exception e ) {
             result.rejectValue( "password", "password.notvalid", "Passwords invalid or do not match" );
         }
-
         if ( result.hasErrors() ) {
             model.addAttribute( "UserForm", form );
             return "/admin/addUser";
@@ -98,7 +90,6 @@ public class AdminUserController {
             return "admin/addUserResult";
         }
     }
-
     /**
      * Retrieves the form for the Delete User action
      *
@@ -112,7 +103,6 @@ public class AdminUserController {
         model.addAttribute( "users", User.getUsers() );
         return "admin/deleteUser";
     }
-
     /**
      * Submit action for the Delete User action.
      *
@@ -140,9 +130,7 @@ public class AdminUserController {
             result.rejectValue( "confirm", "confirm.notvalid", "You must confirm that the user should be deleted" );
         }
         return "admin/deleteUser";
-
     }
-
     /**
      * Retrieves the form for the Drugs action
      *

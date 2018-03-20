@@ -1,15 +1,11 @@
 package edu.ncsu.csc.itrust2.controllers.api;
-
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
 import edu.ncsu.csc.itrust2.models.persistent.LogEntry;
-
 /**
  * REST controller for interacting with Log Entry-related endpoints This will
  * have somewhat reduced functionality compared to the other controllers because
@@ -22,7 +18,6 @@ import edu.ncsu.csc.itrust2.models.persistent.LogEntry;
 @RestController
 @SuppressWarnings ( { "unchecked", "rawtypes" } )
 public class APILogEntryController extends APIController {
-
     /**
      * Retrieves and returns a List of all LogEntries in the system
      *
@@ -32,7 +27,6 @@ public class APILogEntryController extends APIController {
     public List<LogEntry> getLogEntries () {
         return LogEntry.getLogEntries();
     }
-
     /**
      * Retrieves and returns a specific log entry specified by the id provided.
      *
@@ -48,5 +42,4 @@ public class APILogEntryController extends APIController {
                 ? new ResponseEntity( errorResponse( "No log entry found for id " + id ), HttpStatus.NOT_FOUND )
                 : new ResponseEntity( entry, HttpStatus.OK );
     }
-
 }

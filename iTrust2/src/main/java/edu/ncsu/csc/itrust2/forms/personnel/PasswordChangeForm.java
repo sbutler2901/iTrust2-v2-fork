@@ -1,11 +1,8 @@
 package edu.ncsu.csc.itrust2.forms.personnel;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import edu.ncsu.csc.itrust2.models.persistent.PasswordResetToken;
 import edu.ncsu.csc.itrust2.models.persistent.User;
-
 /**
  * Form used to change or reset a password. The same form is used for both by
  * changing the role of the current password to be temporary password for
@@ -15,12 +12,10 @@ import edu.ncsu.csc.itrust2.models.persistent.User;
  *
  */
 public class PasswordChangeForm {
-
     static PasswordEncoder pe = new BCryptPasswordEncoder();
     private String         currentPassword;
     private String         newPassword;
     private String         newPassword2;
-
     /**
      * Returns the current password entered by the user. For resets, this is the
      * temporary password
@@ -30,7 +25,6 @@ public class PasswordChangeForm {
     public String getCurrentPassword () {
         return currentPassword;
     }
-
     /**
      * Sets the current password. For resets, this is the temp password
      *
@@ -40,7 +34,6 @@ public class PasswordChangeForm {
     public void setCurrentPassword ( final String currentPassword ) {
         this.currentPassword = currentPassword;
     }
-
     /**
      * Returns the ne wpassword enetered by the user
      *
@@ -49,7 +42,6 @@ public class PasswordChangeForm {
     public String getNewPassword () {
         return newPassword;
     }
-
     /**
      * Sets the new password
      *
@@ -59,7 +51,6 @@ public class PasswordChangeForm {
     public void setNewPassword ( final String newPassword ) {
         this.newPassword = newPassword;
     }
-
     /**
      * Returns the second entry of the new password
      *
@@ -68,7 +59,6 @@ public class PasswordChangeForm {
     public String getNewPassword2 () {
         return newPassword2;
     }
-
     /**
      * Sets the second entry of the new password
      *
@@ -78,7 +68,6 @@ public class PasswordChangeForm {
     public void setNewPassword2 ( final String newPassword2 ) {
         this.newPassword2 = newPassword2;
     }
-
     /**
      * Validates the form based on the passed Reset Token.
      *
@@ -91,7 +80,7 @@ public class PasswordChangeForm {
             token.delete();
             throw new IllegalArgumentException( "This temporary password has expired." );
         }
-        if ( !pe.matches( getCurrentPassword(), token.getTempPassword() ) ) {
+        if ( pe.matches( getCurrentPassword(), token.getTempPassword() ) ) {
             throw new IllegalArgumentException( "Incorrect temporary password." );
         }
         // possibility of hash collision false positive.
@@ -102,8 +91,7 @@ public class PasswordChangeForm {
         if ( pe.matches( getNewPassword(), token.getTempPassword() ) ) {
             throw new IllegalArgumentException( "New password must be different from temporary password." );
         }
-
-        if ( !getNewPassword().equals( getNewPassword2() ) ) {
+        if ( getNewPassword().equals( getNewPassword2() ) ) {
             throw new IllegalArgumentException( "New password and re-entry must match." );
         }
         if ( getNewPassword().length() < 6 || getNewPassword().length() > 20 ) {
@@ -111,7 +99,6 @@ public class PasswordChangeForm {
         }
         return true;
     }
-
     /**
      * Validates
      * 
@@ -120,10 +107,10 @@ public class PasswordChangeForm {
      * @return true if the input is valid, false otherwise
      */
     public boolean validateChange ( final User user ) {
-        if ( !pe.matches( getCurrentPassword(), user.getPassword() ) ) {
+        if ( pe.matches( getCurrentPassword(), user.getPassword() ) ) {
             throw new IllegalArgumentException( "Incorrect password." );
         }
-        if ( !getNewPassword().equals( getNewPassword2() ) ) {
+        if ( getNewPassword().equals( getNewPassword2() ) ) {
             throw new IllegalArgumentException( "New password and re-entry must match." );
         }
         if ( getNewPassword().length() < 6 || getNewPassword().length() > 20 ) {
@@ -134,5 +121,4 @@ public class PasswordChangeForm {
         }
         return true;
     }
-
 }

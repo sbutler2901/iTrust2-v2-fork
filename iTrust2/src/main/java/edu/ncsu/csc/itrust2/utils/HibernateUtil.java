@@ -1,10 +1,8 @@
 package edu.ncsu.csc.itrust2.utils;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
 /**
  * A utility class for setting up the Hibernate SessionFactory
  *
@@ -12,12 +10,10 @@ import org.hibernate.cfg.Configuration;
  * @author Kai Presler-Marshall
  */
 public class HibernateUtil {
-
     /**
      * SeesionFactory used
      */
     private static SessionFactory sessionFactory = buildSessionFactory();
-
     /**
      * Creates a SessionFactory
      *
@@ -34,7 +30,6 @@ public class HibernateUtil {
             throw new ExceptionInInitializerError( ex );
         }
     }
-
     /**
      * Retrieves the SessionFactory generated
      *
@@ -43,7 +38,6 @@ public class HibernateUtil {
     private static SessionFactory getSessionFactory () {
         return sessionFactory;
     }
-
     /**
      * Retrieve a Session from Hibernate. Wrapper code to avoid boilerplate.
      *
@@ -54,7 +48,6 @@ public class HibernateUtil {
     public static Session openSession () throws HibernateException {
         return getSessionFactory().openSession();
     }
-
     /**
      * Close the SessionFactory
      */

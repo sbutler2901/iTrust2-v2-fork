@@ -1,11 +1,8 @@
 package edu.ncsu.csc.itrust2.controllers.patient;
-
 import java.util.List;
 import java.util.Vector;
 import java.util.stream.Collectors;
-
 import javax.validation.Valid;
-
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -14,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import edu.ncsu.csc.itrust2.forms.patient.AppointmentForm;
 import edu.ncsu.csc.itrust2.forms.patient.AppointmentRequestForm;
 import edu.ncsu.csc.itrust2.models.enums.Status;
@@ -22,7 +18,6 @@ import edu.ncsu.csc.itrust2.models.enums.TransactionType;
 import edu.ncsu.csc.itrust2.models.persistent.AppointmentRequest;
 import edu.ncsu.csc.itrust2.models.persistent.User;
 import edu.ncsu.csc.itrust2.utils.LoggerUtil;
-
 /**
  * Controller for various appointment-related actions for a Patient in the
  * system.
@@ -32,7 +27,6 @@ import edu.ncsu.csc.itrust2.utils.LoggerUtil;
  */
 @Controller
 public class AppointmentController {
-
     /**
      * Retrieves the page for the Patient to request an Appointment
      *
@@ -47,7 +41,6 @@ public class AppointmentController {
         model.addAttribute( "hcps", User.getHCPs() );
         return "/patient/requestAppointment";
     }
-
     /**
      * Handles processing the AppointmentRequestForm from the Patient
      *
@@ -72,7 +65,6 @@ public class AppointmentController {
         catch ( final Exception e ) {
             result.reject( "Error occurred while parsing form" );
         }
-
         if ( result.hasErrors() ) {
             model.addAttribute( "hcps", User.getHCPs() );
             return "patient/requestAppointment";
@@ -83,7 +75,6 @@ public class AppointmentController {
             return "patient/requestAppointmentResult";
         }
     }
-
     /**
      * Creates a page of all AppointmentRequests so the patient can view them
      * 
@@ -108,7 +99,6 @@ public class AppointmentController {
                 SecurityContextHolder.getContext().getAuthentication().getName() );
         return "patient/viewAppointmentRequests";
     }
-
     /**
      * Delete Appointment request mapping
      *
@@ -125,5 +115,4 @@ public class AppointmentController {
                 SecurityContextHolder.getContext().getAuthentication().getName() );
         return "patient/viewAppointmentRequestsResult";
     }
-
 }

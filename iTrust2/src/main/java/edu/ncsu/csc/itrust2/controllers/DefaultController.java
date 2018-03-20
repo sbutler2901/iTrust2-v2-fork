@@ -1,7 +1,5 @@
 package edu.ncsu.csc.itrust2.controllers;
-
 import java.util.List;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
-
 /**
  * Default controller that handles redirecting the logged-in user to one of the
  * appropriate landing screens based on their user roles. If a new role is added
@@ -22,10 +19,8 @@ import org.springframework.web.servlet.view.RedirectView;
  * @author Kai Presler-Marshall
  *
  */
-
 @Controller
 public class DefaultController {
-
     /**
      * This controller is used to redirect the authenticated user to the
      * appropriate landing screen based on their role.

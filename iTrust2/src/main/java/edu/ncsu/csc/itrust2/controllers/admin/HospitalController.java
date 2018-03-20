@@ -1,7 +1,5 @@
 package edu.ncsu.csc.itrust2.controllers.admin;
-
 import javax.validation.Valid;
-
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -10,13 +8,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import edu.ncsu.csc.itrust2.forms.admin.DeleteHospitalForm;
 import edu.ncsu.csc.itrust2.forms.admin.HospitalForm;
 import edu.ncsu.csc.itrust2.models.enums.TransactionType;
 import edu.ncsu.csc.itrust2.models.persistent.Hospital;
 import edu.ncsu.csc.itrust2.utils.LoggerUtil;
-
 /**
  * Class that enables an Admin to add a Hospital to the system.
  *
@@ -25,7 +21,6 @@ import edu.ncsu.csc.itrust2.utils.LoggerUtil;
  */
 @Controller
 public class HospitalController {
-
     /**
      * Creates the form page for the Add Hospital page
      *
@@ -39,7 +34,6 @@ public class HospitalController {
         model.addAttribute( "HospitalForm", new HospitalForm() );
         return "/admin/addHospital";
     }
-
     /**
      * Parses the HospitalForm from the User
      *
@@ -66,7 +60,6 @@ public class HospitalController {
             throw new IllegalArgumentException(
                     e ); /* This should never happen */
         }
-
         if ( result.hasErrors() ) {
             model.addAttribute( "HospitalForm", form );
             return "/admin/addHospital";
@@ -78,7 +71,6 @@ public class HospitalController {
             return "admin/addHospitalResult";
         }
     }
-
     /**
      * Displays the form for an Admin to delete a Hospital from the system
      *
@@ -92,7 +84,6 @@ public class HospitalController {
         model.addAttribute( "hospitals", Hospital.getHospitals() );
         return "admin/deleteHospital";
     }
-
     /**
      * Processes the form for an Admin to delete a Hospital from the system
      *
@@ -120,7 +111,5 @@ public class HospitalController {
             result.rejectValue( "confirm", "confirm.notvalid", "You must confirm that the hospital should be deleted" );
         }
         return "admin/deleteHospital";
-
     }
-
 }

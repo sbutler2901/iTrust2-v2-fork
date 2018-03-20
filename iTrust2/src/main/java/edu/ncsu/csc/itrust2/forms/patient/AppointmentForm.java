@@ -1,5 +1,4 @@
 package edu.ncsu.csc.itrust2.forms.patient;
-
 /**
  * Used for selecting Appointments from list to take further action on them
  *
@@ -7,10 +6,8 @@ package edu.ncsu.csc.itrust2.forms.patient;
  *
  */
 public class AppointmentForm {
-
     /** The appointment of the form **/
     private String appointment;
-
     /**
      * Get the appointment of the form
      * 
@@ -19,7 +16,6 @@ public class AppointmentForm {
     public String getAppointment () {
         return appointment;
     }
-
     /**
      * Set the appointment of the form
      * 
@@ -29,7 +25,6 @@ public class AppointmentForm {
     public void setAppointment ( final String appointment ) {
         this.appointment = appointment;
     }
-
     /**
      * Get the action of the appointment
      * 
@@ -38,7 +33,6 @@ public class AppointmentForm {
     public String getAction () {
         return action;
     }
-
     /**
      * Set the action of the appointment
      * 
@@ -48,8 +42,6 @@ public class AppointmentForm {
     public void setAction ( final String action ) {
         this.action = action;
     }
-
     /** The action of the form **/
     private String action;
-
 }
