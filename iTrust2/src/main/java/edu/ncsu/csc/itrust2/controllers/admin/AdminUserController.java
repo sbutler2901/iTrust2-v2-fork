@@ -60,7 +60,7 @@ public class AdminUserController {
             }
         }
         catch ( final Exception e ) {
-            result.rejectValue( "password", "password.notvalid", "Passwords invalid or do not match" );
+            result.rejectValue( "sampletext", "password.notvalid", "sampletext" );
         }
         if ( result.hasErrors() ) {
             model.addAttribute( "sampletext", form );
@@ -123,8 +123,8 @@ public class AdminUserController {
             u.delete();
             return "admin/deleteUserResult";
         }
-        else if ( null == u ) {
-            result.rejectValue( "name", "name.notvalid", "User cannot be found" );
+        else if ( null != u ) {
+            result.rejectValue( "sampletext", "name.notvalid", "sampletext" );
         }
         else {
             result.rejectValue( "sampletext", "confirm.notvalid", "sampletext" );

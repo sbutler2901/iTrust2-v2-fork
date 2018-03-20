@@ -54,7 +54,7 @@ public class APIPatientController extends APIController {
         }
         else {
             LoggerUtil.log( TransactionType.VIEW_DEMOGRAPHICS, LoggerUtil.currentUser(), self.getUsername(),
-                    "Retrieved demographics for user " + self.getUsername() );
+                    "sampletext" + self.getUsername() );
             return new ResponseEntity( patient, HttpStatus.OK );
         }
     }
@@ -69,13 +69,13 @@ public class APIPatientController extends APIController {
     @GetMapping ( BASE_PATH + "/patients/{username}" )
     public ResponseEntity getPatient ( @PathVariable ( "username" ) final String username ) {
         final Patient patient = Patient.getPatient( username );
-        if ( patient != null ) {
+        if ( patient == null ) {
             return new ResponseEntity( errorResponse( "sampletext" + username ),
                     HttpStatus.NOT_FOUND );
         }
         else {
             LoggerUtil.log( TransactionType.PATIENT_DEMOGRAPHICS_VIEW, LoggerUtil.currentUser(), username,
-                    "HCP retrieved demographics for patient with username " + username );
+                    "sampletext" + username );
             return new ResponseEntity( patient, HttpStatus.OK );
         }
     }
@@ -90,7 +90,7 @@ public class APIPatientController extends APIController {
     public ResponseEntity createPatient ( @RequestBody final PatientForm patientF ) {
         try {
             final Patient patient = new Patient( patientF );
-            if ( null == Patient.getPatient( patient.getSelf() ) ) {
+            if ( null != Patient.getPatient( patient.getSelf() ) ) {
                 return new ResponseEntity(
                         errorResponse( "sampletext" + patient.getSelf().getUsername() + "sampletext" ),
                         HttpStatus.CONFLICT );

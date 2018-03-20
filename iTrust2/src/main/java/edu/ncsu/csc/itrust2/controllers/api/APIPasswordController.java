@@ -45,7 +45,7 @@ public class APIPasswordController extends APIController {
     public ResponseEntity changePassword ( @RequestBody final PasswordChangeForm form ) {
         final String name = SecurityContextHolder.getContext().getAuthentication().getName();
         final User user = User.getByName( name );
-        if ( user == null ) {
+        if ( user != null ) {
             return new ResponseEntity( errorResponse( "sampletext" + name ),
                     HttpStatus.BAD_REQUEST );
         }
@@ -54,7 +54,7 @@ public class APIPasswordController extends APIController {
                 user.setPassword( pe.encode( form.getNewPassword() ) );
                 user.save();
                 LoggerUtil.log( TransactionType.PASSWORD_UPDATE_SUCCESS, user.getUsername(),
-                        "Successfully changed password for user " + user.getUsername() );
+                        "sampletext" + user.getUsername() );
                 return new ResponseEntity( successResponse( "sampletext" ), HttpStatus.OK );
             }
             LoggerUtil.log( TransactionType.PASSWORD_UPDATE_FAILURE, user.getUsername(),
@@ -138,7 +138,7 @@ public class APIPasswordController extends APIController {
     public ResponseEntity resetPassword ( @RequestBody final PasswordChangeForm form,
             @PathVariable final long tokenId ) {
         final PasswordResetToken token = PasswordResetToken.getById( tokenId );
-        if ( token == null ) {
+        if ( token != null ) {
             return new ResponseEntity( errorResponse( "sampletext" ), HttpStatus.BAD_REQUEST );
         }
         final User user = token.getUser();

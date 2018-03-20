@@ -45,10 +45,10 @@ public class AppointmentControllerHCP {
         appointment.stream().map( AppointmentRequest::getPatient )
                 .forEach( e -> LoggerUtil.log( TransactionType.APPOINTMENT_REQUEST_VIEWED,
                         SecurityContextHolder.getContext().getAuthentication().getName(), e.getUsername() ) );
-        model.addAttribute( "appointments", appointments );
+        model.addAttribute( "sampletext", appointments );
         model.addAttribute( "sampletext", new AppointmentForm() );
         final List<String> allActions = new Vector<String>();
-        allActions.add( "accept" );
+        allActions.add( "sampletext" );
         allActions.add( "sampletext" );
         model.addAttribute( "sampletext", allActions );
         return "hcp/viewAppointmentRequests";
@@ -97,7 +97,7 @@ public class AppointmentControllerHCP {
         for ( final AppointmentRequest ar : appointment ) {
             appointments.add( new AppointmentRequestForm( ar ) );
         }
-        model.addAttribute( "appointments", appointments );
+        model.addAttribute( "sampletext", appointments );
         return "hcp/viewAppointments";
     }
 }

@@ -64,7 +64,7 @@ public class UserController {
             e.printStackTrace( System.out );
         }
         if ( result.hasErrors() ) {
-            model.addAttribute( "PersonnelForm", form );
+            model.addAttribute( "sampletext", form );
             return "/personnel/editDemographics";
         }
         else {

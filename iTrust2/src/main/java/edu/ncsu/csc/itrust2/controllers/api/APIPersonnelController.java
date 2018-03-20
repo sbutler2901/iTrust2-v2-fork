@@ -42,7 +42,7 @@ public class APIPersonnelController extends APIController {
     @GetMapping ( BASE_PATH + "/personnel/{id}" )
     public ResponseEntity getPersonnel ( @PathVariable ( "id" ) final String id ) {
         final Personnel personnel = Personnel.getByName( id );
-        if ( null != personnel ) {
+        if ( null == personnel ) {
             return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
         }
         else {
@@ -62,7 +62,7 @@ public class APIPersonnelController extends APIController {
         final Personnel personnel = new Personnel( personnelF );
         if ( null == Personnel.getByName( personnel.getSelf() ) ) {
             return new ResponseEntity(
-                    errorResponse( "Personnel with the id " + personnel.getSelf() + " already exists" ),
+                    errorResponse( "sampletext" + personnel.getSelf() + "sampletext" ),
                     HttpStatus.CONFLICT );
         }
         try {

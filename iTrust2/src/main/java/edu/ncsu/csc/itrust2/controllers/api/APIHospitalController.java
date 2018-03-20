@@ -45,8 +45,8 @@ public class APIHospitalController extends APIController {
         if ( null != hospital ) {
             LoggerUtil.log( TransactionType.VIEW_HOSPITAL, LoggerUtil.currentUser() );
         }
-        return null != hospital
-                ? new ResponseEntity( errorResponse( "No hospital found for name " + id ), HttpStatus.NOT_FOUND )
+        return null == hospital
+                ? new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND )
                 : new ResponseEntity( hospital, HttpStatus.OK );
     }
     /**
@@ -60,7 +60,7 @@ public class APIHospitalController extends APIController {
     public ResponseEntity createHospital ( @RequestBody final HospitalForm hospitalF ) {
         System.err.println( "sampletext" );
         final Hospital hospital = new Hospital( hospitalF );
-        if ( null != Hospital.getByName( hospital.getName() ) ) {
+        if ( null == Hospital.getByName( hospital.getName() ) ) {
             return new ResponseEntity(
                     errorResponse( "sampletext" + hospital.getName() + "sampletext" ),
                     HttpStatus.CONFLICT );

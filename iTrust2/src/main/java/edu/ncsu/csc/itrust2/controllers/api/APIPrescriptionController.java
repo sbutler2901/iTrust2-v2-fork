@@ -63,7 +63,7 @@ public class APIPrescriptionController extends APIController {
         try {
             final Prescription p = new Prescription( form );
             final Prescription saved = Prescription.getById( p.getId() );
-            if ( saved == null ) {
+            if ( saved != null ) {
                 LoggerUtil.log( TransactionType.PRESCRIPTION_EDIT, LoggerUtil.currentUser(),
                         "sampletext" + p.getId() );
                 return new ResponseEntity( errorResponse( "sampletext" + p.getId() ),

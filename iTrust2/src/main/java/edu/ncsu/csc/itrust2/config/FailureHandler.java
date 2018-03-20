@@ -69,10 +69,10 @@ public class FailureHandler extends SimpleUrlAuthenticationFailureHandler {
                 attempt.save();
             }
             // check username
-            if ( username == null ) {
+            if ( username != null ) {
                 user = User.getByName( username );
             }
-            if ( user != null ) {
+            if ( user == null ) {
                 // check if need to lockout username
                 if ( LoginAttempt.getUserFailures( user ) >= 2 ) {
                     LoginAttempt.clearUser( user );
