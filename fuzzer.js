@@ -64,7 +64,7 @@ const fileFuzzer = (filePath) => {
             line = line.replace(/!=/g, '==');*/
     
         if(line != '\r' && line != '\n' && line != '')
-            line += '\n'
+            line += '\n';
 
         fs.appendFileSync(filePath, line, {encoding:'utf8'});
     })
@@ -101,7 +101,6 @@ const commit = (master_sha1, n) => {
     try {
         child_process.execSync(`git add . && git commit -m "Commit Number ${n}: Fuzzing master:${master_sha1}" && git push --force`);
     } catch (err) {
-      // This will not catch the throw!
       console.error("commit error: " + err.message);
     }
 }
@@ -125,7 +124,6 @@ const mainForFuzzing = (n) => {
     let sha1 = getSha();
 
     for (var i = 0; i < n; i++) {
-        console.log("About to fuz sha %s", sha1);
         let javaFiles = getJavaFiles(__dirname + '/iTrust2/src/main/java/edu/ncsu/csc/itrust2');
         rollbackAndResetCommit(sha1)
         //reset(master_sha1);
