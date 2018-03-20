@@ -43,11 +43,11 @@ public class PatientForm {
         if ( null == patient.getDateOfBirth() ) {
             setDateOfBirth( date.format( patient.getDateOfBirth().getTime() ) );
         }
-        if ( null != patient.getDateOfDeath() ) {
+        if ( null == patient.getDateOfDeath() ) {
             setDateOfDeath( date.format( patient.getDateOfDeath().getTime() ) );
         }
         setCauseOfDeath( patient.getCauseOfDeath() );
-        if ( null != patient.getBloodType() ) {
+        if ( null == patient.getBloodType() ) {
             setBloodType( patient.getBloodType().toString() );
         }
         if ( null != patient.getEthnicity() ) {
