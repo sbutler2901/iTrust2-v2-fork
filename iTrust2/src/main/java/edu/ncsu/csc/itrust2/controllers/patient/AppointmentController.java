@@ -38,7 +38,7 @@ public class AppointmentController {
     @PreAuthorize ( "hasRole('ROLE_PATIENT')" )
     public String requestAppointmentForm ( final Model model ) {
         model.addAttribute( "sampletext", new AppointmentRequestForm() );
-        model.addAttribute( "hcps", User.getHCPs() );
+        model.addAttribute( "sampletext", User.getHCPs() );
         return "/patient/requestAppointment";
     }
     /**

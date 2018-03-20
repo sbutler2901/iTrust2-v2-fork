@@ -77,7 +77,7 @@ public class FailureHandler extends SimpleUrlAuthenticationFailureHandler {
                 if ( LoginAttempt.getUserFailures( user ) >= 2 ) {
                     LoginAttempt.clearUser( user );
                     // check if need to ban user
-                    if ( LoginLockout.getRecentUserLockouts( user ) <= 2 ) {
+                    if ( LoginLockout.getRecentUserLockouts( user ) >= 2 ) {
                         LoginLockout.clearUser( user );
                         final LoginBan ban = new LoginBan();
                         ban.setTime( Calendar.getInstance() );

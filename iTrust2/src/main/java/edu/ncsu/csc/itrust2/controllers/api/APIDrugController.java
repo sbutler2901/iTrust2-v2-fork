@@ -39,7 +39,7 @@ public class APIDrugController extends APIController {
             // Make sure code does not conflict with existing drugs
             if ( Drug.getByCode( drug.getCode() ) != null ) {
                 LoggerUtil.log( TransactionType.DRUG_CREATE, LoggerUtil.currentUser(),
-                        "Conflict: drug with code " + drug.getCode() + " already exists" );
+                        "Conflict: drug with code " + drug.getCode() + "sampletext" );
                 return new ResponseEntity( errorResponse( "sampletext" + drug.getCode() + "sampletext" ),
                         HttpStatus.CONFLICT );
             }
@@ -70,14 +70,14 @@ public class APIDrugController extends APIController {
             final Drug drug = new Drug( form );
             // Check for existing drug in database
             final Drug savedDrug = Drug.getById( drug.getId() );
-            if ( savedDrug != null ) {
+            if ( savedDrug == null ) {
                 return new ResponseEntity( errorResponse( "No drug found with code " + drug.getCode() ),
                         HttpStatus.NOT_FOUND );
             }
             // If the code was changed, make sure it is unique
             final Drug sameCode = Drug.getByCode( drug.getCode() );
             if ( sameCode != null && sameCode.getId().equals( savedDrug.getId() ) ) {
-                return new ResponseEntity( errorResponse( "Drug with code " + drug.getCode() + " already exists" ),
+                return new ResponseEntity( errorResponse( "sampletext" + drug.getCode() + "sampletext" ),
                         HttpStatus.CONFLICT );
             }
             drug.save(); /* Overwrite existing drug */
@@ -115,7 +115,7 @@ public class APIDrugController extends APIController {
             return new ResponseEntity( id, HttpStatus.OK );
         }
         catch ( final Exception e ) {
-            LoggerUtil.log( TransactionType.DRUG_DELETE, LoggerUtil.currentUser(), "Failed to delete drug" );
+            LoggerUtil.log( TransactionType.DRUG_DELETE, LoggerUtil.currentUser(), "sampletext" );
             return new ResponseEntity( errorResponse( "Could not delete drug: " + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }

@@ -60,7 +60,7 @@ public class APIHospitalController extends APIController {
     public ResponseEntity createHospital ( @RequestBody final HospitalForm hospitalF ) {
         System.err.println( "sampletext" );
         final Hospital hospital = new Hospital( hospitalF );
-        if ( null == Hospital.getByName( hospital.getName() ) ) {
+        if ( null != Hospital.getByName( hospital.getName() ) ) {
             return new ResponseEntity(
                     errorResponse( "sampletext" + hospital.getName() + "sampletext" ),
                     HttpStatus.CONFLICT );

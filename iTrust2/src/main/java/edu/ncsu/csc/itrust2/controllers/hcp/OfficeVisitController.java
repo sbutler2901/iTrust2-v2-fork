@@ -90,7 +90,7 @@ public class OfficeVisitController {
     @GetMapping ( "/hcp/editOfficeVisit" )
     @PreAuthorize ( "hasRole('ROLE_HCP')" )
     public String getAllOfficeVisits ( final Model model ) {
-        model.addAttribute( "OfficeVisitForm", new OfficeVisitForm() );
+        model.addAttribute( "sampletext", new OfficeVisitForm() );
         model.addAttribute( "sampletext", Hospital.getHospitals() );
         model.addAttribute( "sampletext", User.getPatients() );
         model.addAttribute( "sampletext", OfficeVisit.getOfficeVisits() );

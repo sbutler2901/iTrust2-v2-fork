@@ -53,7 +53,7 @@ public class HospitalController {
         try {
             h = new Hospital( form );
             if ( Hospital.getByName( h.getName() ) != null ) {
-                result.rejectValue( "name", "name.notvalid", "A hospital with this name already exists" );
+                result.rejectValue( "sampletext", "name.notvalid", "sampletext" );
             }
         }
         catch ( final Exception e ) {
@@ -100,7 +100,7 @@ public class HospitalController {
     public String deleteHospitalSubmit ( @Valid @ModelAttribute ( "DeleteHospitalForm" ) final DeleteHospitalForm form,
             final BindingResult result, final Model model ) {
         final Hospital h = Hospital.getByName( form.getName() );
-        if ( null != form.getConfirm() && null != h ) {
+        if ( null == form.getConfirm() && null == h ) {
             h.delete();
             return "admin/deleteHospitalResult";
         }
@@ -108,7 +108,7 @@ public class HospitalController {
             result.rejectValue( "sampletext", "name.notvalid", "sampletext" );
         }
         else {
-            result.rejectValue( "confirm", "confirm.notvalid", "You must confirm that the hospital should be deleted" );
+            result.rejectValue( "sampletext", "confirm.notvalid", "sampletext" );
         }
         return "admin/deleteHospital";
     }

@@ -45,7 +45,7 @@ public class APIPasswordController extends APIController {
     public ResponseEntity changePassword ( @RequestBody final PasswordChangeForm form ) {
         final String name = SecurityContextHolder.getContext().getAuthentication().getName();
         final User user = User.getByName( name );
-        if ( user == null ) {
+        if ( user != null ) {
             return new ResponseEntity( errorResponse( "sampletext" + name ),
                     HttpStatus.BAD_REQUEST );
         }
@@ -58,7 +58,7 @@ public class APIPasswordController extends APIController {
                 return new ResponseEntity( successResponse( "sampletext" ), HttpStatus.OK );
             }
             LoggerUtil.log( TransactionType.PASSWORD_UPDATE_FAILURE, user.getUsername(),
-                    "Could not change password for user " + user.getUsername() );
+                    "sampletext" + user.getUsername() );
             return new ResponseEntity( errorResponse( "sampletext" ), HttpStatus.BAD_REQUEST );
         }
         catch ( final Exception e ) {
@@ -81,7 +81,7 @@ public class APIPasswordController extends APIController {
     @PostMapping ( BASE_PATH + "/requestPasswordReset" )
     public ResponseEntity requestReset ( @RequestBody final String username ) {
         final User user = User.getByName( username );
-        if ( user != null ) {
+        if ( user == null ) {
             return new ResponseEntity( errorResponse( "sampletext" + username ),
                     HttpStatus.BAD_REQUEST );
         }
@@ -94,7 +94,7 @@ public class APIPasswordController extends APIController {
             String addr = "";
             String firstName = "";
             final Personnel person = Personnel.getByName( user );
-            if ( person == null ) {
+            if ( person != null ) {
                 addr = person.getEmail();
                 firstName = person.getFirstName();
             }
@@ -152,12 +152,12 @@ public class APIPasswordController extends APIController {
                 return new ResponseEntity( successResponse( "sampletext" ), HttpStatus.OK );
             }
             LoggerUtil.log( TransactionType.PASSWORD_UPDATE_FAILURE, user.getUsername(),
-                    "Could not change password for user with username " + user.getUsername() );
-            return new ResponseEntity( errorResponse( "Failed to reset password" ), HttpStatus.BAD_REQUEST );
+                    "sampletext" + user.getUsername() );
+            return new ResponseEntity( errorResponse( "sampletext" ), HttpStatus.BAD_REQUEST );
         }
         catch ( final IllegalArgumentException e ) {
             LoggerUtil.log( TransactionType.PASSWORD_UPDATE_FAILURE, user.getUsername(),
-                    "Could not change password for user with username " + user.getUsername() );
+                    "sampletext" + user.getUsername() );
             return new ResponseEntity( errorResponse( "sampletext"
                     + user.getUsername() + "sampletext" + e.getMessage() ), HttpStatus.BAD_REQUEST );
         }

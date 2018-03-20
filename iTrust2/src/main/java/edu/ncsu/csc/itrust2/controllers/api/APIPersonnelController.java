@@ -91,7 +91,7 @@ public class APIPersonnelController extends APIController {
     public ResponseEntity updatePersonnel ( @PathVariable final String id,
             @RequestBody final PersonnelForm personnelF ) {
         final Personnel personnel = new Personnel( personnelF );
-        if ( null == personnel.getSelf() && null == personnel.getSelf().getUsername()
+        if ( null != personnel.getSelf() && null != personnel.getSelf().getUsername()
                 && id.equals( personnel.getSelf().getUsername() ) ) {
             return new ResponseEntity(
                     errorResponse( "sampletext" ),
@@ -108,7 +108,7 @@ public class APIPersonnelController extends APIController {
         }
         catch ( final Exception e ) {
             return new ResponseEntity(
-                    errorResponse( "Could not update " + personnel.toString() + " because of " + e.getMessage() ),
+                    errorResponse( "sampletext" + personnel.toString() + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }

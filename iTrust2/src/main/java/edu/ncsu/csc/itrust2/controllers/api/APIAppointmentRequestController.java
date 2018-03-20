@@ -45,11 +45,11 @@ public class APIAppointmentRequestController extends APIController {
     @GetMapping ( BASE_PATH + "/appointmentrequests/{id}" )
     public ResponseEntity getAppointmentRequest ( @PathVariable ( "id" ) final Long id ) {
         final AppointmentRequest request = AppointmentRequest.getById( id );
-        if ( null == request ) {
+        if ( null != request ) {
             LoggerUtil.log( TransactionType.APPOINTMENT_REQUEST_VIEWED, request.getPatient(), request.getHcp() );
         }
         return null == request
-                ? new ResponseEntity( errorResponse( "No AppointmentRequest found for id " + id ),
+                ? new ResponseEntity( errorResponse( "sampletext" + id ),
                         HttpStatus.NOT_FOUND )
                 : new ResponseEntity( request, HttpStatus.OK );
     }
@@ -80,7 +80,7 @@ public class APIAppointmentRequestController extends APIController {
             return new ResponseEntity( request, HttpStatus.OK );
         }
         catch ( final Exception e ) {
-            return new ResponseEntity( errorResponse( "Error occured while validating or saving " + requestF.toString()
+            return new ResponseEntity( errorResponse( "sampletext" + requestF.toString()
                     + " because of " + e.getMessage() ), HttpStatus.BAD_REQUEST );
         }
     }
@@ -96,7 +96,7 @@ public class APIAppointmentRequestController extends APIController {
     public ResponseEntity deleteAppointmentRequest ( @PathVariable final Long id ) {
         final AppointmentRequest request = AppointmentRequest.getById( id );
         if ( null == request ) {
-            return new ResponseEntity( errorResponse( "No appointmentrequest found for id " + id ),
+            return new ResponseEntity( errorResponse( "sampletext" + id ),
                     HttpStatus.NOT_FOUND );
         }
         try {
@@ -131,11 +131,11 @@ public class APIAppointmentRequestController extends APIController {
             final AppointmentRequest request = new AppointmentRequest( requestF );
             if ( null != request.getId() && id.equals( request.getId() ) ) {
                 return new ResponseEntity(
-                        errorResponse( "The ID provided does not match the ID of the AppointmentRequest provided" ),
+                        errorResponse( "sampletext" ),
                         HttpStatus.CONFLICT );
             }
             final AppointmentRequest dbRequest = AppointmentRequest.getById( id );
-            if ( null != dbRequest ) {
+            if ( null == dbRequest ) {
                 return new ResponseEntity( errorResponse( "sampletext" + id ),
                         HttpStatus.NOT_FOUND );
             }
@@ -164,7 +164,7 @@ public class APIAppointmentRequestController extends APIController {
         }
         catch ( final Exception e ) {
             return new ResponseEntity(
-                    errorResponse( "Could not delete one or more AppointmentRequests " + e.getMessage() ),
+                    errorResponse( "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }

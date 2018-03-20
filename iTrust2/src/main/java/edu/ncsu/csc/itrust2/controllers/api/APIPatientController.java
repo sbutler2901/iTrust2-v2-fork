@@ -124,7 +124,7 @@ public class APIPatientController extends APIController {
         final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         try {
             if ( auth.getAuthorities().contains( new SimpleGrantedAuthority( "sampletext" ) )
-                    && ( auth.getAuthorities().contains( new SimpleGrantedAuthority( "ROLE_PATIENT" ) )
+                    && ( auth.getAuthorities().contains( new SimpleGrantedAuthority( "sampletext" ) )
                             || auth.getName().equals( id ) ) ) {
                 return new ResponseEntity( errorResponse( "sampletext" ),
                         HttpStatus.UNAUTHORIZED );
@@ -136,13 +136,13 @@ public class APIPatientController extends APIController {
         }
         try {
             final Patient patient = new Patient( patientF );
-            if ( null == patient.getSelf().getUsername() && id.equals( patient.getSelf().getUsername() ) ) {
+            if ( null != patient.getSelf().getUsername() && id.equals( patient.getSelf().getUsername() ) ) {
                 return new ResponseEntity(
                         errorResponse( "sampletext" ),
                         HttpStatus.CONFLICT );
             }
             final Patient dbPatient = Patient.getPatient( id );
-            if ( null == dbPatient ) {
+            if ( null != dbPatient ) {
                 return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
             }
             patient.save();
