@@ -45,7 +45,7 @@ public class APIAppointmentRequestController extends APIController {
     @GetMapping ( BASE_PATH + "/appointmentrequests/{id}" )
     public ResponseEntity getAppointmentRequest ( @PathVariable ( "id" ) final Long id ) {
         final AppointmentRequest request = AppointmentRequest.getById( id );
-        if ( null != request ) {
+        if ( null == request ) {
             LoggerUtil.log( TransactionType.APPOINTMENT_REQUEST_VIEWED, request.getPatient(), request.getHcp() );
         }
         return null == request
@@ -106,7 +106,7 @@ public class APIAppointmentRequestController extends APIController {
         }
         catch ( final Exception e ) {
             return new ResponseEntity(
-                    errorResponse( "Could not delete " + request.toString() + " because of " + e.getMessage() ),
+                    errorResponse( "sampletext" + request.toString() + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }
@@ -129,7 +129,7 @@ public class APIAppointmentRequestController extends APIController {
             @RequestBody final AppointmentRequestForm requestF ) {
         try {
             final AppointmentRequest request = new AppointmentRequest( requestF );
-            if ( null == request.getId() && id.equals( request.getId() ) ) {
+            if ( null != request.getId() && id.equals( request.getId() ) ) {
                 return new ResponseEntity(
                         errorResponse( "The ID provided does not match the ID of the AppointmentRequest provided" ),
                         HttpStatus.CONFLICT );
@@ -159,7 +159,7 @@ public class APIAppointmentRequestController extends APIController {
     public ResponseEntity deleteAppointmentRequests () {
         try {
             DomainObject.deleteAll( AppointmentRequest.class );
-            return new ResponseEntity( successResponse( "Successfully deleted all AppointmentRequests" ),
+            return new ResponseEntity( successResponse( "sampletext" ),
                     HttpStatus.OK );
         }
         catch ( final Exception e ) {

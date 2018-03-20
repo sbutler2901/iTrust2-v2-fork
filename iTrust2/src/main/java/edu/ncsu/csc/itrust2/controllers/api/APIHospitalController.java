@@ -62,7 +62,7 @@ public class APIHospitalController extends APIController {
         final Hospital hospital = new Hospital( hospitalF );
         if ( null == Hospital.getByName( hospital.getName() ) ) {
             return new ResponseEntity(
-                    errorResponse( "Hospital with the name " + hospital.getName() + " already exists" ),
+                    errorResponse( "sampletext" + hospital.getName() + "sampletext" ),
                     HttpStatus.CONFLICT );
         }
         try {

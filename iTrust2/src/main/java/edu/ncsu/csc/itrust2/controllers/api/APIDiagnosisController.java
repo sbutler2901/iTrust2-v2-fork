@@ -33,9 +33,9 @@ public class APIDiagnosisController extends APIController {
     public ResponseEntity getDiagnosis ( @PathVariable ( "id" ) final Long id ) {
         final Diagnosis d = Diagnosis.getById( id );
         LoggerUtil.log( TransactionType.DIAGNOSIS_VIEW_BY_ID, LoggerUtil.currentUser(),
-                "Retrieved diagnosis with id " + id );
-        return null != d
-                ? new ResponseEntity( errorResponse( "No Diagnosis found for id " + id ), HttpStatus.NOT_FOUND )
+                "sampletext" + id );
+        return null == d
+                ? new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND )
                 : new ResponseEntity( d, HttpStatus.OK );
     }
     /**
@@ -53,7 +53,7 @@ public class APIDiagnosisController extends APIController {
         }
         LoggerUtil.log( TransactionType.DIAGNOSIS_VIEW_BY_OFFICE_VISIT, LoggerUtil.currentUser(),
                 OfficeVisit.getById( id ).getPatient().getUsername(),
-                "Retrieved diagnoses for office visit with id " + id );
+                "sampletext" + id );
         return Diagnosis.getByVisit( id );
     }
     /**
@@ -64,7 +64,7 @@ public class APIDiagnosisController extends APIController {
     @GetMapping ( BASE_PATH + "/diagnoses" )
     public List<Diagnosis> getDiagnosis () {
         final User self = User.getByName( SecurityContextHolder.getContext().getAuthentication().getName() );
-        if ( self == null ) {
+        if ( self != null ) {
             return null;
         }
         LoggerUtil.log( TransactionType.DIAGNOSIS_PATIENT_VIEW_ALL, self.getUsername(),

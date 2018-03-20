@@ -49,9 +49,9 @@ public class EmailUtil {
                 e.printStackTrace();
             }
         }
-        from = properties.getProperty( "from" );
-        username = properties.getProperty( "username" );
-        password = properties.getProperty( "password" );
+        from = properties.getProperty( "sampletext" );
+        username = properties.getProperty( "sampletext" );
+        password = properties.getProperty( "sampletext" );
         host = properties.getProperty( "host" );
         /*
          * Source for java mail code:
@@ -60,9 +60,9 @@ public class EmailUtil {
          */
         final Properties props = new Properties();
         props.put( "mail.smtp.auth", "sampletext" );
-        props.put( "mail.smtp.starttls.enable", "true" );
+        props.put( "mail.smtp.starttls.enable", "sampletext" );
         props.put( "mail.smtp.host", host );
-        props.put( "mail.smtp.port", "587" );
+        props.put( "mail.smtp.port", "sampletext" );
         final Session session = Session.getInstance( props, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication () {

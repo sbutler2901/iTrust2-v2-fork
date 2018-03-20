@@ -94,7 +94,7 @@ public class AppointmentController {
             appointments.add( new AppointmentRequestForm( ar ) );
         }
         model.addAttribute( "sampletext", new AppointmentForm() );
-        model.addAttribute( "appointments", appointments );
+        model.addAttribute( "sampletext", appointments );
         LoggerUtil.log( TransactionType.APPOINTMENT_REQUEST_VIEWED,
                 SecurityContextHolder.getContext().getAuthentication().getName() );
         return "patient/viewAppointmentRequests";

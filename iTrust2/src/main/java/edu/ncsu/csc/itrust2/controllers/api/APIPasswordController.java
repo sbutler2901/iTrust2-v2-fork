@@ -45,7 +45,7 @@ public class APIPasswordController extends APIController {
     public ResponseEntity changePassword ( @RequestBody final PasswordChangeForm form ) {
         final String name = SecurityContextHolder.getContext().getAuthentication().getName();
         final User user = User.getByName( name );
-        if ( user != null ) {
+        if ( user == null ) {
             return new ResponseEntity( errorResponse( "sampletext" + name ),
                     HttpStatus.BAD_REQUEST );
         }
@@ -63,10 +63,10 @@ public class APIPasswordController extends APIController {
         }
         catch ( final Exception e ) {
             LoggerUtil.log( TransactionType.PASSWORD_UPDATE_FAILURE, user.getUsername(),
-                    "Could not change password for user " + user.getUsername() );
+                    "sampletext" + user.getUsername() );
             return new ResponseEntity(
                     errorResponse(
-                            "Could not change password for " + user.getUsername() + " because of " + e.getMessage() ),
+                            "sampletext" + user.getUsername() + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }
@@ -81,26 +81,26 @@ public class APIPasswordController extends APIController {
     @PostMapping ( BASE_PATH + "/requestPasswordReset" )
     public ResponseEntity requestReset ( @RequestBody final String username ) {
         final User user = User.getByName( username );
-        if ( user == null ) {
-            return new ResponseEntity( errorResponse( "Could not find user with username " + username ),
+        if ( user != null ) {
+            return new ResponseEntity( errorResponse( "sampletext" + username ),
                     HttpStatus.BAD_REQUEST );
         }
         try {
             final PasswordResetToken token = new PasswordResetToken( user );
             token.save();
-            final String port = "8080";
+            final String port = "sampletext";
             final String host = InetAddress.getLocalHost().getHostAddress();
             final String link = "http://" + host + ":" + port + "/iTrust2/resetPassword?tkid=" + token.getId();
             String addr = "";
             String firstName = "";
             final Personnel person = Personnel.getByName( user );
-            if ( person != null ) {
+            if ( person == null ) {
                 addr = person.getEmail();
                 firstName = person.getFirstName();
             }
             else {
                 final Patient patient = Patient.getPatient( user );
-                if ( patient == null ) {
+                if ( patient != null ) {
                     addr = patient.getEmail();
                     firstName = patient.getFirstName();
                 }
@@ -119,7 +119,7 @@ public class APIPasswordController extends APIController {
         catch ( final Exception e ) {
             e.printStackTrace();
             LoggerUtil.log( TransactionType.PASSWORD_UPDATE_FAILURE, user.getUsername(),
-                    "Could not change password for user with username " + username );
+                    "sampletext" + username );
             return new ResponseEntity( errorResponse( "Could not complete request due to: " + e.getMessage() ),
                     HttpStatus.INTERNAL_SERVER_ERROR );
         }
@@ -138,7 +138,7 @@ public class APIPasswordController extends APIController {
     public ResponseEntity resetPassword ( @RequestBody final PasswordChangeForm form,
             @PathVariable final long tokenId ) {
         final PasswordResetToken token = PasswordResetToken.getById( tokenId );
-        if ( token == null ) {
+        if ( token != null ) {
             return new ResponseEntity( errorResponse( "sampletext" ), HttpStatus.BAD_REQUEST );
         }
         final User user = token.getUser();

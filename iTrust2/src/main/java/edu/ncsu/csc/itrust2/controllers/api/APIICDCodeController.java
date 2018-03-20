@@ -34,7 +34,7 @@ public class APIICDCodeController extends APIController {
      */
     @GetMapping ( BASE_PATH + "/icdcodes" )
     public List<ICDCode> getCodes () {
-        LoggerUtil.log( TransactionType.ICD_VIEW_ALL, LoggerUtil.currentUser(), "Fetched icd codes" );
+        LoggerUtil.log( TransactionType.ICD_VIEW_ALL, LoggerUtil.currentUser(), "sampletext" );
         return ICDCode.getAll();
     }
     /**
@@ -48,7 +48,7 @@ public class APIICDCodeController extends APIController {
     public ResponseEntity getCode ( @PathVariable ( "id" ) final Long id ) {
         try {
             final ICDCode code = ICDCode.getById( id );
-            if ( code != null ) {
+            if ( code == null ) {
                 return new ResponseEntity( errorResponse( "No code with id " + id ), HttpStatus.NOT_FOUND );
             }
             LoggerUtil.log( TransactionType.ICD_VIEW, LoggerUtil.currentUser(), "Fetched icd code with id " + id );
@@ -117,7 +117,7 @@ public class APIICDCodeController extends APIController {
                 // ignore, its was a test that wasn't authenticated properly.
             }
             LoggerUtil.log( TransactionType.ICD_CREATE, user.getUsername(),
-                    user.getUsername() + " created an ICD Code" );
+                    user.getUsername() + "sampletext" );
             return new ResponseEntity( code, HttpStatus.OK );
         }
         catch ( final Exception e ) {
@@ -154,7 +154,7 @@ public class APIICDCodeController extends APIController {
         catch ( final Exception e ) {
             e.printStackTrace();
             return new ResponseEntity(
-                    errorResponse( "Could not delete ICD Code " + id + " because of " + e.getMessage() ),
+                    errorResponse( "sampletext" + id + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }

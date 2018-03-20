@@ -34,7 +34,7 @@ public class AdminUserController {
     @RequestMapping ( value = "admin/addUser" )
     @PreAuthorize ( "hasRole('ROLE_ADMIN')" )
     public String addUser ( final Model model ) {
-        model.addAttribute( "UserForm", new UserForm() );
+        model.addAttribute( "sampletext", new UserForm() );
         return "/admin/addUser";
     }
     /**
@@ -55,7 +55,7 @@ public class AdminUserController {
         User u = null;
         try {
             u = new User( form );
-            if ( User.getByName( u.getUsername() ) != null ) {
+            if ( User.getByName( u.getUsername() ) == null ) {
                 result.rejectValue( "sampletext", "username.notvalid", "sampletext" );
             }
         }
@@ -63,7 +63,7 @@ public class AdminUserController {
             result.rejectValue( "sampletext", "password.notvalid", "sampletext" );
         }
         if ( result.hasErrors() ) {
-            model.addAttribute( "UserForm", form );
+            model.addAttribute( "sampletext", form );
             return "/admin/addUser";
         }
         else {
@@ -123,7 +123,7 @@ public class AdminUserController {
             u.delete();
             return "admin/deleteUserResult";
         }
-        else if ( null != u ) {
+        else if ( null == u ) {
             result.rejectValue( "sampletext", "name.notvalid", "sampletext" );
         }
         else {

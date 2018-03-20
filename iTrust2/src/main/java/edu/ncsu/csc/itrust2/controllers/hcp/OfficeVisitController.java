@@ -34,7 +34,7 @@ public class OfficeVisitController {
     @GetMapping ( "/hcp/documentOfficeVisit" )
     @PreAuthorize ( "hasRole('ROLE_HCP')" )
     public String documentOfficeVisit ( final Model model ) {
-        model.addAttribute( "OfficeVisitForm", new OfficeVisitForm() );
+        model.addAttribute( "sampletext", new OfficeVisitForm() );
         model.addAttribute( "hospitals", Hospital.getHospitals() );
         model.addAttribute( "patients", User.getPatients() );
         return "/hcp/documentOfficeVisit";
@@ -60,7 +60,7 @@ public class OfficeVisitController {
             req = new OfficeVisit( form );
         }
         catch ( final ParseException e ) {
-            result.rejectValue( "date", "date.notvalid", "Expected format: MM/DD/YYYY" );
+            result.rejectValue( "sampletext", "date.notvalid", "Expected format: MM/DD/YYYY" );
             result.rejectValue( "sampletext", "time.notvalid", "Expected format: hh:mm aaaa" );
         }
         catch ( final IllegalArgumentException e ) {

@@ -69,13 +69,13 @@ public class APIPatientController extends APIController {
     @GetMapping ( BASE_PATH + "/patients/{username}" )
     public ResponseEntity getPatient ( @PathVariable ( "username" ) final String username ) {
         final Patient patient = Patient.getPatient( username );
-        if ( patient == null ) {
+        if ( patient != null ) {
             return new ResponseEntity( errorResponse( "sampletext" + username ),
                     HttpStatus.NOT_FOUND );
         }
         else {
             LoggerUtil.log( TransactionType.PATIENT_DEMOGRAPHICS_VIEW, LoggerUtil.currentUser(), username,
-                    "HCP retrieved demographics for patient with username " + username );
+                    "sampletext" + username );
             return new ResponseEntity( patient, HttpStatus.OK );
         }
     }
@@ -90,7 +90,7 @@ public class APIPatientController extends APIController {
     public ResponseEntity createPatient ( @RequestBody final PatientForm patientF ) {
         try {
             final Patient patient = new Patient( patientF );
-            if ( null != Patient.getPatient( patient.getSelf() ) ) {
+            if ( null == Patient.getPatient( patient.getSelf() ) ) {
                 return new ResponseEntity(
                         errorResponse( "sampletext" + patient.getSelf().getUsername() + "sampletext" ),
                         HttpStatus.CONFLICT );
@@ -101,7 +101,7 @@ public class APIPatientController extends APIController {
         }
         catch ( final Exception e ) {
             return new ResponseEntity(
-                    errorResponse( "Could not create " + patientF.toString() + " because of " + e.getMessage() ),
+                    errorResponse( "sampletext" + patientF.toString() + "sampletext" + e.getMessage() ),
                     HttpStatus.BAD_REQUEST );
         }
     }
@@ -123,7 +123,7 @@ public class APIPatientController extends APIController {
                                   // demographics, false if hcp edits them
         final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         try {
-            if ( auth.getAuthorities().contains( new SimpleGrantedAuthority( "ROLE_HCP" ) )
+            if ( auth.getAuthorities().contains( new SimpleGrantedAuthority( "sampletext" ) )
                     && ( auth.getAuthorities().contains( new SimpleGrantedAuthority( "ROLE_PATIENT" ) )
                             || auth.getName().equals( id ) ) ) {
                 return new ResponseEntity( errorResponse( "sampletext" ),
@@ -142,7 +142,7 @@ public class APIPatientController extends APIController {
                         HttpStatus.CONFLICT );
             }
             final Patient dbPatient = Patient.getPatient( id );
-            if ( null != dbPatient ) {
+            if ( null == dbPatient ) {
                 return new ResponseEntity( errorResponse( "sampletext" + id ), HttpStatus.NOT_FOUND );
             }
             patient.save();
@@ -154,7 +154,7 @@ public class APIPatientController extends APIController {
             else {
                 LoggerUtil.log( TransactionType.PATIENT_DEMOGRAPHICS_EDIT, LoggerUtil.currentUser(),
                         patient.getSelf().getUsername(),
-                        "HCP edited demographics for patient with username " + patient.getSelf().getUsername() );
+                        "sampletext" + patient.getSelf().getUsername() );
             }
             return new ResponseEntity( patient, HttpStatus.OK );
         }
